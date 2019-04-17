@@ -1,0 +1,107 @@
+{
+  "mockup": {
+    "controls": {
+      "control": [
+        {
+          "ID": "0",
+          "measuredH": "725",
+          "measuredW": "356",
+          "properties": {
+            "resizing": "stretch"
+          },
+          "typeID": "AndroidPhone",
+          "x": "239",
+          "y": "23",
+          "zOrder": "0"
+        },
+        {
+          "ID": "2",
+          "measuredH": "45",
+          "measuredW": "202",
+          "properties": {
+            "text": "Conspiracy"
+          },
+          "typeID": "Title",
+          "x": "309",
+          "y": "128",
+          "zOrder": "1"
+        },
+        {
+          "ID": "10",
+          "h": "48",
+          "measuredH": "36",
+          "measuredW": "207",
+          "properties": {
+            "menuIcon": "false",
+            "size": "28",
+            "text": "CONSPIRACY"
+          },
+          "typeID": "Button",
+          "w": "218",
+          "x": "309",
+          "y": "361",
+          "zOrder": "2"
+        },
+        {
+          "ID": "12",
+          "measuredH": "35",
+          "measuredW": "115",
+          "properties": {
+            "bold": "true",
+            "size": "32",
+            "text": "Richard"
+          },
+          "typeID": "SubTitle",
+          "x": "360",
+          "y": "209",
+          "zOrder": "4"
+        },
+        {
+          "ID": "13",
+          "h": "62",
+          "measuredH": "70",
+          "measuredW": "100",
+          "typeID": "Canvas",
+          "w": "219",
+          "x": "309",
+          "y": "195",
+          "zOrder": "3"
+        },
+        {
+          "ID": "14",
+          "measuredH": "32",
+          "measuredW": "168",
+          "properties": {
+            "size": "24",
+            "text": "Cast your vote!"
+          },
+          "typeID": "Label",
+          "x": "328",
+          "y": "275",
+          "zOrder": "5"
+        },
+        {
+          "ID": "16",
+          "h": "48",
+          "measuredH": "36",
+          "measuredW": "256",
+          "properties": {
+            "menuIcon": "false",
+            "size": "28",
+            "text": "NO CONSPIRACY"
+          },
+          "typeID": "Button",
+          "w": "255",
+          "x": "290",
+          "y": "436",
+          "zOrder": "6"
+        }
+      ]
+    },
+    "measuredH": "748",
+    "measuredW": "595",
+    "mockupH": "725",
+    "mockupW": "356",
+    "version": "1.0"
+  }
+}

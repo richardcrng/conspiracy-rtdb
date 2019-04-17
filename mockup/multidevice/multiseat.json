@@ -1,0 +1,164 @@
+{
+  "mockup": {
+    "controls": {
+      "control": [
+        {
+          "ID": "0",
+          "measuredH": "725",
+          "measuredW": "356",
+          "properties": {
+            "resizing": "stretch"
+          },
+          "typeID": "AndroidPhone",
+          "x": "239",
+          "y": "23",
+          "zOrder": "0"
+        },
+        {
+          "ID": "2",
+          "measuredH": "45",
+          "measuredW": "202",
+          "properties": {
+            "text": "Conspiracy"
+          },
+          "typeID": "Title",
+          "x": "309",
+          "y": "128",
+          "zOrder": "1"
+        },
+        {
+          "ID": "10",
+          "h": "48",
+          "measuredH": "36",
+          "measuredW": "207",
+          "properties": {
+            "menuIcon": "false",
+            "size": "28",
+            "text": "CONSPIRACY"
+          },
+          "typeID": "Button",
+          "w": "218",
+          "x": "309",
+          "y": "530",
+          "zOrder": "2"
+        },
+        {
+          "ID": "14",
+          "measuredH": "32",
+          "measuredW": "79",
+          "properties": {
+            "size": "24",
+            "text": "Players"
+          },
+          "typeID": "Label",
+          "x": "290",
+          "y": "181",
+          "zOrder": "3"
+        },
+        {
+          "ID": "16",
+          "h": "48",
+          "measuredH": "36",
+          "measuredW": "256",
+          "properties": {
+            "menuIcon": "false",
+            "size": "28",
+            "text": "NO CONSPIRACY"
+          },
+          "typeID": "Button",
+          "w": "255",
+          "x": "290",
+          "y": "594",
+          "zOrder": "4"
+        },
+        {
+          "ID": "17",
+          "measuredH": "36",
+          "measuredW": "95",
+          "properties": {
+            "size": "28",
+            "text": "Richard"
+          },
+          "typeID": "Label",
+          "x": "283",
+          "y": "230",
+          "zOrder": "5"
+        },
+        {
+          "ID": "18",
+          "measuredH": "36",
+          "measuredW": "57",
+          "properties": {
+            "size": "28",
+            "text": "Beth"
+          },
+          "typeID": "Label",
+          "x": "283",
+          "y": "278",
+          "zOrder": "6"
+        },
+        {
+          "ID": "19",
+          "measuredH": "36",
+          "measuredW": "121",
+          "properties": {
+            "size": "28",
+            "text": "Katherine"
+          },
+          "typeID": "Label",
+          "x": "280",
+          "y": "326",
+          "zOrder": "7"
+        },
+        {
+          "ID": "20",
+          "measuredH": "48",
+          "measuredW": "48",
+          "properties": {
+            "icon": {
+              "ID": "check",
+              "size": "large"
+            }
+          },
+          "typeID": "Icon",
+          "x": "445",
+          "y": "224",
+          "zOrder": "8"
+        },
+        {
+          "ID": "21",
+          "measuredH": "48",
+          "measuredW": "48",
+          "properties": {
+            "icon": {
+              "ID": "check",
+              "size": "large"
+            }
+          },
+          "typeID": "Icon",
+          "x": "445",
+          "y": "320",
+          "zOrder": "9"
+        },
+        {
+          "ID": "22",
+          "measuredH": "32",
+          "measuredW": "63",
+          "properties": {
+            "size": "24",
+            "text": "Voted"
+          },
+          "typeID": "Label",
+          "x": "432",
+          "y": "181",
+          "zOrder": "10"
+        }
+      ]
+    },
+    "measuredH": "748",
+    "measuredW": "595",
+    "mockupH": "725",
+    "mockupW": "356",
+    "version": "1.0"
+  }
+}
