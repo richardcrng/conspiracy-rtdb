@@ -4,10 +4,6 @@ import './App.css';
 import { useFirebase } from 'use-firebase-context';
 
 function App() {
-  const firebase = useFirebase()
-
-  console.log(firebase)
-
   return (
     <div className="App">
       <header className="App-header">
