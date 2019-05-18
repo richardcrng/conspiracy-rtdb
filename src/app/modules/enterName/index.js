@@ -6,8 +6,6 @@ function EnterName(props) {
   const firebase = useFirebase()
   const user = useFirebaseCurrentUser()
 
-  console.log(firebase)
-  console.log(user)
 
   return (
     <div>Enter your name</div>
