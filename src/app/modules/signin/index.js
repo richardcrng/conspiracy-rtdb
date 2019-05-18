@@ -1,5 +1,6 @@
 import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import firebaseui from 'firebaseui'
 import { useFirebase } from 'use-firebase-context';
 
 function SignIn(props) {
@@ -13,8 +14,10 @@ function SignIn(props) {
     signInSuccessUrl: '/signedIn',
     // We will display Google and Facebook as auth providers.
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      // firebase.auth.FacebookAuthProvider.PROVIDER_ID
     ]
   };
 
