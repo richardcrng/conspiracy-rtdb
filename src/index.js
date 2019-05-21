@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
@@ -7,6 +8,7 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
 import { useFirebaseProvider } from 'use-firebase-context'
+import { store } from './redux/store';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -22,9 +24,11 @@ function Root() {
 
   return (
     <FirebaseProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     </FirebaseProvider>
   )
 }
