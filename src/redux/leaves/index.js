@@ -20,6 +20,7 @@ export {
  * @typedef {Object} ConspiracyPlayer
  * 
  * @property {string} key - Firebase Authentication UID
+ * @property {string} name - Player's name
  * @property {string} currentGame - Current game being played by player
  * @property {string[]} gamesCompleted - Array of gameIds completed by the player
  * @property {boolean} isHost - Is the player host of game gameId?
