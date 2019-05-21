@@ -18,7 +18,7 @@ function SignIn(props) {
     // signInSuccessUrl: '/enter-name',
 
     callbacks: {
-      signInSuccessWithAuthResult: authResult => {
+      signInSuccessWithAuthResult: ({ user, additionalUserInfo }) => {
         props.history.push("/enter-name")
         // Return false to indicate no redirect URL
         return false
