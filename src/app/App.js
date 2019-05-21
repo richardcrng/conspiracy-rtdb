@@ -4,6 +4,7 @@ import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
 import { useFirebase } from 'use-firebase-context';
 import AppLayout from './common/layout';
+import Lobby from './modules/lobby';
 
 function App() {
   const firebase = useFirebase()
@@ -15,6 +16,7 @@ function App() {
       <AppLayout>
         <Switch>
           <Route path="/enter-name" component={EnterName} />
+          <Route path="/lobby" component={Lobby} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/" component={
             function Fallback() {
