@@ -10,9 +10,13 @@
     "react-dom": "^16.8.6",
     "react-firebaseui": "^3.1.2",
     "react-icons": "^3.7.0",
+    "react-redux": "^7.0.3",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-leaves": "^0.3.2",
+    "redux-starter-kit": "^0.5.1",
     "semantic-ui-react": "^0.87.1",
     "use-firebase-context": "^0.1.9"
   },
