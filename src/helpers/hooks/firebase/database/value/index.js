@@ -14,6 +14,7 @@ function useFirebaseDatabaseValue(path) {
     updateValueFromSnapshot,
     [setValue]
   )
+  // Not sure whether this will update on every render
 
   React.useEffect(() => {
     ref.on('value', updateValueFromSnapshot)
