@@ -7,7 +7,7 @@ function useFirebaseDatabaseRef(path) {
     firebase.database().ref(path)
   )
 
-  return [reference]
+  return reference
 }
 
 export default useFirebaseDatabaseRef;

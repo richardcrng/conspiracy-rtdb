@@ -4,10 +4,21 @@ import { withRouter } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebaseui from 'firebaseui'
 import { useFirebase } from 'use-firebase-context';
+import useFirebaseDatabaseValue from '../../../helpers/hooks/firebase/database/value';
+import useFirebaseDatabaseAt from '../../../helpers/hooks/firebase/database/at';
+import useFirebaseDatabaseRef from '../../../helpers/hooks/firebase/database/ref';
 
 function SignIn(props) {
   const firebase = useFirebase()
   console.log(firebase)
+
+  // TODO - store state in Redux as it doesn't work properly through hooks
+
+  const {
+    value: players,
+    update: updatePlayers
+  } = useFirebaseDatabaseAt('players')
+  console.log(players)
 
   // Configure FirebaseUI.
   const uiConfig = {
@@ -19,6 +30,11 @@ function SignIn(props) {
 
     callbacks: {
       signInSuccessWithAuthResult: ({ user, additionalUserInfo }) => {
+        const { uid: key, displayName: name } = user;
+        if (!players || !players[key]) {
+          console.log("gonna try storing player")
+          firebase.database().ref(`players/${key}`).set({ key, name })
+        }
         props.history.push("/enter-name")
         // Return false to indicate no redirect URL
         return false
