@@ -15,7 +15,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "semantic-ui-react": "^0.87.1",
-    "use-firebase-context": "^0.1.16"
+    "use-firebase-context": "^0.1.19"
   },
   "scripts": {
     "start": "react-scripts start",
