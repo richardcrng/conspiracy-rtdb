@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { useFirebase } from '../helpers/provide-firebase-middleware';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
@@ -22,7 +22,10 @@ function App() {
           <Route path="/" component={
             function Fallback() {
               return (
-                <div>Fallback</div>
+                <>
+                  <div>Fallback</div>
+                  <Link to="/sign-in">Sign in</Link>
+                </>
               )
             }
           } />
