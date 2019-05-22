@@ -1,16 +1,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { useFirebase } from 'use-firebase-context';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
-import { useFirebase } from 'use-firebase-context';
 import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
 
 function App() {
   const firebase = useFirebase()
-
-  console.log(firebase)
-
   return (
     <div className="App">
       <AppLayout>

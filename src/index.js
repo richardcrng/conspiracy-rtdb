@@ -18,7 +18,10 @@ const firebaseConfig = {
 };
 
 function Root() {
-  const FirebaseProvider = useFirebaseProvider(firebaseConfig)
+  const FirebaseProvider = useFirebaseProvider(
+    firebaseConfig,
+    ['auth']
+  )
 
   return (
     <FirebaseProvider>
