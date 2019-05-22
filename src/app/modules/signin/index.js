@@ -11,10 +11,10 @@ function SignIn(props) {
   console.log(firebase)
   // TODO - store state in Redux as it doesn't work properly through hooks
 
-  // const players = useFirebaseDatabaseValue('players')
-  // console.log(players)
+  const players = useFirebaseDatabaseValue('players')
+  console.log(players)
 
-  let players
+  // let players
 
   // Configure FirebaseUI.
   const uiConfig = {
