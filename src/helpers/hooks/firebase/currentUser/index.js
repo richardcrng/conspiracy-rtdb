@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFirebaseContext } from 'use-firebase-context';
+import { useFirebaseContext } from 'provide-firebase-middleware';
 
 function useFirebaseCurrentUser() {
   const firebase = useFirebaseContext()
