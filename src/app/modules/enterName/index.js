@@ -1,10 +1,10 @@
 import React from 'react';
 import useFirebaseCurrentUser from '../../../helpers/hooks/firebase/currentUser';
-import { useFirebase } from 'use-firebase-context';
+import { useFirebaseContext } from 'provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
 
 function EnterName(props) {
-  const firebase = useFirebase()
+  const firebase = useFirebaseContext()
   const user = useFirebaseCurrentUser()
   const [input, setInput] = React.useState("")
 
