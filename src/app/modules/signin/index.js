@@ -3,8 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebaseui from 'firebaseui'
-import useFirebaseDatabaseAt from '../../../helpers/hooks/firebase/database/at';
-import { useFirebaseContext } from 'provide-firebase-middleware';
+import { useFirebaseContext, useFirebaseDatabaseValue } from '../../../helpers/provide-firebase-middleware';
 
 function SignIn(props) {
   const firebase = useFirebaseContext()
@@ -12,11 +11,10 @@ function SignIn(props) {
   console.log(firebase)
   // TODO - store state in Redux as it doesn't work properly through hooks
 
-  const {
-    value: players,
-    update: updatePlayers
-  } = useFirebaseDatabaseAt('players')
-  console.log(players)
+  // const players = useFirebaseDatabaseValue('players')
+  // console.log(players)
+
+  let players
 
   // Configure FirebaseUI.
   const uiConfig = {

@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
-import { provideFirebaseMiddleware } from 'provide-firebase-middleware';
+import { provideFirebaseMiddleware } from '../../helpers/provide-firebase-middleware';
 import { reducer } from '../leaves';
 
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const [FirebaseProvider, firebaseMiddleware] = provideFirebaseMiddleware(
   firebaseConfig,
-  ['auth']
+  ['auth', 'database']
 )
 
 export const store = configureStore({

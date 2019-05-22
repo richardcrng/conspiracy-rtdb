@@ -7,12 +7,7 @@ import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
-import { store } from './redux/store';
-
-const [FirebaseProvider] = provideFirebaseMiddleware(
-  firebaseConfig,
-  ['auth']
-)
+import { store, FirebaseProvider } from './redux/store';
 
 function Root() {
   return (

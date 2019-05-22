@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useFirebase } from 'provide-firebase-middleware';
+import { useFirebase } from '../helpers/provide-firebase-middleware';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
 import AppLayout from './common/layout';
