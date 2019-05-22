@@ -6,7 +6,7 @@ import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
-import { firebaseProviderAndMiddleware } from 'use-firebase-context'
+import { provideFirebaseMiddleware } from 'provide-firebase-middleware'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -17,7 +17,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
-const [FirebaseProvider] = firebaseProviderAndMiddleware(
+const [FirebaseProvider] = provideFirebaseMiddleware(
   firebaseConfig,
   ['auth']
 )
