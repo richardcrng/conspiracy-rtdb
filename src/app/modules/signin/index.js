@@ -3,10 +3,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebaseui from 'firebaseui'
-import { useFirebase } from 'use-firebase-context';
+import { useFirebaseContext } from 'use-firebase-context';
 
 function SignIn(props) {
-  const firebase = useFirebase()
+  const firebase = useFirebaseContext()
   console.log(firebase)
 
   // Configure FirebaseUI.
