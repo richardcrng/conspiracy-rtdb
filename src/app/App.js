@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { useFirebase } from '../helpers/provide-firebase-middleware';
+import { useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
 import AppLayout from './common/layout';
@@ -10,6 +10,20 @@ import CreateGame from './modules/createGame';
 
 function App() {
   const firebase = useFirebase()
+  const user = useFirebaseUser()
+
+  React.useEffect(() => {
+    const userRef = firebase.database().ref(`users/${user.uid}`)
+
+    userRef.update(({
+      isOnline: !!user.uid
+    }))
+
+    userRef.onDisconnect().update({
+      isOnline: false
+    })
+  }, [user.uid])
+
   return (
     <div className="App">
       <AppLayout>
