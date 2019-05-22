@@ -6,6 +6,7 @@ import EnterName from './modules/enterName';
 import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
 import GamePlayers from './modules/gamePlayers';
+import CreateGame from './modules/createGame';
 
 function App() {
   const firebase = useFirebase()
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <AppLayout>
         <Switch>
+          <Route path="/create-game" component={CreateGame} />
           <Route path="/enter-name" component={EnterName} />
           <Route path="/players" component={GamePlayers} />
           <Route path="/lobby" component={Lobby} />

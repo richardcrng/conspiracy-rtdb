@@ -1,10 +1,10 @@
 import React from 'react';
-import { useFirebaseContext, useFirebaseCurrentUser } from '../../../helpers/provide-firebase-middleware';
+import { useFirebaseContext, useFirebaseUser } from '../../../helpers/provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
 
 function EnterName(props) {
   const firebase = useFirebaseContext()
-  const user = useFirebaseCurrentUser()
+  const user = useFirebaseUser()
   const [input, setInput] = React.useState("")
 
   const name = user && user.displayName
