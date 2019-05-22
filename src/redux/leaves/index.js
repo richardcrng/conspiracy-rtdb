@@ -35,6 +35,7 @@ export {
  * 
  * @property {string} key - Game ID
  * @property {string} host - UID of host player
+ * @property {string} password - Game password
  * @property {string[]} players - Array of ConspiracyPlayer keys/uids
  * @property {boolean} hasConspiracy - Does the game have a conspiracy?
  * @property {string} conspiracyTarget - UID of player targeted by conspiracy
