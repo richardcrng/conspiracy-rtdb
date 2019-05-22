@@ -13,16 +13,18 @@ function App() {
   const user = useFirebaseUser()
 
   React.useEffect(() => {
-    const userRef = firebase.database().ref(`users/${user.uid}`)
+    if (user) {
+      const userRef = firebase.database().ref(`users/${user.uid}`)
 
-    userRef.update(({
-      isOnline: !!user.uid
-    }))
+      userRef.update(({
+        isOnline: !!user.uid
+      }))
 
-    userRef.onDisconnect().update({
-      isOnline: false
-    })
-  }, [user.uid])
+      userRef.onDisconnect().update({
+        isOnline: false
+      })
+    }
+  }, [user])
 
   return (
     <div className="App">
