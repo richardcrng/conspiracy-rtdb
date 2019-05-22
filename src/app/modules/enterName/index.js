@@ -1,6 +1,5 @@
 import React from 'react';
-import useFirebaseCurrentUser from '../../../helpers/hooks/firebase/currentUser';
-import { useFirebaseContext } from '../../../helpers/provide-firebase-middleware';
+import { useFirebaseContext, useFirebaseCurrentUser } from '../../../helpers/provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
 
 function EnterName(props) {
