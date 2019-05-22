@@ -11,7 +11,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
-const [FirebaseProvider, firebaseMiddleware] = provideFirebaseMiddleware(
+const [FirebaseProvider, firebaseMiddleware, firebaseInstance] = provideFirebaseMiddleware(
   firebaseConfig,
   ['auth', 'database']
 )
@@ -25,5 +25,6 @@ export const store = configureStore({
 })
 
 export {
-  FirebaseProvider
+  FirebaseProvider,
+  firebaseInstance
 }
