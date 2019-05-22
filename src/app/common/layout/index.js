@@ -5,7 +5,7 @@ function AppLayout({ children }) {
   return (
     <>
       <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand>Conspiracy</Navbar.Brand>
+        <Navbar.Brand>App</Navbar.Brand>
       </Navbar>
       {children}
     </>
