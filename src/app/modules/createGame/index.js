@@ -25,6 +25,7 @@ function CreateGame(props) {
         firebase.database().ref(`games/${key}`).update({
           key,
           host: hostId,
+          name: input,
           isInSignups: true,
           players: [hostId]
         })
