@@ -12,6 +12,7 @@ function Lobby(props) {
       {_.map(games, game => (
         <LobbyItem
           key={game.key}
+          id={game.key}
           name={game.name}
           players={game.players}
         />
