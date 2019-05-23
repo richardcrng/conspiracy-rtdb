@@ -1,13 +1,10 @@
 import React from 'react';
 import { Button, Input } from 'semantic-ui-react';
-import { randomUid } from '../../../helpers/utils/keys';
 import { useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
-import { references, writes } from '../../../firebase';
+import { writes } from '../../../firebase';
 
 function CreateGame(props) {
-  const firebase = useFirebase()
   const [input, setInput] = React.useState("")
-  const [createdKey] = React.useState(randomUid())
   const user = useFirebaseUser()
   
   return (
@@ -19,20 +16,9 @@ function CreateGame(props) {
         value={input}
       />
       <Button onClick={() => {
-        const host = user.uid
-
-        // Create game in database
         writes.createGame({ 
-          key: createdKey,
-          host,
+          host: user.uid,
           name: input
-        })
-
-        // Update host
-        writes.updatePlayer({
-          key: host,
-          currentGame: createdKey,
-          isHost: true
         })
       }}>Submit</Button>
     </>

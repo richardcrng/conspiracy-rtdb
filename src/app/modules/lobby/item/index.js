@@ -1,11 +1,10 @@
 import React from 'react';
 import { MdExitToApp } from 'react-icons/md'
-import { useFirebaseUser, useFirebaseDatabaseValue } from 'provide-firebase-middleware';
-import { references } from '../../../../firebase';
+import { useFirebaseUser } from 'provide-firebase-middleware';
+import { writes } from '../../../../firebase';
 
 function LobbyItem({ id, name, players }) {
   const user = useFirebaseUser()
-  console.log(players)
 
   return (
     <div className="d-flex justify-content-between" style={{ fontSize: "150%" }}>
@@ -13,7 +12,7 @@ function LobbyItem({ id, name, players }) {
       <MdExitToApp
         onClick={() => {
           if (user.uid && !players.includes(user.uid)) {
-            references.getPlayersByGameId(id).push(user.uid)
+            writes.joinGame(user.uid, id)
           }
         }}
         size={30}
