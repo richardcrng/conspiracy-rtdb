@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import * as curryableReferences from './references'
+import * as referenceFns from './references'
 import { firebaseInstance } from '../../redux/store';
 
 const references = _.mapValues(
-  curryableReferences,
-  curryableFn => curryableFn(firebaseInstance)
+  referenceFns,
+  referenceFn => _.curry(referenceFn)(firebaseInstance)
 )
 
 export default references

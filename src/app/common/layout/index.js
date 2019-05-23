@@ -19,7 +19,7 @@ function AppLayout({ children }) {
 function NavItem({ to, text }) {
   return (
     <div className="mx-auto">
-      <Link to="/lobby" >
+      <Link to={to} >
         <Navbar.Text>{text}</Navbar.Text>
       </Link>
     </div>
