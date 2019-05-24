@@ -1,5 +1,7 @@
 import references from './references'
+import writes from './writes';
 
 export {
-  references
+  references,
+  writes
 }

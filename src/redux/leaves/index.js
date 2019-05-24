@@ -36,9 +36,16 @@ export {
  * @property {string} key - Game ID
  * @property {string} host - UID of host player
  * @property {string} password - Game password
- * @property {string[]} players - Array of ConspiracyPlayer keys/uids
+ * @property {Object.<string, ConspiracyGamePlayer>} players - Object e.g. with { playerOneId: { key: playerOneId, ordered: order }, playerTwoId: true }
  * @property {boolean} hasConspiracy - Does the game have a conspiracy?
  * @property {string} conspiracyTarget - UID of player targeted by conspiracy
  * @property {boolean} isInSignups - Is the game in signups?
  * @property {boolean} isComplete - Has the game been completed?
+ */
+
+/**
+ * @typedef {Object} ConspiracyGamePlayer
+ * 
+ * @property {string} key - Player's uid
+ * @property {string} priority - Player's priority (https://gist.github.com/mikelehen/3596a30bd69384624c11)
  */
