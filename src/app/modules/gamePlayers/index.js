@@ -19,9 +19,4 @@ function GamePlayers({ match }) {
   )
 }
 
-const players = [
-  "Player 1",
-  "Player 2"
-]
-
 export default GamePlayers;

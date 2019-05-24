@@ -13,11 +13,11 @@ function App() {
   const firebase = useFirebase()
   const user = useFirebaseUser() || {}
   const { uid } = user;
-  const isOnline = useFirebaseDatabaseValue(`users/${uid}`)
+  const isOnline = useFirebaseDatabaseValue(`players/${uid}`)
 
   React.useEffect(() => {
     if (uid) {
-      const userRef = firebase.database().ref(`users/${uid}`)
+      const userRef = firebase.database().ref(`players/${uid}`)
       userRef.update(({ isOnline: true }))
       userRef.onDisconnect().update({ isOnline: false })
     }

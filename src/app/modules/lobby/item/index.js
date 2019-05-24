@@ -13,7 +13,7 @@ function LobbyItem({ id, name, players, history }) {
       <strong>{name}</strong>
       <MdExitToApp
         onClick={() => {
-          if (user.uid && !R.prop(user.uid, players)) {
+          if (user && user.uid && !R.prop(user.uid, players)) {
             writes.joinGame(user.uid, id)
           }
           history.push(`/game/${id}/players`)
