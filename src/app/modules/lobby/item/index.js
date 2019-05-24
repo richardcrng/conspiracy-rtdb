@@ -1,10 +1,11 @@
 import * as R from 'ramda'
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { MdExitToApp } from 'react-icons/md'
 import { useFirebaseUser } from 'provide-firebase-middleware';
 import { writes } from '../../../../firebase';
 
-function LobbyItem({ id, name, players }) {
+function LobbyItem({ id, name, players, history }) {
   const user = useFirebaseUser()
 
   return (
@@ -15,6 +16,7 @@ function LobbyItem({ id, name, players }) {
           if (user.uid && !R.prop(user.uid, players)) {
             writes.joinGame(user.uid, id)
           }
+          history.push('/players')
         }}
         size={30}
       />
@@ -22,4 +24,6 @@ function LobbyItem({ id, name, players }) {
   )
 }
 
+// eslint-disable-next-line no-func-assign
+LobbyItem = withRouter(LobbyItem)
 export default LobbyItem;
