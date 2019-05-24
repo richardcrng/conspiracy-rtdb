@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import React from 'react';
 import { MdExitToApp } from 'react-icons/md'
 import { useFirebaseUser } from 'provide-firebase-middleware';
@@ -11,7 +12,7 @@ function LobbyItem({ id, name, players }) {
       <strong>{name}</strong>
       <MdExitToApp
         onClick={() => {
-          if (user.uid && !players.includes(user.uid)) {
+          if (user.uid && !R.prop(user.uid, players)) {
             writes.joinGame(user.uid, id)
           }
         }}
