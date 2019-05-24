@@ -1,10 +1,12 @@
 import React from 'react';
 import GamePlayersItem from './item';
 
-function GamePlayers(props) {
+function GamePlayers({ match }) {
+  const { params: { gameId } } = match;
+
   return (
     <>
-      <h1>Players</h1>
+      <h1>Players for game {gameId}</h1>
       {players.map(player => (
         <GamePlayersItem key={player} name={player} ready />
       ))}

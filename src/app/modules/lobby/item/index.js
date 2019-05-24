@@ -16,7 +16,7 @@ function LobbyItem({ id, name, players, history }) {
           if (user.uid && !R.prop(user.uid, players)) {
             writes.joinGame(user.uid, id)
           }
-          history.push('/players')
+          history.push(`/game/${id}/players`)
         }}
         size={30}
       />

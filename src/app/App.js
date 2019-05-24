@@ -29,7 +29,7 @@ function App() {
         <Switch>
           <Route path="/create-game" component={CreateGame} />
           <Route path="/enter-name" component={EnterName} />
-          <Route path="/players" component={GamePlayers} />
+          <Route path="/game/:gameId/players" component={GamePlayers} />
           <Route path="/lobby" component={Lobby} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/" component={
