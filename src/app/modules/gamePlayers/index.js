@@ -1,15 +1,20 @@
+import * as R from 'ramda';
 import React from 'react';
 import GamePlayersItem from './item';
+import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 
 function GamePlayers({ match }) {
   const { params: { gameId } } = match;
 
+  const players = useFirebaseDatabaseValue(`/games/${gameId}/players`)
+
   return (
     <>
       <h1>Players for game {gameId}</h1>
-      {players.map(player => (
-        <GamePlayersItem key={player} name={player} ready />
-      ))}
+      {players && R.map(
+        ({ key }) => <GamePlayersItem key={key} name={"Player"} ready />,
+        Object.values(players)
+      )}
     </>
   )
 }
