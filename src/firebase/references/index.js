@@ -1,10 +1,4 @@
 import _ from 'lodash';
-import * as referenceFns from './references'
-import { firebaseInstance } from '..';
-
-const references = _.mapValues(
-  referenceFns,
-  referenceFn => _.curry(referenceFn)(firebaseInstance)
-)
+import * as references from './references'
 
 export default references

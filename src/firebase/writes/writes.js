@@ -1,5 +1,6 @@
 import { generatePushID } from 'provide-firebase-middleware';
 import references from '../references';
+import { firebaseInstance } from '..';
 
 /**
  * 
@@ -51,7 +52,7 @@ export const updatePlayer = ({ key, ...config }) => {
 }
 
 const addPlayerToGameList = (playerKey, gameKey) => (
-  references.getPlayersByGameId(gameKey).update({
+  references.getPlayersByGameId(gameKey, firebaseInstance).update({
     [playerKey]: {
       key: playerKey,
       priority: generatePushID()
@@ -60,5 +61,5 @@ const addPlayerToGameList = (playerKey, gameKey) => (
 )
 
 const updateCurrentGame = (playerKey, gameKey) => (
-  references.getCurrentGameByPlayerId(playerKey).set(gameKey)
+  references.getCurrentGameByPlayerId(playerKey, firebaseInstance, ).set(gameKey)
 )
