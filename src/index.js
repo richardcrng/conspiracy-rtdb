@@ -7,7 +7,8 @@ import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
-import { store, FirebaseProvider } from './redux/store';
+import { store } from './redux/store';
+import { FirebaseProvider } from './firebase';
 
 function Root() {
   return (

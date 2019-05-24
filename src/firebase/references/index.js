@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as referenceFns from './references'
-import { firebaseInstance } from '../../redux/store';
+import { firebaseInstance } from '..';
 
 const references = _.mapValues(
   referenceFns,
