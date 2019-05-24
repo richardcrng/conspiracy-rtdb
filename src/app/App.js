@@ -7,21 +7,22 @@ import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
 import GamePlayers from './modules/gamePlayers';
 import CreateGame from './modules/createGame';
-import { useFirebaseDatabaseValue } from 'provide-firebase-middleware/dist/hooks';
+import { generatePushID } from 'provide-firebase-middleware/dist/utils';
 
 function App() {
+  const [connectionId] = React.useState(generatePushID())
+
   const firebase = useFirebase()
   const user = useFirebaseUser() || {}
   const { uid } = user;
-  const isOnline = useFirebaseDatabaseValue(`players/${uid}`)
 
   React.useEffect(() => {
     if (uid) {
-      const userRef = firebase.database().ref(`players/${uid}`)
-      userRef.update(({ isOnline: true }))
-      userRef.onDisconnect().update({ isOnline: false })
+      const playerConnectionsRef = firebase.database().ref(`players/${uid}/connections`)
+      playerConnectionsRef.update(({ [connectionId]: true }))
+      playerConnectionsRef.child(connectionId).onDisconnect().remove()
     }
-  }, [isOnline, user])
+  }, [uid])
 
   return (
     <div className="App">
