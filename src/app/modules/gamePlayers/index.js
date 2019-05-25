@@ -8,7 +8,7 @@ import GamePlayersStart from './start';
 function GamePlayers({ match }) {
   const { params: { gameId } } = match;
   const uid = useFirebaseUserUid()
-  const game = useFirebaseDatabaseValue(`/games/${gameId}`)
+  const game = useFirebaseDatabaseValue(`/games/${gameId}`, { orderByChild: 'priority' })
   const players = R.prop('players', game)
   const isHost = uid === R.prop('host', game)
 
@@ -21,7 +21,7 @@ function GamePlayers({ match }) {
         Object.values(players)
       )}
       <GamePlayersReadyToggle />
-      {isHost && <GamePlayersStart players={players} />}
+      {isHost && <GamePlayersStart players={Object.keys(players)} />}
     </>
   )
 }
