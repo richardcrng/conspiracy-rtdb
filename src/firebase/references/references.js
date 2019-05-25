@@ -1,9 +1,26 @@
-export const getGameById = (firebase, key) => firebase.database().ref(`games/${key}`)
+import * as R from 'ramda'
+import { references } from '../../helpers/firebase-references';
 
-export const getPlayersByGameId = (firebase, key) => getGameById(firebase, key).child('players')
+// Takes two args, key and firebase
+export const getGameById = references.getEntityTypeById('games')
 
-export const getHostByGameId = (firebase, key) => getGameById(firebase, key).child('host')
+// Takes two args, key and firebase
+export const getPlayersByGameId = R.compose(
+  references.getChildOfRef('players'),
+  getGameById
+)
 
-export const getPlayerById = (firebase, key) => firebase.database().ref(`players/${key}`)
+// Takes two args, key and firebase
+export const getHostByGameId = R.compose(
+  references.getChildOfRef('host'),
+  getGameById
+)
 
-export const getCurrentGameByPlayerId = (firebase, key) => getPlayerById(firebase, key).child('currentGame')
+// Takes two args, key and firebase
+export const getPlayerById = references.getEntityTypeById('players')
+
+// Takes two args, key and firebase
+export const getCurrentGameByPlayerId = R.compose(
+  references.getChildOfRef('currentGame'),
+  getPlayerById
+)

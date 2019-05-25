@@ -9,7 +9,7 @@ import references from '../references';
  * 
  * @returns {string} Game ID of the created game
  */
-export const createGame = ({ name, host }) => {
+export const createGame = ({ name, host }, firebase) => {
   const key = generatePushID()  // key for game
 
   const gameConfig = { key, name, isInSignups: true }
@@ -21,10 +21,10 @@ export const createGame = ({ name, host }) => {
         priority: generatePushID()
       }
     }
-    updatePlayer({ host, currentGame: key, isHost: true })
+    updatePlayer({ key: host, currentGame: key, isHost: true }, firebase)
   }
 
-  updateGame(gameConfig)
+  updateGame(gameConfig, firebase)
   return key
 }
 
@@ -33,25 +33,25 @@ export const createGame = ({ name, host }) => {
  * @param {string} playerKey - Firebase player key
  * @param {string} gameKey - Firebase game key
  */
-export const joinGame = (playerKey, gameKey) => {
-  addPlayerToGameList(playerKey, gameKey)
-  updateCurrentGame(playerKey, gameKey)
+export const joinGame = (playerKey, gameKey, firebase) => {
+  addPlayerToGameList(playerKey, gameKey, firebase)
+  updateCurrentGame(playerKey, gameKey, firebase)
 }
 
-export const updateGame = ({ key, ...config }) => (
-  references.getGameById(key).update({ key, ...config })
+export const updateGame = ({ key, ...config }, firebase) => (
+  references.getGameById(key, firebase).update({ key, ...config })
 )
 
 /**
  * 
  * @param {ConspiracyPlayer} playerConfig 
  */
-export const updatePlayer = ({ key, ...config }) => {
-  references.getPlayerById(key).update({ key, ...config })
+export const updatePlayer = ({ key, ...config }, firebase) => {
+  references.getPlayerById(key, firebase).update({ key, ...config })
 }
 
-const addPlayerToGameList = (playerKey, gameKey) => (
-  references.getPlayersByGameId(gameKey).update({
+const addPlayerToGameList = (playerKey, gameKey, firebase) => (
+  references.getPlayersByGameId(gameKey, firebase).update({
     [playerKey]: {
       key: playerKey,
       priority: generatePushID()
@@ -59,6 +59,6 @@ const addPlayerToGameList = (playerKey, gameKey) => (
   })
 )
 
-const updateCurrentGame = (playerKey, gameKey) => (
-  references.getCurrentGameByPlayerId(playerKey).set(gameKey)
+const updateCurrentGame = (playerKey, gameKey, firebase) => (
+  references.getCurrentGameByPlayerId(playerKey, firebase).set(gameKey)
 )

@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebaseui from 'firebaseui'
-import { useFirebaseContext, useFirebaseDatabaseValue } from '../../../helpers/provide-firebase-middleware';
+import { useFirebaseContext, useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 
 function SignIn(props) {
   const firebase = useFirebaseContext()
