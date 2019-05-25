@@ -5,6 +5,7 @@ import { writes } from '../../../firebase';
 
 function CreateGame(props) {
   const [input, setInput] = React.useState("")
+  const firebase = useFirebase()
   const user = useFirebaseUser()
   
   return (
@@ -19,7 +20,7 @@ function CreateGame(props) {
         writes.createGame({ 
           host: user.uid,
           name: input
-        })
+        }, firebase)
       }}>Submit</Button>
     </>
   )

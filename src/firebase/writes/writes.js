@@ -21,7 +21,7 @@ export const createGame = ({ name, host }, firebase) => {
         priority: generatePushID()
       }
     }
-    updatePlayer({ host, currentGame: key, isHost: true }, firebase)
+    updatePlayer({ key: host, currentGame: key, isHost: true }, firebase)
   }
 
   updateGame(gameConfig, firebase)
