@@ -1,9 +1,10 @@
 import React from 'react';
-import { useFirebaseUser } from '../../../helpers/provide-firebase-middleware';
+import { useFirebaseUser, useFirebase } from '../../../helpers/provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
 import { writes } from '../../../firebase';
 
 function EnterName(props) {
+  const firebase = useFirebase()
   const user = useFirebaseUser()
   const [input, setInput] = React.useState("")
 
@@ -26,7 +27,7 @@ function EnterName(props) {
         writes.updatePlayer({
           key: user.uid,
           name: input
-        })
+        }, firebase)
       }}>Submit</Button>
     </>
   )
