@@ -15,8 +15,10 @@ function GamePlayersStart({ players = [] }) {
   // playersReady is boolean based on gamePlayers' isReady props
   const [playersReady, { set: setPlayersReady }] = useStateHandlers(false)
   React.useEffect(() => {
-    // Check if every gamePlayer isReady
-    const gamePlayersReady = R.all(R.prop('isReady'), gamePlayers)
+    // Check if every gamePlayer isReady and has connections
+    const gamePlayersReady = R.all(
+      R.both(R.prop('isReady'), R.prop('connections')),
+      gamePlayers)
     setPlayersReady(gamePlayersReady)
   }, [gamePlayers, setPlayersReady])
 
