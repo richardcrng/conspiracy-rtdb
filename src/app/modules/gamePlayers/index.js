@@ -12,7 +12,7 @@ function GamePlayers({ match }) {
     <>
       <h1>Players for game {gameId}</h1>
       {players && R.map(
-        ({ key }) => <GamePlayersItem key={key} id={key} ready />,
+        ({ key }) => <GamePlayersItem key={key} id={key} />,
         Object.values(players)
       )}
       <GamePlayersReadyToggle />
