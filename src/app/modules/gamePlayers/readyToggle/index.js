@@ -13,7 +13,7 @@ function GamePlayersReadyToggle() {
       label="Ready"
       onChange={() => writes.updatePlayer({ key: uid, isReady: !isReady }, firebase)}
       toggle
-      value={isReady}
+      checked={Boolean(isReady)}
     />
   )
 }
