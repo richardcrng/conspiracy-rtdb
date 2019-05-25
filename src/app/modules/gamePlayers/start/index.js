@@ -24,7 +24,7 @@ function GamePlayersStart({ players = [] }) {
   }, [gamePlayers, setPlayersReady])
 
   return playersReady
-    ? <p>All players ready!</p>
+    ? <p>All players ready and online!</p>
     : <p>Still waiting for someone...</p>
 }
 
