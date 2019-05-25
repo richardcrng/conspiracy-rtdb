@@ -17,7 +17,7 @@ export const getHostByGameId = R.compose(
 )
 
 // Takes two args, key and firebase
-export const getPlayerById = references.getEntityTypeById('player')
+export const getPlayerById = references.getEntityTypeById('players')
 
 // Takes two args, key and firebase
 export const getCurrentGameByPlayerId = R.compose(

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
+import { generatePushID, useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
 import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
 import GamePlayers from './modules/gamePlayers';
 import CreateGame from './modules/createGame';
-import { generatePushID } from 'provide-firebase-middleware/dist/utils';
 
 function App() {
   const [connectionId] = React.useState(generatePushID())

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFirebaseUser, useFirebase } from '../../../helpers/provide-firebase-middleware';
+import { useFirebaseUser, useFirebase } from 'provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
 import { writes } from '../../../firebase';
 

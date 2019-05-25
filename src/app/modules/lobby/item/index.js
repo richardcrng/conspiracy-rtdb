@@ -2,10 +2,11 @@ import * as R from 'ramda'
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { MdExitToApp } from 'react-icons/md'
-import { useFirebaseUser } from 'provide-firebase-middleware';
+import { useFirebaseUser, useFirebase } from 'provide-firebase-middleware';
 import { writes } from '../../../../firebase';
 
 function LobbyItem({ id, name, players, history }) {
+  const firebase = useFirebase()
   const user = useFirebaseUser()
 
   return (
@@ -14,7 +15,7 @@ function LobbyItem({ id, name, players, history }) {
       <MdExitToApp
         onClick={() => {
           if (user && user.uid && !R.prop(user.uid, players)) {
-            writes.joinGame(user.uid, id)
+            writes.joinGame(user.uid, id, firebase)
           }
           history.push(`/game/${id}/players`)
         }}
