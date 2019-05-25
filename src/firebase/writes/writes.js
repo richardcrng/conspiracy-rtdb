@@ -12,7 +12,7 @@ import references from '../references';
 export const createGame = ({ name, host }, firebase) => {
   const key = generatePushID()  // key for game
 
-  const gameConfig = { key, name, isInSignups: true }
+  const gameConfig = { key, host, name, isInSignups: true }
 
   if (host) {
     gameConfig.players = {
