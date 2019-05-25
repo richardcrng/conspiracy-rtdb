@@ -2,10 +2,10 @@ import * as R from 'ramda';
 import React from 'react';
 import GamePlayersItem from './item';
 import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
+import GamePlayersReadyToggle from './readyToggle';
 
 function GamePlayers({ match }) {
   const { params: { gameId } } = match;
-
   const players = useFirebaseDatabaseValue(`/games/${gameId}/players`)
 
   return (
@@ -15,6 +15,7 @@ function GamePlayers({ match }) {
         ({ key }) => <GamePlayersItem key={key} id={key} ready />,
         Object.values(players)
       )}
+      <GamePlayersReadyToggle />
     </>
   )
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Input } from 'semantic-ui-react';
-import { useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
+import { useFirebase, useFirebaseUserUid } from 'provide-firebase-middleware';
 import { writes } from '../../../firebase';
 
 function CreateGame(props) {
   const [input, setInput] = React.useState("")
   const firebase = useFirebase()
-  const user = useFirebaseUser()
+  const uid = useFirebaseUserUid()
   
   return (
     <>
@@ -18,7 +18,7 @@ function CreateGame(props) {
       />
       <Button onClick={() => {
         writes.createGame({ 
-          host: user.uid,
+          host: uid,
           name: input
         }, firebase)
       }}>Submit</Button>
