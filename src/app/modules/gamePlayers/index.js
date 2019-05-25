@@ -3,6 +3,7 @@ import React from 'react';
 import GamePlayersItem from './item';
 import { useFirebaseDatabaseValue, useFirebaseUserUid } from 'provide-firebase-middleware';
 import GamePlayersReadyToggle from './readyToggle';
+import GamePlayersStart from './start';
 
 function GamePlayers({ match }) {
   const { params: { gameId } } = match;
@@ -20,6 +21,7 @@ function GamePlayers({ match }) {
         Object.values(players)
       )}
       <GamePlayersReadyToggle />
+      {isHost && <GamePlayersStart players={players} />}
     </>
   )
 }

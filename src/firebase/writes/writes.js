@@ -39,16 +39,16 @@ export const joinGame = (playerKey, gameKey, firebase) => {
 }
 
 export const updateGame = ({ key, ...config }, firebase) => (
-  references.getGameById(key, firebase).update({ key, ...config })
+  references.getGameByKeyByKey(key, firebase).update({ key, ...config })
 )
 
 /**
  * 
  * @param {ConspiracyPlayer} playerConfig 
  */
-export const updatePlayer = ({ key, ...config }, firebase) => {
-  references.getPlayerById(key, firebase).update({ key, ...config })
-}
+export const updatePlayer = ({ key, ...config }, firebase) => (
+  references.getPlayerByKey(key, firebase).update({ key, ...config })
+)
 
 const addPlayerToGameList = (playerKey, gameKey, firebase) => (
   references.getPlayersByGameId(gameKey, firebase).update({
