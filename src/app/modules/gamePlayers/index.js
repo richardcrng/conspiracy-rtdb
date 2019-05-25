@@ -8,15 +8,16 @@ function GamePlayers({ match }) {
   const { params: { gameId } } = match;
   const uid = useFirebaseUserUid()
   const game = useFirebaseDatabaseValue(`/games/${gameId}`)
+  const players = R.prop('players', game)
   const isHost = uid === R.prop('host', game)
 
   return (
     <>
       <h1>Players for game {gameId}</h1>
       {isHost && <b>You are host!</b>}
-      {game && game.players && R.map(
+      {players && R.map(
         ({ key }) => <GamePlayersItem key={key} id={key} />,
-        Object.values(game.players)
+        Object.values(players)
       )}
       <GamePlayersReadyToggle />
     </>
