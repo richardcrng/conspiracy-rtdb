@@ -18,7 +18,8 @@ function GamePlayersStart({ players = [] }) {
     // Check if every gamePlayer isReady and has connections
     const gamePlayersReady = R.all(
       R.both(R.prop('isReady'), R.prop('connections')),
-      gamePlayers)
+      gamePlayers
+    )
     setPlayersReady(gamePlayersReady)
   }, [gamePlayers, setPlayersReady])
 
