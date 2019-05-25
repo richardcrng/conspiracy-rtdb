@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { generatePushID, useFirebase, useFirebaseUserUid } from 'provide-firebase-middleware';
 import SignIn from './modules/signin';
 import EnterName from './modules/enterName';
@@ -8,21 +7,12 @@ import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
 import GamePlayers from './modules/gamePlayers';
 import CreateGame from './modules/createGame';
-import { useFirebaseDatabaseValue } from 'provide-firebase-middleware/dist/hooks';
-import { actions } from '../redux/leaves';
 
 function App() {
   const [connectionId] = React.useState(generatePushID())
 
   const firebase = useFirebase()
   const uid = useFirebaseUserUid()
-  // const allPlayers = useFirebaseDatabaseValue(players)
-  // const gameId = useFirebaseDatabaseValue(`players/${uid}/currentGame`)
-
-  // const dispatch = useDispatch()
-  // const updatePlayersState = React.useCallback(dataSnapshot => {
-  //   dispatch(actions.players.create.update(dataSnapshot.val()))
-  // }, [dispatch])
 
   React.useEffect(() => {
     if (uid) {

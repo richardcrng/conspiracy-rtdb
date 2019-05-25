@@ -5,19 +5,18 @@ import { useFirebaseDatabaseValue, useStateHandlers } from 'provide-firebase-mid
 function GamePlayersStart({ players = [] }) {
   const allPlayers = useFirebaseDatabaseValue('players')
 
+  // Map array of players (player keys) to actual entities
   const [gamePlayers, { set: setGamePlayers }] = useStateHandlers([])
-
   React.useEffect(() => {
-    setGamePlayers(players.map(playerKey => R.prop(playerKey, allPlayers)))
+    // Take each player key as property of allPlayers
+    setGamePlayers(players.map(R.prop(R.__, allPlayers)))
   }, [allPlayers, players])
 
+  // playersReady is boolean based on gamePlayers' isReady props
   const [playersReady, { set: setPlayersReady }] = useStateHandlers(false)
-
   React.useEffect(() => {
-    const gamePlayersReady = R.all(
-      R.prop('isReady'),
-      gamePlayers
-    )
+    // Check if every gamePlayer isReady
+    const gamePlayersReady = R.all(R.prop('isReady'), gamePlayers)
     setPlayersReady(gamePlayersReady)
   }, [gamePlayers, setPlayersReady])
 
