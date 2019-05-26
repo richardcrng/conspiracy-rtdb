@@ -6,24 +6,27 @@ import GamePlayersItem from './item';
 import GamePlayersReadyToggle from './readyToggle';
 import GamePlayersStart from './start';
 import selectors from '../../../../redux/selectors';
+import useGamePlayers from '../../../../helpers/hooks/gamePlayers';
 
 function GamePlayers() {
   const gameId = useSelector(selectors.getCurrentGame)
+  const gamePlayers = useGamePlayers(gameId)
+  const gameHost = useFirebaseDatabaseValue(`/games/${gameId}/host`)
   const uid = useFirebaseUserUid()
-  const game = useFirebaseDatabaseValue(`/games/${gameId}`, { orderByChild: 'priority' })
-  const players = R.prop('players', game)
-  const isHost = uid === R.prop('host', game)
+  const isHost = uid === gameHost
 
   return (
     <>
       <h1>Players for game {gameId}</h1>
       {isHost && <b>You are host!</b>}
-      {players && R.map(
-        ({ key }) => <GamePlayersItem key={key} id={key} />,
-        Object.values(players)
+      {gamePlayers && R.map(
+        ({ key, name, isReady, connections }) => (
+          <GamePlayersItem key={key} {...{ name, isReady, connections }} />
+        ),
+        Object.values(gamePlayers)
       )}
       <GamePlayersReadyToggle />
-      {isHost && <GamePlayersStart players={Object.keys(players)} />}
+      {isHost && <GamePlayersStart {...{ gameId, gamePlayers }} />}
     </>
   )
 }
