@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import { useFirebase } from 'provide-firebase-middleware';
-import { writes } from '../../../../../firebase';
-import selectors from '../../../../../redux/selectors';
+import { writes } from '../../../../../../firebase';
+import selectors from '../../../../../../redux/selectors';
 
 function GamePlayersStartButton({ ready }) {
   const firebase = useFirebase()

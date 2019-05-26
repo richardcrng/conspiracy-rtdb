@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox } from 'semantic-ui-react';
 import { useFirebaseUserUid, useFirebaseDatabaseValue, useFirebase } from 'provide-firebase-middleware';
-import { writes } from '../../../../firebase';
+import { writes } from '../../../../../firebase';
 
 function GamePlayersReadyToggle() {
   const firebase = useFirebase()

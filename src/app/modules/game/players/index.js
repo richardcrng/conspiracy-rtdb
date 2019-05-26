@@ -4,21 +4,15 @@ import GamePlayersItem from './item';
 import { useFirebaseDatabaseValue, useFirebaseUserUid } from 'provide-firebase-middleware';
 import GamePlayersReadyToggle from './readyToggle';
 import GamePlayersStart from './start';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../../redux/leaves';
+import { useSelector } from 'react-redux';
+import selectors from '../../../../redux/selectors';
 
 function GamePlayers({ match }) {
-  const { params: { gameId } } = match;
+  const gameId = useSelector(selectors.getCurrentGame)
   const uid = useFirebaseUserUid()
   const game = useFirebaseDatabaseValue(`/games/${gameId}`, { orderByChild: 'priority' })
   const players = R.prop('players', game)
   const isHost = uid === R.prop('host', game)
-
-  const dispatch = useDispatch()
-
-  React.useEffect(() => {
-    dispatch(actions.currentGame.create.update(gameId))
-  }, [dispatch, gameId])
 
   return (
     <>
