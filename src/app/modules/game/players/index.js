@@ -1,13 +1,13 @@
 import * as R from 'ramda';
 import React from 'react';
-import GamePlayersItem from './item';
+import { useSelector } from 'react-redux';
 import { useFirebaseDatabaseValue, useFirebaseUserUid } from 'provide-firebase-middleware';
+import GamePlayersItem from './item';
 import GamePlayersReadyToggle from './readyToggle';
 import GamePlayersStart from './start';
-import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
 
-function GamePlayers({ match }) {
+function GamePlayers() {
   const gameId = useSelector(selectors.getCurrentGame)
   const uid = useFirebaseUserUid()
   const game = useFirebaseDatabaseValue(`/games/${gameId}`, { orderByChild: 'priority' })
