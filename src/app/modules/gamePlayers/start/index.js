@@ -1,6 +1,8 @@
 import * as R from 'ramda'
 import React from 'react';
 import { useFirebaseDatabaseValue, useStateHandlers } from 'provide-firebase-middleware';
+import GamePlayerStartMessage from './message';
+import GamePlayersStartButton from './button';
 
 function GamePlayersStart({ players = [] }) {
   const allPlayers = useFirebaseDatabaseValue('players')
@@ -23,9 +25,12 @@ function GamePlayersStart({ players = [] }) {
     setPlayersReady(gamePlayersReady)
   }, [gamePlayers, setPlayersReady])
 
-  return playersReady
-    ? <p>All players ready and online!</p>
-    : <p>Still waiting for someone...</p>
+  return (
+    <>
+      <GamePlayerStartMessage ready={playersReady} />
+      <GamePlayersStartButton ready={playersReady} />
+    </>
+  )
 }
 
 export default GamePlayersStart;
