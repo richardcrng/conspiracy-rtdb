@@ -1,12 +1,8 @@
-import _ from 'lodash';
 import * as R from 'ramda'
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useStateHandlers } from 'provide-firebase-middleware';
 import GamePlayerStartMessage from './message';
 import GamePlayersStartButton from './button';
-import useGamePlayers from '../../../../../helpers/hooks/gamePlayers';
-import selectors from '../../../../../redux/selectors';
 
 function GamePlayersStart({ gameId, gamePlayers }) {  
   // playersReady is boolean based on gamePlayers' isReady props

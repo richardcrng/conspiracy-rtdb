@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useFirebaseDatabaseValue, useStateHandlers } from 'provide-firebase-middleware';
 
 function useGamePlayers(gameId) {
