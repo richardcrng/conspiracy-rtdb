@@ -2,11 +2,11 @@ import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { generatePushID, useFirebase, useFirebaseUserUid } from 'provide-firebase-middleware';
 import SignIn from './modules/signin';
-import EnterName from './modules/enterName';
 import AppLayout from './common/layout';
 import Lobby from './modules/lobby';
-import CreateGame from './modules/createGame';
 import Game from './modules/game';
+import Setup from './modules/setup';
+import { ROUTES } from './constants/routes';
 
 function App() {
   const [connectionId] = React.useState(generatePushID())
@@ -26,17 +26,16 @@ function App() {
     <div className="App">
       <AppLayout>
         <Switch>
-          <Route path="/game/:gameId" component={Game} />
-          <Route path="/create-game" component={CreateGame} />
-          <Route path="/enter-name" component={EnterName} />
-          <Route path="/lobby" component={Lobby} />
-          <Route path="/sign-in" component={SignIn} />
+          <Route path={ROUTES.Game} component={Game} />
+          <Route path={ROUTES.Setup} component={Setup} />
+          <Route path={ROUTES.Lobby} component={Lobby} />
+          <Route path={ROUTES.SignIn} component={SignIn} />
           <Route path="/" component={
             function Fallback() {
               return (
                 <>
                   <div>Fallback</div>
-                  <Link to="/sign-in">Sign in</Link>
+                  <Link to={ROUTES.SignIn}>Sign in</Link>
                 </>
               )
             }
