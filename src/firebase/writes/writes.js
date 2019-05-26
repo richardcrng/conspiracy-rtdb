@@ -1,10 +1,6 @@
 import { generatePushID } from 'provide-firebase-middleware';
 import references from '../references';
 
-export const assignRoles = (gameKey, firebase) => {
-  const playersRef = references.getPlayersByGameKey(gameKey, firebase)
-}
-
 /**
  * 
  * @param {ConspiracyGame} config
