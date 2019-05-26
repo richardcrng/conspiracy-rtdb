@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import GamePlayers from './players';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../redux/leaves';
+import { ROUTES } from '../../constants/routes';
+import GameRole from './role';
 
 function Game({ match }) {
   const { params: { gameId } } = match;
@@ -15,7 +17,8 @@ function Game({ match }) {
 
   return (
     <Switch>
-      <Route path="/game/:gameId/players" component={GamePlayers} />
+      <Route path={ROUTES.GamePlayers} component={GamePlayers} />
+      <Route path={ROUTES.GameRole} component={GameRole} />
     </Switch>
   )
 }
