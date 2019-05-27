@@ -1,6 +1,5 @@
 import { provideFirebaseMiddleware } from 'provide-firebase-middleware';
 import references from './references'
-import writes from './writes';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,5 +20,4 @@ export {
   firebaseMiddleware,
   firebaseInstance,
   references,
-  writes
 }
