@@ -1,15 +1,16 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 function AppLayout({ children }) {
   return (
     <>
       <Navbar bg="dark" variant="dark" >
         <Navbar.Brand>App</Navbar.Brand>
-        <NavItem to="/create-game" text="Create Game" />
-        <NavItem to="/lobby" text="Lobby" />
-        <NavItem to="/sign-in" text="Sign In" />
+        <NavItem to={ROUTES.SetupGame} text="Create Game" />
+        <NavItem to={ROUTES.Lobby} text="Lobby" />
+        <NavItem to={ROUTES.SignIn} text="Sign In" />
       </Navbar>
       {children}
     </>

@@ -12,7 +12,7 @@ import references from '../references';
 export const createGame = ({ name, host }, firebase) => {
   const key = generatePushID()  // key for game
 
-  const gameConfig = { key, name, isInSignups: true }
+  const gameConfig = { key, host, name, isInSignups: true }
 
   if (host) {
     gameConfig.players = {
@@ -39,19 +39,19 @@ export const joinGame = (playerKey, gameKey, firebase) => {
 }
 
 export const updateGame = ({ key, ...config }, firebase) => (
-  references.getGameById(key, firebase).update({ key, ...config })
+  references.getGameByKey(key, firebase).update({ key, ...config })
 )
 
 /**
  * 
  * @param {ConspiracyPlayer} playerConfig 
  */
-export const updatePlayer = ({ key, ...config }, firebase) => {
-  references.getPlayerById(key, firebase).update({ key, ...config })
-}
+export const updatePlayer = ({ key, ...config }, firebase) => (
+  references.getPlayerByKey(key, firebase).update({ key, ...config })
+)
 
 const addPlayerToGameList = (playerKey, gameKey, firebase) => (
-  references.getPlayersByGameId(gameKey, firebase).update({
+  references.getPlayersByGameKey(gameKey, firebase).update({
     [playerKey]: {
       key: playerKey,
       priority: generatePushID()
@@ -60,5 +60,5 @@ const addPlayerToGameList = (playerKey, gameKey, firebase) => (
 )
 
 const updateCurrentGame = (playerKey, gameKey, firebase) => (
-  references.getCurrentGameByPlayerId(playerKey, firebase).set(gameKey)
+  references.getCurrentGameByPlayerKey(playerKey, firebase).set(gameKey)
 )
