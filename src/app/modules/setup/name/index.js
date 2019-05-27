@@ -1,10 +1,11 @@
 import React from 'react';
-import { useFirebaseUser, useFirebase } from 'provide-firebase-middleware';
+import { useFirebaseUser } from 'provide-firebase-middleware';
 import { Button, Input } from 'semantic-ui-react';
-import { writes } from '../../../../firebase';
+import { useDispatch } from 'react-redux';
+import { updatePlayer } from '../../../../redux/saga/sagas';
 
 function SetupName(props) {
-  const firebase = useFirebase()
+  const dispatch = useDispatch()
   const user = useFirebaseUser()
   const [input, setInput] = React.useState("")
 
@@ -20,14 +21,7 @@ function SetupName(props) {
         value={input}
       />
       <Button onClick={() => {
-        user.updateProfile({
-          displayName: input
-        })
-
-        writes.updatePlayer({
-          key: user.uid,
-          name: input
-        }, firebase)
+        dispatch(updatePlayer.trigger({ key: user.uid, name: input }))
       }}>Submit</Button>
     </>
   )

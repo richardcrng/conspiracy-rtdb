@@ -2,20 +2,21 @@ import * as R from 'ramda'
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { MdExitToApp } from 'react-icons/md'
-import { useFirebaseUser, useFirebase } from 'provide-firebase-middleware';
-import { writes } from '../../../../firebase';
+import { useFirebaseUserUid } from 'provide-firebase-middleware';
+import { useDispatch } from 'react-redux';
+import { joinGame } from '../../../../redux/saga/sagas';
 
 function LobbyItem({ id, name, players, history }) {
-  const firebase = useFirebase()
-  const user = useFirebaseUser()
+  const dispatch = useDispatch()
+  const uid = useFirebaseUserUid()
 
   return (
     <div className="d-flex justify-content-between" style={{ fontSize: "150%" }}>
       <strong>{name}</strong>
       <MdExitToApp
         onClick={() => {
-          if (user && user.uid && !R.prop(user.uid, players)) {
-            writes.joinGame(user.uid, id, firebase)
+          if (uid && !R.prop(uid, players)) {
+            dispatch(joinGame.trigger({ playerKey: uid, gameKey: id }))
           }
           history.push(`/game/${id}/players`)
         }}
