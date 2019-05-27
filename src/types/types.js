@@ -22,7 +22,7 @@
  * @property {string} password - Game password
  * @property {Object.<string, ConspiracyGamePlayer>} players - Object e.g. with { playerOneId: { key: playerOneId, ordered: order }, playerTwoId: true }
  * @property {boolean} hasConspiracy - Does the game have a conspiracy?
- * @property {string} conspiracyTarget - UID of player targeted by conspiracy
+ * @property {string} victim - UID of player targeted by conspiracy
  * @property {boolean} isInSignups - Is the game in signups?
  * @property {boolean} isStarted - Has the game started?
  * @property {boolean} isComplete - Has the game been completed?

@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import { useFirebase } from 'provide-firebase-middleware';
-import { writes } from '../../../../../../firebase';
-import selectors from '../../../../../../redux/selectors';
+import { startGame } from '../../../../../../redux/saga/sagas';
 
 function GamePlayersStartButton({ ready }) {
-  const firebase = useFirebase()
-  const currentGame = useSelector(selectors.getGameId)
+  const dispatch = useDispatch()
 
   return (
     <Button
@@ -15,10 +12,7 @@ function GamePlayersStartButton({ ready }) {
       disabled={!ready}
       onClick={() => {
         if (ready) {
-          writes.updateGame({
-            key: currentGame,
-            isStarted: true
-          }, firebase)
+          dispatch(startGame.trigger())
         }
       }}
     >
