@@ -25,7 +25,6 @@ export function* assignRoles() {
 
 export function* createGame({ payload: { host, name } }) {
   const key = generatePushID()  // key for game
-  const firebase = yield getFirebase()
 
   const gameConfig = { key, host, name, isInSignups: true }
 
@@ -36,10 +35,10 @@ export function* createGame({ payload: { host, name } }) {
         priority: generatePushID()
       }
     }
-    yield references.getPlayerByKey(host, firebase).update({ currentGame: key, isHost: true })
+    yield call(updatePlayer, { key: host, currentGame: key, isHost: true })
   }
 
-  yield references.getGameByKey(key, firebase).update(gameConfig)
+  yield call(updateGame, { key, ...gameConfig })
 
   return key
 }
@@ -49,34 +48,45 @@ export function* getFirebase() {
 }
 
 export function* startGame() {
-  const firebase = yield getFirebase()
   const gameId = yield select(selectors.getGameId)
   yield all([
     call(assignRoles),
-    references.getGameByKey(gameId, firebase).update({ isStarted: true })
+    call(updateGame, { key: gameId, isStarted: true })
   ])
 }
 
-export function* updatePlayer({ payload: { key, ...props } }) {
-  const firebase = yield getFirebase()
-  yield references.getPlayerByKey(key, firebase).update(props)
+export function* updateGame(arg) {
+  let firebase = yield getFirebase()
+  let key, props
+  if (arg.type) { // it's an action
+    ({ payload: { key, ...props } } = arg) // destructure without declaration
+  } else { // should be a config object
+    ({ key, ...props } = arg)
+  }
+  yield references.getGameByKey(key, firebase).update({ key, ...props })
+}
+
+export function* updatePlayer(arg) {
+  let firebase = yield getFirebase()
+  let key, props
+  if (arg.type) { // it's an action
+    ({ payload: { key, ...props } } = arg) // destructure without declaration
+  } else { // should be a config object
+    ({ key, ...props } = arg)
+  }
+  yield references.getPlayerByKey(key, firebase).update({ key, ...props })
 }
 
 function* assignToAll(props = {}, playerIds = []) {
-  const firebase = yield getFirebase()
   yield all(playerIds.map(id => (
-    references.getPlayerByKey(id, firebase).update(props)
+    call(updatePlayer, { key: id, ...props })
   )))
 }
 
 function* setVictimOfGame(playerId, gameId) {
-  const firebase = yield getFirebase()
   yield all([
-    references.getPlayerByKey(playerId, firebase).update({ isInnocent: true }),
-    references.getGameByKey(gameId, firebase).update({
-      hasConspiracy: true,
-      victim: playerId
-    })
+    call(updatePlayer, { key: playerId, isInnocent: true }),
+    call(updateGame, { key: gameId, hasConspiracy: true, victim: playerId })
   ])
 }
 
