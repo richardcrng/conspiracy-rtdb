@@ -9,7 +9,7 @@ function useGamePlayers(gameId, asPrioritisedArray = false) {
     { orderByChild: 'priority' }
   )
 
-  const [gamePlayers, { set: setGamePlayers }] = useStateHandlers([])
+  const [gamePlayers, { set: setGamePlayers }] = useStateHandlers({})
   React.useEffect(() => {
     const selectedPlayers = R.mapObjIndexed(
       // merge to keep hold of priority property

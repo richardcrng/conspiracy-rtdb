@@ -9,7 +9,7 @@ import selectors from '../../../../redux/selectors';
 import useGamePlayers from '../../../../helpers/hooks/gamePlayers';
 
 function GamePlayers() {
-  const gameId = useSelector(selectors.getCurrentGame)
+  const gameId = useSelector(selectors.getGameId)
   const gamePlayers = useGamePlayers(gameId, true)
   const gameHost = useFirebaseDatabaseValue(`/games/${gameId}/host`)
   const uid = useFirebaseUserUid()

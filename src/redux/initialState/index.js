@@ -1,6 +1,6 @@
 export const intialState = {
-  currentGame: null,
-  players: {
-    
+  game: {
+    id: null,
+    players: {}
   }
 }
