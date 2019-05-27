@@ -1,3 +1,3 @@
 export const shouldBeConspiracy = numPlayers => (
-  Math.random() <= (numPlayers / numPlayers + 1)
+  Math.random() <= (numPlayers / (numPlayers + 1))
 )
