@@ -1,25 +1,27 @@
+import * as R from 'ramda'
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import GamePlayers from './players';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../redux/leaves';
-import { ROUTES } from '../../constants/routes';
-import GameRole from './role';
+import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
+import selectors from '../../../redux/selectors';
+import GamePrestart from './prestart';
 
 function Game({ match }) {
-  const { params: { gameId } } = match;
+  const gameIdMatch = R.path(['params', 'gameId'], match)
 
+  // Set game Id to match
   const dispatch = useDispatch()
-
   React.useEffect(() => {
-    dispatch(actions.currentGame.create.update(gameId))
-  }, [dispatch, gameId])
+    if (gameIdMatch) dispatch(actions.currentGame.create.update(gameIdMatch))
+  }, [dispatch, gameIdMatch])
 
-  return (
-    <Switch>
-      <Route path={ROUTES.GamePlayers} component={GamePlayers} />
-      <Route path={ROUTES.GameRole} component={GameRole} />
-    </Switch>
+  const storedGameId = useSelector(selectors.getCurrentGame)
+  const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
+
+  if (isStarted) {
+    return <div>Started this game already</div>
+  } else return (
+    <GamePrestart />
   )
 }
 

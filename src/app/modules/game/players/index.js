@@ -15,6 +15,8 @@ function GamePlayers() {
   const uid = useFirebaseUserUid()
   const isHost = uid === gameHost
 
+  console.log(gamePlayers)
+
   return (
     <>
       <h1>Players for game {gameId}</h1>

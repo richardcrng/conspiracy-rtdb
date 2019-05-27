@@ -26,6 +26,7 @@ function App() {
     <div className="App">
       <AppLayout>
         <Switch>
+          <Route path={ROUTES.GameId} component={Game} />
           <Route path={ROUTES.Game} component={Game} />
           <Route path={ROUTES.Setup} component={Setup} />
           <Route path={ROUTES.Lobby} component={Lobby} />
