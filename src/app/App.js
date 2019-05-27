@@ -9,18 +9,17 @@ import Setup from './modules/setup';
 import { ROUTES } from './constants/routes';
 
 function App() {
-  const [connectionId] = React.useState(generatePushID())
-
   const firebase = useFirebase()
   const uid = useFirebaseUserUid()
 
   React.useEffect(() => {
     if (uid) {
+      const connectionId = generatePushID()
       const playerConnectionsRef = firebase.database().ref(`players/${uid}/connections`)
       playerConnectionsRef.update(({ [connectionId]: true }))
       playerConnectionsRef.child(connectionId).onDisconnect().remove()
     }
-  }, [uid])
+  }, [firebase, uid])
 
   return (
     <div className="App">

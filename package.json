@@ -26,7 +26,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node post-build.js",
+    "deploy": "npm run build && firebase deploy",
+    "fresh-install": "rm -f ./package-lock.json && npm install",
+    "now": "npm run now-build && npm run now-deploy",
+    "now-build": "npm run build",
+    "now-deploy": "cd build && now && now alias && cd ..",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
