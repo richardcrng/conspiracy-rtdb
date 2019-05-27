@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { all, select, call, getContext, takeLeading } from "redux-saga/effects";
+import { all, select, call, getContext, takeLeading, takeEvery } from "redux-saga/effects";
 import selectors from "../selectors";
 import { makeActionCreator } from "redux-leaves";
 import { shouldBeConspiracy } from "../../helpers/conspiracy";
@@ -57,6 +57,11 @@ export function* startGame() {
   ])
 }
 
+export function* updatePlayer({ payload: { key, ...props } }) {
+  const firebase = yield getFirebase()
+  yield references.getPlayerByKey(key, firebase).update(props)
+}
+
 function* assignToAll(props = {}, playerIds = []) {
   const firebase = yield getFirebase()
   yield all(playerIds.map(id => (
@@ -84,7 +89,11 @@ createGame.trigger = makeActionCreator(createGame.TRIGGER)
 startGame.TRIGGER = "TRIGGER_SAGA: startGame"
 startGame.trigger = makeActionCreator(startGame.TRIGGER)
 
+updatePlayer.TRIGGER = "TRIGGER_SAGA: updatePlayer"
+updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
+
 export const sagas = [
+  takeEvery(updatePlayer.TRIGGER, updatePlayer),
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
   takeLeading(startGame.TRIGGER, startGame)

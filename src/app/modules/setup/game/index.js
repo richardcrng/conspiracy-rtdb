@@ -1,27 +1,27 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Input } from 'semantic-ui-react';
-import { useFirebase, useFirebaseUserUid } from 'provide-firebase-middleware';
-import { writes } from '../../../../firebase';
+import { useFirebaseUserUid } from 'provide-firebase-middleware';
+import { createGame } from '../../../../redux/saga/sagas';
 
 function SetupGame() {
-  const [input, setInput] = React.useState("")
-  const firebase = useFirebase()
-  const uid = useFirebaseUserUid()
+  const dispatch = useDispatch()
+  const [name, setName] = React.useState("")
+  const host = useFirebaseUserUid()
 
   return (
     <>
       <h1>Create Game</h1>
       <Input
-        onChange={(e, data) => setInput(data.value)}
+        onChange={(e, data) => setName(data.value)}
         placeholder="Game name"
-        value={input}
+        value={name}
       />
       <Button onClick={() => {
-        writes.createGame({
-          host: uid,
-          name: input
-        }, firebase)
-      }}>Submit</Button>
+        dispatch(createGame.trigger({ host, name }))
+      }}>
+        Submit
+      </Button>
     </>
   )
 }
