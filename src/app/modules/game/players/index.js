@@ -10,7 +10,7 @@ import useGamePlayers from '../../../../helpers/hooks/gamePlayers';
 
 function GamePlayers() {
   const gameId = useSelector(selectors.getCurrentGame)
-  const gamePlayers = useGamePlayers(gameId)
+  const gamePlayers = useGamePlayers(gameId, true)
   const gameHost = useFirebaseDatabaseValue(`/games/${gameId}/host`)
   const uid = useFirebaseUserUid()
   const isHost = uid === gameHost
@@ -23,7 +23,7 @@ function GamePlayers() {
         ({ key, name, isReady, connections }) => (
           <GamePlayersItem key={key} {...{ name, isReady, connections }} />
         ),
-        Object.values(gamePlayers)
+        gamePlayers
       )}
       <GamePlayersReadyToggle />
       {isHost && <GamePlayersStart {...{ gameId, gamePlayers }} />}

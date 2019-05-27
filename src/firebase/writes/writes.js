@@ -51,7 +51,7 @@ export const updatePlayer = ({ key, ...config }, firebase) => (
 )
 
 const addPlayerToGameList = (playerKey, gameKey, firebase) => (
-  references.getPlayersByGameId(gameKey, firebase).update({
+  references.getPlayersByGameKey(gameKey, firebase).update({
     [playerKey]: {
       key: playerKey,
       priority: generatePushID()
