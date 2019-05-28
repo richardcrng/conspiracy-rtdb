@@ -8,15 +8,26 @@ import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
 
 function Game({ match }) {
-  const gameIdMatch = R.path(['params', 'gameId'], match)
-
-  // Set game Id to match
   const dispatch = useDispatch()
+  const storedGameId = useSelector(selectors.getGameId)
+  
+  // Set game Id from match
+  const gameIdMatch = R.path(['params', 'gameId'], match)
   React.useEffect(() => {
-    if (gameIdMatch) dispatch(actions.game.id.create.update(gameIdMatch))
+    if (gameIdMatch && gameIdMatch !== storedGameId) {
+      dispatch(actions.game.id.create.update(gameIdMatch))
+    }
   }, [dispatch, gameIdMatch])
 
-  const storedGameId = useSelector(selectors.getGameId)
+  // Keep Redux hasConspiracy in sync with Firebase
+  const hasConspiracy = useFirebaseDatabaseValue(`games/${storedGameId}/hasConspiracy`)
+  React.useEffect(() => {
+    if (!R.isNil(hasConspiracy)) {
+      dispatch(actions.hasConspiracy.create.update(hasConspiracy))
+    }
+  }, [dispatch, hasConspiracy])
+
+  // Keep Redux game players in sync with Firebase
   const gamePlayers = useGamePlayers(storedGameId)
   React.useEffect(() => {
     dispatch(actions.game.players.create.update(gamePlayers))
