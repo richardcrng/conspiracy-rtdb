@@ -46,7 +46,7 @@ function GameVotingVoteButton({ text, ...rest }) {
     <Button
       fluid
       className="d-block my-2"
-      size="big"
+      size="massive"
       {...rest}
     >
       {text}
