@@ -7,11 +7,13 @@ import selectors from '../../../redux/selectors';
 import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
 import GameOngoing from './ongoing';
+import GameComplete from './complete';
 
 function Game() {
   const dispatch = useDispatch()
   const storedGameId = useSelector(selectors.getGameId)
-  const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
+  const isComplete = useSelector(selectors.getGameIsComplete)
+  const isStarted = useSelector(selectors.getGameIsStarted)
   
   // // Set game Id from match
   // const gameIdMatch = R.path(['params', 'gameId'], match)
@@ -33,7 +35,9 @@ function Game() {
     if (rest) dispatch(actions.game.create.assign(rest))
   }, [dispatch, rest])
 
-  if (isStarted) {
+  if (isComplete) {
+    return <GameComplete />
+  } else if (isStarted) {
     return <GameOngoing />
   } else return (
     <GamePrestart />

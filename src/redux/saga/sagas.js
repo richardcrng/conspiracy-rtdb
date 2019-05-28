@@ -28,7 +28,7 @@ export function* createGame({ payload: { host, name, history } }) {
         priority: generatePushID()
       }
     }
-    yield call(updatePlayer, { key: host, currentGame: key, isHost: true })
+    yield call(updatePlayer, { key: host, currentGame: key, isHost: true, vote: null, isVoting: null })
   }
 
   yield call(updateGame, { key, ...gameConfig })
@@ -40,8 +40,11 @@ export function* createGame({ payload: { host, name, history } }) {
 
 export function* endGame() {
   const gameId = yield select(selectors.getGameId)
+  const playerIds = yield select(selectors.getGamePlayersIds)
   yield call(updateGame, { key: gameId, isDay: false })
   yield call(produceGameResult)
+  yield call(updateGame, { key: gameId, isComplete: true })
+  yield call(assignToAll, { vote: null, isVoting: null }, playerIds)
 }
 
 export function* getFirebase() {

@@ -6,6 +6,7 @@ import GameVoting from './../voting';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
 import GameModerator from '../moderator';
+import GameComplete from '../complete';
 
 function GameOngoing() {
   const isHost = useSelector(selectors.getIsSelfUidHost)
@@ -16,6 +17,7 @@ function GameOngoing() {
       <Switch>
         <Route path={ROUTES.GameRole} component={GameRole} />
         <Route path={ROUTES.GameVoting} component={GameVoting} />
+        <Route path={ROUTES.GameComplete} component={GameComplete} />
         <Route path="/" component={GameRole} />
       </Switch>
     </>

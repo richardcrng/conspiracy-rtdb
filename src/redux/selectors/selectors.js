@@ -80,6 +80,16 @@ export const getGamePlayersAllVoting = createSelector(
   )
 )
 
+export const getGameIsStarted = createSelector(
+  getGame,
+  R.prop('isStarted')
+)
+
+export const getGameIsComplete = createSelector(
+  getGame,
+  R.prop('isComplete')
+)
+
 export const getIsDayInGame = createSelector(
   getGame,
   R.prop('isDay')
