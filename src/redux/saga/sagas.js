@@ -53,7 +53,7 @@ export function* startGame() {
   const gameId = yield select(selectors.getGameId)
   yield all([
     call(assignRoles),
-    call(updateGame, { key: gameId, isStarted: true })
+    call(updateGame, { key: gameId, isStarted: true, isDay: true })
   ])
 }
 
@@ -111,18 +111,18 @@ function* rolesConspiracy(playerIds, gameId) {
   const [victim, ...conspirators] = _.shuffle(playerIds)
   yield all([
     call(setVictimOfGame, victim, gameId),
-    call(assignToAll, { isInnocent: false }, conspirators)
+    call(assignToAll, { isInnocent: false, isVoting: false, vote: null }, conspirators)
   ])
 }
 
 function* rolesNoConspiracy(playerIds) {
   console.log("no conspiracy")
-  yield call(assignToAll, { isInnocent: true }, playerIds)
+  yield call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
 }
 
 function* setVictimOfGame(playerId, gameId) {
   yield all([
-    call(updatePlayer, { key: playerId, isInnocent: true }),
+    call(updatePlayer, { key: playerId, isInnocent: true, isVoting: false, vote: null }),
     call(updateGame, { key: gameId, hasConspiracy: true, victim: playerId })
   ])
 }
@@ -139,10 +139,14 @@ joinGame.trigger = makeActionCreator(joinGame.TRIGGER)
 startGame.TRIGGER = "TRIGGER_SAGA: startGame"
 startGame.trigger = makeActionCreator(startGame.TRIGGER)
 
+updateGame.TRIGGER = "TRIGGER_SAGA: updateGame"
+updateGame.trigger = makeActionCreator(updateGame.TRIGGER)
+
 updatePlayer.TRIGGER = "TRIGGER_SAGA: updatePlayer"
 updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 
 export const sagas = [
+  takeEvery(updateGame.TRIGGER, updateGame),
   takeEvery(updatePlayer.TRIGGER, updatePlayer),
   takeLatest(joinGame.TRIGGER, joinGame),
   takeLeading(assignRoles.TRIGGER, assignRoles),

@@ -6,7 +6,18 @@ export const getUid = state => state.uid
 
 export const getGameId = createSelector(
   getGame,
-  game => game.id
+  game => game.key
+)
+
+export const getGameHost = createSelector(
+  getGame,
+  R.prop('host')
+)
+
+export const getIsSelfUidHost = createSelector(
+  getGameHost,
+  getUid,
+  (host, uid) => host === uid
 )
 
 export const getGamePlayers = createSelector(
@@ -54,4 +65,17 @@ export const getGameVictim = createSelector(
 export const getGameVictimName = createSelector(
   getGameVictim,
   R.prop('name')
+)
+
+export const getGamePlayersAllVoting = createSelector(
+  getGamePlayersArray,
+  players => (
+    players.length >= 1
+    && R.all(R.prop('isVoting'))(players)
+  )
+)
+
+export const getIsDayInGame = createSelector(
+  getGame,
+  R.prop('isDay')
 )

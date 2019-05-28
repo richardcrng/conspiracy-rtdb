@@ -8,33 +8,18 @@ import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
 import GameOngoing from './ongoing';
 
-function Game({ match }) {
+function Game() {
   const dispatch = useDispatch()
   const storedGameId = useSelector(selectors.getGameId)
+  const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
   
-  // Set game Id from match
-  const gameIdMatch = R.path(['params', 'gameId'], match)
-  React.useEffect(() => {
-    if (gameIdMatch && gameIdMatch !== storedGameId) {
-      dispatch(actions.game.id.create.update(gameIdMatch))
-    }
-  }, [dispatch, gameIdMatch])
-
-  // Keep Redux hasConspiracy in sync with Firebase
-  const hasConspiracy = useFirebaseDatabaseValue(`games/${storedGameId}/hasConspiracy`)
-  React.useEffect(() => {
-    if (!R.isNil(hasConspiracy)) {
-      dispatch(actions.game.hasConspiracy.create.update(hasConspiracy))
-    }
-  }, [dispatch, hasConspiracy])
-
-  // Keep Redux victim in sync with Firebase
-  const victim = useFirebaseDatabaseValue(`games/${storedGameId}/victim`)
-  React.useEffect(() => {
-    if (!R.isNil(victim)) {
-      dispatch(actions.game.victim.create.update(victim))
-    }
-  }, [dispatch, victim])
+  // // Set game Id from match
+  // const gameIdMatch = R.path(['params', 'gameId'], match)
+  // React.useEffect(() => {
+  //   if (gameIdMatch && gameIdMatch !== storedGameId) {
+  //     dispatch(actions.game.id.create.update(gameIdMatch))
+  //   }
+  // }, [dispatch, gameIdMatch])
 
   // Keep Redux game players in sync with Firebase
   const gamePlayers = useGamePlayers(storedGameId)
@@ -42,9 +27,11 @@ function Game({ match }) {
     dispatch(actions.game.players.create.update(gamePlayers))
   }, [dispatch, gamePlayers])
 
-  const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
-
-  return <GameOngoing />
+  // Keep Redux game other props in sync with Firebase game
+  const { players, ...rest } = useFirebaseDatabaseValue(`games/${storedGameId}`) || {}
+  React.useEffect(() => {
+    if (rest) dispatch(actions.game.create.assign(rest))
+  }, [dispatch, rest])
 
   if (isStarted) {
     return <GameOngoing />

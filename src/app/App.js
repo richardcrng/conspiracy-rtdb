@@ -9,12 +9,22 @@ import Game from './modules/game';
 import Setup from './modules/setup';
 import { ROUTES } from './constants/routes';
 import { actions } from '../redux/leaves';
+import { useFirebaseDatabaseValue } from 'provide-firebase-middleware/dist/hooks/firebaseDatabase';
 
 function App() {
   const firebase = useFirebase()
   const uid = useFirebaseUserUid()
   const dispatch = useDispatch()
 
+  // Keep Redux's current game in sync with player's on Firebase
+  const currentGame = useFirebaseDatabaseValue(`players/${uid}/currentGame`)
+  React.useEffect(() => {
+    if (currentGame) {
+      dispatch(actions.game.key.create.update(currentGame))
+    }
+  }, [currentGame])
+
+  // Keep uid and connections monitored
   React.useEffect(() => {
     if (uid) {
       const connectionId = generatePushID()
