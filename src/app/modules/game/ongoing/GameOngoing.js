@@ -8,11 +8,11 @@ import selectors from '../../../../redux/selectors';
 import GameModerator from '../moderator';
 
 function GameOngoing() {
-  const uid = useSelector(selectors.getUid)
+  const isHost = useSelector(selectors.getIsSelfUidHost)
 
   return (
     <>
-      <GameModerator />
+      {isHost && <GameModerator />}
       <Switch>
         <Route path={ROUTES.GameRole} component={GameRole} />
         <Route path={ROUTES.GameVoting} component={GameVoting} />
