@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { createSelector } from "reselect";
 
 export const getGame = state => state.game
+export const getUid = state => state.uid
 
 export const getGameId = createSelector(
   getGame,
@@ -11,6 +12,17 @@ export const getGameId = createSelector(
 export const getGamePlayers = createSelector(
   getGame,
   game => game.players
+)
+
+export const getPlayerFromUid = createSelector(
+  getGamePlayers,
+  getUid,
+  (players, uid) => R.prop(uid, players)
+)
+
+export const getIsVotingFromUid = createSelector(
+  getPlayerFromUid,
+  player => R.prop('isVoting', player)
 )
 
 export const getGamePlayersArray = createSelector(
@@ -30,7 +42,7 @@ export const getGameHasConspiracy = createSelector(
 
 export const getGameVictimId = createSelector(
   getGame,
-  game => game.victim
+  R.prop('victim')
 )
 
 export const getGameVictim = createSelector(
@@ -41,5 +53,5 @@ export const getGameVictim = createSelector(
 
 export const getGameVictimName = createSelector(
   getGameVictim,
-  victim => victim.name
+  R.prop('name')
 )

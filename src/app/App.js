@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, Link } from 'react-router-dom';
 import { generatePushID, useFirebase, useFirebaseUserUid } from 'provide-firebase-middleware';
 import SignIn from './modules/signin';
@@ -7,10 +8,12 @@ import Lobby from './modules/lobby';
 import Game from './modules/game';
 import Setup from './modules/setup';
 import { ROUTES } from './constants/routes';
+import { actions } from '../redux/leaves';
 
 function App() {
   const firebase = useFirebase()
   const uid = useFirebaseUserUid()
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     if (uid) {
@@ -18,6 +21,8 @@ function App() {
       const playerConnectionsRef = firebase.database().ref(`players/${uid}/connections`)
       playerConnectionsRef.update(({ [connectionId]: true }))
       playerConnectionsRef.child(connectionId).onDisconnect().remove()
+
+      dispatch(actions.uid.create.update(uid))
     }
   }, [firebase, uid])
 

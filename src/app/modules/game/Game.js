@@ -44,6 +44,8 @@ function Game({ match }) {
 
   const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
 
+  return <GameOngoing />
+
   if (isStarted) {
     return <GameOngoing />
   } else return (
