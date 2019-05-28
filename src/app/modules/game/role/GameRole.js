@@ -1,15 +1,14 @@
 import React from 'react';
-import { useFirebaseUserUid, useFirebaseDatabaseValue } from 'provide-firebase-middleware';
-import { Button } from 'semantic-ui-react';
+import useCurrentPlayerName from '../../../../helpers/hooks/currentPlayerName';
+import GameRoleReveal from './reveal';
 
 function GameRole() {
-  const uid = useFirebaseUserUid()
-  const name = useFirebaseDatabaseValue(`/players/${uid}/name`)
+  const name = useCurrentPlayerName()
 
   return (
     <div>
       <p style={{ fontSize: "120%", fontWeight: "bold" }}>{name}</p>
-      <Button>View Role</Button>
+      <GameRoleReveal />
     </div>
   )
 }

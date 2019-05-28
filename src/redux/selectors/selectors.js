@@ -27,3 +27,8 @@ export const getGameHasConspiracy = createSelector(
   getGame,
   game => game.hasConspiracy
 )
+
+export const getGameVictim = createSelector(
+  getGame,
+  game => game.victim
+)
