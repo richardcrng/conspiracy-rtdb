@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid, Header } from 'semantic-ui-react';
-import useGamePlayers from '../../../../../helpers/hooks/gamePlayers';
+import useGamePlayers from '../../../../../../helpers/hooks/gamePlayers';
 import { useSelector } from 'react-redux';
-import selectors from '../../../../../redux/selectors';
-import { VOTES } from '../../../../constants/votes';
+import selectors from '../../../../../../redux/selectors';
+import { VOTES } from '../../../../../constants/votes';
 
-function GameCompleteTable() {
+function GameCompleteResultTable() {
   const gameId = useSelector(selectors.getGameId)
   const playersArr = useGamePlayers(gameId, true)
 
@@ -18,14 +18,14 @@ function GameCompleteTable() {
           <Grid.Column><Header>Winner</Header></Grid.Column>
         </Grid.Row>
         {playersArr.map(({ key, name, vote, winner }) => (
-          <GameCompleteTableItem key={key} {...{ name, vote, winner }} />
+          <GameCompleteResultTableItem key={key} {...{ name, vote, winner }} />
         ))}
       </Grid>
     </div>
   )
 }
 
-function GameCompleteTableItem({ name, vote, winner }) {
+function GameCompleteResultTableItem({ name, vote, winner }) {
   return (
     <Grid.Row>
       <Grid.Column><p>{name}</p></Grid.Column>
@@ -35,4 +35,4 @@ function GameCompleteTableItem({ name, vote, winner }) {
   )
 }
 
-export default GameCompleteTable;
+export default GameCompleteResultTable;

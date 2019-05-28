@@ -1,11 +1,11 @@
 import React from 'react'
-import GameCompleteTable from './table';
+import GameCompleteResult from './result';
 
 function GameComplete() {
   return (
     <>
       <h1>Game complete</h1>
-      <GameCompleteTable />
+      <GameCompleteResult />
     </>
   )
 }
