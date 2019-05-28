@@ -20,6 +20,14 @@ function Game({ match }) {
     }
   }, [dispatch, gameIdMatch])
 
+  // Keep Redux host in sync with Firebase
+  const host = useFirebaseDatabaseValue(`games/${storedGameId}/host`)
+  React.useEffect(() => {
+    if (!R.isNil(host)) {
+      dispatch(actions.game.host.create.update(host))
+    }
+  }, [dispatch, host])
+
   // Keep Redux hasConspiracy in sync with Firebase
   const hasConspiracy = useFirebaseDatabaseValue(`games/${storedGameId}/hasConspiracy`)
   React.useEffect(() => {

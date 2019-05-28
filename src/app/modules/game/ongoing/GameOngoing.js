@@ -3,14 +3,22 @@ import { Switch, Route } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import GameRole from '../role';
 import GameVoting from './../voting';
+import { useSelector } from 'react-redux';
+import selectors from '../../../../redux/selectors';
+import GameModerator from '../moderator';
 
 function GameOngoing() {
+  const uid = useSelector(selectors.getUid)
+
   return (
-    <Switch>
-      <Route path={ROUTES.GameRole} component={GameRole} />
-      <Route path={ROUTES.GameVoting} component={GameVoting} />
-      <Route path="/" component={GameRole} />
-    </Switch>
+    <>
+      <GameModerator />
+      <Switch>
+        <Route path={ROUTES.GameRole} component={GameRole} />
+        <Route path={ROUTES.GameVoting} component={GameVoting} />
+        <Route path="/" component={GameRole} />
+      </Switch>
+    </>
   )
 }
 
