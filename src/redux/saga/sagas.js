@@ -5,6 +5,7 @@ import { makeActionCreator } from "redux-leaves";
 import { shouldBeConspiracy } from "../../helpers/conspiracy";
 import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
+import { VOTES } from '../../app/constants/votes';
 
 export function* assignRoles() {
   const playerIds = yield select(selectors.getGamePlayersIds)
@@ -35,6 +36,12 @@ export function* createGame({ payload: { host, name, history } }) {
   if (history) history.push(`/game/${key}/players`)
 
   return key
+}
+
+export function* endGame() {
+  const gameId = yield select(selectors.getGameId)
+  yield call(updateGame, { key: gameId, isDay: false })
+  yield call(produceGameResult)
 }
 
 export function* getFirebase() {
@@ -72,6 +79,11 @@ export function* updatePlayer(arg) {
   }
 }
 
+export function* updateGamePlayer({ gameKey, playerKey, ...props }) {
+  const firebase = yield getFirebase()
+  yield references.getPlayersByGameKey(gameKey, firebase).child(playerKey).update(props)
+}
+
 function* addPlayerToGame(arg) {
   const firebase = yield getFirebase()
   const [playerKey, gameKey] = yield call(argToPlayerAndGameKey, arg)
@@ -107,6 +119,44 @@ function* assignToAll(props = {}, playerIds = []) {
   )))
 }
 
+function* produceGameResult() {
+  const isConspiracy = yield select(selectors.getGameHasConspiracy)
+  yield isConspiracy
+    ? call(produceGameResultFromConspiracy)
+    : call(produceGameResultFromNoConspiracy)
+}
+
+function* produceGameResultFromConspiracy() {
+  const gameKey = yield select(selectors.getGameId)
+  const playersArr = yield select(selectors.getGamePlayersArray)
+  const victimVote = yield select(selectors.getGameVictimVote)
+  let victoryFn
+  if (victimVote === VOTES.conspiracy) {
+    victoryFn = ({ key: playerKey, vote, isInnocent }) => (
+      isInnocent
+        ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+        : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+    )
+  } else {
+    victoryFn = ({ key: playerKey, vote, isInnocent }) => (
+      isInnocent
+        ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+        : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+    )
+  }
+  yield all(playersArr.map(victoryFn))
+}
+
+function* produceGameResultFromNoConspiracy() {
+  const gameKey = yield select(selectors.getGameId)
+  const playersArr = yield select(selectors.getGamePlayersArray)
+  yield all(playersArr.map(({ key: playerKey, vote }) => (
+    vote === VOTES.noConspiracy
+      ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+      : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+  )))
+}
+
 function* rolesConspiracy(playerIds, gameId) {
   const [victim, ...conspirators] = _.shuffle(playerIds)
   yield all([
@@ -132,6 +182,9 @@ assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
+
+endGame.TRIGGER = "TRIGGER_SAGA: endGame"
+endGame.trigger = makeActionCreator(endGame.TRIGGER)
 
 joinGame.TRIGGER = "TRIGGER_SAGA: joinGame"
 joinGame.trigger = makeActionCreator(joinGame.TRIGGER)
