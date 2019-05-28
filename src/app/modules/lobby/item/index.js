@@ -1,14 +1,15 @@
 import * as R from 'ramda'
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { MdExitToApp } from 'react-icons/md'
 import { useFirebaseUserUid } from 'provide-firebase-middleware';
 import { useDispatch } from 'react-redux';
 import { joinGame } from '../../../../redux/saga/sagas';
+import { useRouter } from '../../../providers/router/RouterProvider';
 
-function LobbyItem({ id, name, players, history }) {
+function LobbyItem({ id, name, players }) {
   const dispatch = useDispatch()
   const uid = useFirebaseUserUid()
+  const { history } = useRouter()
 
   return (
     <div className="d-flex justify-content-between" style={{ fontSize: "150%" }}>
@@ -26,6 +27,4 @@ function LobbyItem({ id, name, players, history }) {
   )
 }
 
-// eslint-disable-next-line no-func-assign
-LobbyItem = withRouter(LobbyItem)
 export default LobbyItem;
