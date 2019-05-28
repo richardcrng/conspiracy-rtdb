@@ -30,7 +30,7 @@ export const getGameHasConspiracy = createSelector(
 
 export const getGameVictimId = createSelector(
   getGame,
-  game => game.victim
+  R.prop('victim')
 )
 
 export const getGameVictim = createSelector(
@@ -41,5 +41,5 @@ export const getGameVictim = createSelector(
 
 export const getGameVictimName = createSelector(
   getGameVictim,
-  victim => victim.name
+  R.prop('name')
 )
