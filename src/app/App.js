@@ -36,25 +36,22 @@ function App() {
     }
   }, [firebase, uid])
 
+  if (!uid) {
+    return (
+      <AppLayout><SignIn /></AppLayout>
+    )
+  }
+
   return (
     <div className="App">
       <AppLayout>
         <Switch>
           <Route path={ROUTES.GameId} component={Game} />
-          <Route path={ROUTES.Game} component={Game} />
           <Route path={ROUTES.Setup} component={Setup} />
           <Route path={ROUTES.Lobby} component={Lobby} />
           <Route path={ROUTES.SignIn} component={SignIn} />
-          <Route path="/" component={
-            function Fallback() {
-              return (
-                <>
-                  <div>Fallback</div>
-                  <Link to={ROUTES.SignIn}>Sign in</Link>
-                </>
-              )
-            }
-          } />
+          <Route path={ROUTES.Game} component={Game} />
+          <Route path="/" component={Lobby} />
         </Switch>
       </AppLayout>
     </div>

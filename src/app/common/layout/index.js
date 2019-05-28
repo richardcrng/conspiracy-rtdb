@@ -10,7 +10,7 @@ function AppLayout({ children }) {
         <Navbar.Brand>App</Navbar.Brand>
         <NavItem to={ROUTES.SetupGame} text="Create Game" />
         <NavItem to={ROUTES.Lobby} text="Lobby" />
-        <NavItem to={ROUTES.SignIn} text="Sign In" />
+        <NavItem to={ROUTES.Game} text="Game" />
       </Navbar>
       {children}
     </>
