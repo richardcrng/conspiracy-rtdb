@@ -7,23 +7,15 @@ import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
 
 export function* assignRoles() {
-  const players = yield select(selectors.getGamePlayers)
+  const playerIds = yield select(selectors.getGamePlayersIds)
   const gameId = yield select(selectors.getGameId)
-  const playerIds = Object.keys(players)
-  if (shouldBeConspiracy(playerIds.length)) {
-    console.log("CONSPIRACY")
-    const [victim, ...conspirators] = _.shuffle(playerIds)
-    yield all([
-      call(setVictimOfGame, victim, gameId),
-      call(assignToAll, { isInnocent: false }, conspirators)
-    ])
-  } else {
-    console.log("no conspiracy")
-    yield call(assignToAll, { isInnocent: true }, playerIds)
-  }
+  const effect = shouldBeConspiracy(playerIds.length)
+    ? call(rolesConspiracy, playerIds, gameId)
+    : call(rolesNoConspiracy, playerIds)
+  yield effect
 }
 
-export function* createGame({ payload: { host, name } }) {
+export function* createGame({ payload: { host, name, history } }) {
   const key = generatePushID()  // key for game
 
   const gameConfig = { key, host, name, isInSignups: true }
@@ -39,6 +31,8 @@ export function* createGame({ payload: { host, name } }) {
   }
 
   yield call(updateGame, { key, ...gameConfig })
+
+  if (history) history.push(`/game/${key}/players`)
 
   return key
 }
@@ -87,7 +81,7 @@ function* addPlayerToGame(arg) {
   })
 }
 
-function* argToKeyAndRest(arg) {
+function argToKeyAndRest(arg) {
   let key, rest
   if (arg.type) { // it's an action
     ({ payload: { key, ...rest } } = arg) // destructure without declaration
@@ -97,7 +91,7 @@ function* argToKeyAndRest(arg) {
   return [key, rest]
 }
 
-function* argToPlayerAndGameKey(arg) {
+function argToPlayerAndGameKey(arg) {
   let playerKey, gameKey
   if (arg.type) {
     ({ payload: { playerKey, gameKey } } = arg)
@@ -111,6 +105,19 @@ function* assignToAll(props = {}, playerIds = []) {
   yield all(playerIds.map(id => (
     call(updatePlayer, { key: id, ...props })
   )))
+}
+
+function* rolesConspiracy(playerIds, gameId) {
+  const [victim, ...conspirators] = _.shuffle(playerIds)
+  yield all([
+    call(setVictimOfGame, victim, gameId),
+    call(assignToAll, { isInnocent: false }, conspirators)
+  ])
+}
+
+function* rolesNoConspiracy(playerIds) {
+  console.log("no conspiracy")
+  yield call(assignToAll, { isInnocent: true }, playerIds)
 }
 
 function* setVictimOfGame(playerId, gameId) {

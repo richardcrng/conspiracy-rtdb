@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox } from 'semantic-ui-react';
-import { useFirebaseUserUid, useFirebaseDatabaseValue, useFirebase } from 'provide-firebase-middleware';
+import { useFirebaseUserUid, useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import { useDispatch } from 'react-redux';
 import { updatePlayer } from '../../../../../redux/saga/sagas';
 

@@ -6,17 +6,37 @@ import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import selectors from '../../../redux/selectors';
 import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
+import GameOngoing from './ongoing';
 
 function Game({ match }) {
-  const gameIdMatch = R.path(['params', 'gameId'], match)
-
-  // Set game Id to match
   const dispatch = useDispatch()
+  const storedGameId = useSelector(selectors.getGameId)
+  
+  // Set game Id from match
+  const gameIdMatch = R.path(['params', 'gameId'], match)
   React.useEffect(() => {
-    if (gameIdMatch) dispatch(actions.game.id.create.update(gameIdMatch))
+    if (gameIdMatch && gameIdMatch !== storedGameId) {
+      dispatch(actions.game.id.create.update(gameIdMatch))
+    }
   }, [dispatch, gameIdMatch])
 
-  const storedGameId = useSelector(selectors.getGameId)
+  // Keep Redux hasConspiracy in sync with Firebase
+  const hasConspiracy = useFirebaseDatabaseValue(`games/${storedGameId}/hasConspiracy`)
+  React.useEffect(() => {
+    if (!R.isNil(hasConspiracy)) {
+      dispatch(actions.game.hasConspiracy.create.update(hasConspiracy))
+    }
+  }, [dispatch, hasConspiracy])
+
+  // Keep Redux victim in sync with Firebase
+  const victim = useFirebaseDatabaseValue(`games/${storedGameId}/victim`)
+  React.useEffect(() => {
+    if (!R.isNil(victim)) {
+      dispatch(actions.game.victim.create.update(victim))
+    }
+  }, [dispatch, victim])
+
+  // Keep Redux game players in sync with Firebase
   const gamePlayers = useGamePlayers(storedGameId)
   React.useEffect(() => {
     dispatch(actions.game.players.create.update(gamePlayers))
@@ -25,7 +45,7 @@ function Game({ match }) {
   const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
 
   if (isStarted) {
-    return <div>Started this game already</div>
+    return <GameOngoing />
   } else return (
     <GamePrestart />
   )

@@ -1,16 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import GameRole from '../role';
-import GamePlayers from '../players';
 import { ROUTES } from '../../../constants/routes';
+import GameRole from '../role';
 
-function GamePrestart() {
+function GameOngoing() {
   return (
     <Switch>
-      <Route path={ROUTES.GamePlayers} component={GamePlayers} />
+      <Route path={ROUTES.GameRole} component={GameRole} />
       <Route path="/" component={GameRole} />
     </Switch>
   )
 }
 
-export default GamePrestart;
+export default GameOngoing;
