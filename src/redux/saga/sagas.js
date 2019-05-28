@@ -12,7 +12,7 @@ export function* assignRoles() {
   const gameId = yield select(selectors.getGameId)
   const effect = shouldBeConspiracy(playerIds.length)
     ? call(rolesConspiracy, playerIds, gameId)
-    : call(rolesNoConspiracy, playerIds)
+    : call(rolesNoConspiracy, playerIds, gameId)
   yield effect
 }
 
@@ -120,8 +120,8 @@ function* assignToAll(props = {}, playerIds = []) {
 }
 
 function* produceGameResult() {
-  const isConspiracy = yield select(selectors.getGameHasConspiracy)
-  yield isConspiracy
+  const hasConspiracy = yield select(selectors.getGameHasConspiracy)
+  yield hasConspiracy
     ? call(produceGameResultFromConspiracy)
     : call(produceGameResultFromNoConspiracy)
 }
@@ -165,9 +165,12 @@ function* rolesConspiracy(playerIds, gameId) {
   ])
 }
 
-function* rolesNoConspiracy(playerIds) {
+function* rolesNoConspiracy(playerIds, gameId) {
   console.log("no conspiracy")
-  yield call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
+  yield all([
+    call(updateGame, { key: gameId, hasConspiracy: false }),
+    call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
+  ])
 }
 
 function* setVictimOfGame(playerId, gameId) {
@@ -199,10 +202,11 @@ updatePlayer.TRIGGER = "TRIGGER_SAGA: updatePlayer"
 updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 
 export const sagas = [
-  takeEvery(updateGame.TRIGGER, updateGame),
-  takeEvery(updatePlayer.TRIGGER, updatePlayer),
-  takeLatest(joinGame.TRIGGER, joinGame),
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
-  takeLeading(startGame.TRIGGER, startGame)
+  takeLeading(endGame.TRIGGER, endGame),
+  takeLatest(joinGame.TRIGGER, joinGame),
+  takeLeading(startGame.TRIGGER, startGame),
+  takeEvery(updateGame.TRIGGER, updateGame),
+  takeEvery(updatePlayer.TRIGGER, updatePlayer)
 ]
