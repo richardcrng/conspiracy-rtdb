@@ -15,7 +15,7 @@ export function* assignRoles() {
   yield effect
 }
 
-export function* createGame({ payload: { host, name } }) {
+export function* createGame({ payload: { host, name, history } }) {
   const key = generatePushID()  // key for game
 
   const gameConfig = { key, host, name, isInSignups: true }
@@ -31,6 +31,8 @@ export function* createGame({ payload: { host, name } }) {
   }
 
   yield call(updateGame, { key, ...gameConfig })
+
+  if (history) history.push(`/game/${key}/players`)
 
   return key
 }

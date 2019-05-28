@@ -6,6 +6,7 @@ import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import selectors from '../../../redux/selectors';
 import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
+import GameOngoing from './ongoing';
 
 function Game({ match }) {
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ function Game({ match }) {
   const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
 
   if (isStarted) {
-    return <div>Started this game already</div>
+    return <GameOngoing />
   } else return (
     <GamePrestart />
   )
