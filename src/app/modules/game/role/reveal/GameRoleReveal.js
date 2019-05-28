@@ -15,7 +15,7 @@ function GameRoleReveal() {
 function GameRoleRevealed() {
   const isInnocent = useCurrentPlayerIsInnocent()
   const hasConspiracy = useSelector(selectors.getGameHasConspiracy)
-  const victim = useSelector(selectors.getGameVictim)
+  const victim = useSelector(selectors.getGameVictimName)
 
   if (isInnocent) {
     return (
@@ -28,7 +28,6 @@ function GameRoleRevealed() {
   } else {
     return <p>Loading...</p>
   }
-
 }
 
 export default GameRoleReveal;
