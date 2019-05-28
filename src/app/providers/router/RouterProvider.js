@@ -5,10 +5,9 @@ const RouterContext = React.createContext()
 RouterContext.displayName = "RouterContext"
 
 function useRouter() {
-  const { match, location, history } = React.useContext(RouterContext)
+  const { location, history } = React.useContext(RouterContext)
 
   return {
-    match,
     location,
     history
   }
@@ -24,9 +23,9 @@ function RouterProvider({ children }) {
   )
 }
 
-function RouterConsumer({ match, location, history, children }) {
+function RouterConsumer({ location, history, children }) {
   return (
-    <RouterContext.Provider value={{ match, location, history }}>
+    <RouterContext.Provider value={{ location, history }}>
       {children}
     </RouterContext.Provider>
   )
