@@ -67,12 +67,27 @@ export const getGameVictimName = createSelector(
   R.prop('name')
 )
 
+export const getGameVictimVote = createSelector(
+  getGameVictim,
+  R.prop('vote')
+)
+
 export const getGamePlayersAllVoting = createSelector(
   getGamePlayersArray,
   players => (
     players.length >= 1
     && R.all(R.prop('isVoting'))(players)
   )
+)
+
+export const getGameIsStarted = createSelector(
+  getGame,
+  R.prop('isStarted')
+)
+
+export const getGameIsComplete = createSelector(
+  getGame,
+  R.prop('isComplete')
 )
 
 export const getIsDayInGame = createSelector(

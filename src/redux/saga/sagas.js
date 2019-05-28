@@ -5,13 +5,14 @@ import { makeActionCreator } from "redux-leaves";
 import { shouldBeConspiracy } from "../../helpers/conspiracy";
 import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
+import { VOTES } from '../../app/constants/votes';
 
 export function* assignRoles() {
   const playerIds = yield select(selectors.getGamePlayersIds)
   const gameId = yield select(selectors.getGameId)
   const effect = shouldBeConspiracy(playerIds.length)
     ? call(rolesConspiracy, playerIds, gameId)
-    : call(rolesNoConspiracy, playerIds)
+    : call(rolesNoConspiracy, playerIds, gameId)
   yield effect
 }
 
@@ -27,7 +28,7 @@ export function* createGame({ payload: { host, name, history } }) {
         priority: generatePushID()
       }
     }
-    yield call(updatePlayer, { key: host, currentGame: key, isHost: true })
+    yield call(updatePlayer, { key: host, currentGame: key, isHost: true, vote: null, isVoting: null })
   }
 
   yield call(updateGame, { key, ...gameConfig })
@@ -35,6 +36,15 @@ export function* createGame({ payload: { host, name, history } }) {
   if (history) history.push(`/game/${key}/players`)
 
   return key
+}
+
+export function* endGame() {
+  const gameId = yield select(selectors.getGameId)
+  const playerIds = yield select(selectors.getGamePlayersIds)
+  yield call(updateGame, { key: gameId, isDay: false })
+  yield call(produceGameResult)
+  yield call(updateGame, { key: gameId, isComplete: true })
+  yield call(assignToAll, { vote: null, isVoting: null }, playerIds)
 }
 
 export function* getFirebase() {
@@ -72,6 +82,11 @@ export function* updatePlayer(arg) {
   }
 }
 
+export function* updateGamePlayer({ gameKey, playerKey, ...props }) {
+  const firebase = yield getFirebase()
+  yield references.getPlayersByGameKey(gameKey, firebase).child(playerKey).update(props)
+}
+
 function* addPlayerToGame(arg) {
   const firebase = yield getFirebase()
   const [playerKey, gameKey] = yield call(argToPlayerAndGameKey, arg)
@@ -107,6 +122,44 @@ function* assignToAll(props = {}, playerIds = []) {
   )))
 }
 
+function* produceGameResult() {
+  const hasConspiracy = yield select(selectors.getGameHasConspiracy)
+  yield hasConspiracy
+    ? call(produceGameResultFromConspiracy)
+    : call(produceGameResultFromNoConspiracy)
+}
+
+function* produceGameResultFromConspiracy() {
+  const gameKey = yield select(selectors.getGameId)
+  const playersArr = yield select(selectors.getGamePlayersArray)
+  const victimVote = yield select(selectors.getGameVictimVote)
+  let victoryFn
+  if (victimVote === VOTES.conspiracy) {
+    victoryFn = ({ key: playerKey, vote, isInnocent }) => (
+      isInnocent
+        ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+        : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+    )
+  } else {
+    victoryFn = ({ key: playerKey, vote, isInnocent }) => (
+      isInnocent
+        ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+        : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+    )
+  }
+  yield all(playersArr.map(victoryFn))
+}
+
+function* produceGameResultFromNoConspiracy() {
+  const gameKey = yield select(selectors.getGameId)
+  const playersArr = yield select(selectors.getGamePlayersArray)
+  yield all(playersArr.map(({ key: playerKey, vote }) => (
+    vote === VOTES.noConspiracy
+      ? call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: true }))
+      : call(updateGamePlayer, ({ gameKey, playerKey, vote, winner: false }))
+  )))
+}
+
 function* rolesConspiracy(playerIds, gameId) {
   const [victim, ...conspirators] = _.shuffle(playerIds)
   yield all([
@@ -115,9 +168,12 @@ function* rolesConspiracy(playerIds, gameId) {
   ])
 }
 
-function* rolesNoConspiracy(playerIds) {
+function* rolesNoConspiracy(playerIds, gameId) {
   console.log("no conspiracy")
-  yield call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
+  yield all([
+    call(updateGame, { key: gameId, hasConspiracy: false }),
+    call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
+  ])
 }
 
 function* setVictimOfGame(playerId, gameId) {
@@ -133,6 +189,9 @@ assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
 
+endGame.TRIGGER = "TRIGGER_SAGA: endGame"
+endGame.trigger = makeActionCreator(endGame.TRIGGER)
+
 joinGame.TRIGGER = "TRIGGER_SAGA: joinGame"
 joinGame.trigger = makeActionCreator(joinGame.TRIGGER)
 
@@ -146,10 +205,11 @@ updatePlayer.TRIGGER = "TRIGGER_SAGA: updatePlayer"
 updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 
 export const sagas = [
-  takeEvery(updateGame.TRIGGER, updateGame),
-  takeEvery(updatePlayer.TRIGGER, updatePlayer),
-  takeLatest(joinGame.TRIGGER, joinGame),
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
-  takeLeading(startGame.TRIGGER, startGame)
+  takeLeading(endGame.TRIGGER, endGame),
+  takeLatest(joinGame.TRIGGER, joinGame),
+  takeLeading(startGame.TRIGGER, startGame),
+  takeEvery(updateGame.TRIGGER, updateGame),
+  takeEvery(updatePlayer.TRIGGER, updatePlayer)
 ]
