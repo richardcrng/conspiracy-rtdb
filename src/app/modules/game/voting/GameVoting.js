@@ -1,9 +1,13 @@
 import React from 'react';
-import GameVotingVotes from './votes';
+import GameVotingTable from './table';
+import GameVotingVote from './vote';
 
 function GameVoting() {
   return (
-    <GameVotingVotes />
+    <>
+      <GameVotingTable />
+      <GameVotingVote />
+    </>
   )
 }
 
