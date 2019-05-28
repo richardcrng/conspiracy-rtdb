@@ -22,3 +22,8 @@ export const getGamePlayersIds = createSelector(
   getGamePlayers,
   players => Object.keys(players)
 )
+
+export const getGameHasConspiracy = createSelector(
+  getGame,
+  game => game.hasConspiracy
+)
