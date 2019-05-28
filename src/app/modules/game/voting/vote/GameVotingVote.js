@@ -3,14 +3,20 @@ import { useDispatch } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import classes from './GameVotingVote.module.css'
 import { updatePlayer } from '../../../../../redux/saga/sagas';
-import { useFirebaseUserUid } from 'provide-firebase-middleware/dist/hooks';
+import { useFirebaseUserUid, useFirebaseDatabaseValue } from 'provide-firebase-middleware/dist/hooks';
 
 function GameVotingVote() {
   const dispatch = useDispatch()
   const key = useFirebaseUserUid()
+  const voteCast = useFirebaseDatabaseValue(`players/${key}/vote`)
+  const hasVoted = useFirebaseDatabaseValue(`players/${key}/isVoting`)
 
   const updateVoteHandler = ({ vote = null, isVoting = true }) => () => {
-    dispatch(updatePlayer.trigger({ key, isVoting, vote }))
+    if (voteCast && vote === voteCast) {
+      dispatch(updatePlayer.trigger({ key, vote: null, isVoting: false }))
+    } else {
+      dispatch(updatePlayer.trigger({ key, isVoting, vote }))
+    }
   }
 
   return (
@@ -18,14 +24,16 @@ function GameVotingVote() {
       <GameVotingVoteButton
         onClick={updateVoteHandler({ vote: 'conspiracy' })}
         text="CONSPIRACY"
-        color="red"
+        color={voteCast === 'conspiracy' ? 'red' : null}
       />
       <GameVotingVoteButton
         onClick={updateVoteHandler({ vote: 'noConspiracy' })}
         text="NO CONSPIRACY"
-        color="green"
+        color={voteCast === 'noConspiracy' ? 'green' : null}
       />
       <GameVotingVoteButton
+        disabled={!hasVoted}
+        secondary
         onClick={updateVoteHandler({ isVoting: false })}
         text="WITHDRAW VOTE"
       />

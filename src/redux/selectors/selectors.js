@@ -14,6 +14,17 @@ export const getGamePlayers = createSelector(
   game => game.players
 )
 
+export const getPlayerFromUid = createSelector(
+  getGamePlayers,
+  getUid,
+  (players, uid) => R.prop(uid, players)
+)
+
+export const getIsVotingFromUid = createSelector(
+  getPlayerFromUid,
+  player => R.prop('isVoting', player)
+)
+
 export const getGamePlayersArray = createSelector(
   getGamePlayers,
   players => R.sortBy(R.prop('priority'), Object.values(players))
