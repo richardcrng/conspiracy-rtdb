@@ -33,8 +33,6 @@ function Game({ match }) {
     if (rest) dispatch(actions.game.create.assign(rest))
   }, [dispatch, rest])
 
-  return <GameOngoing />
-
   if (isStarted) {
     return <GameOngoing />
   } else return (

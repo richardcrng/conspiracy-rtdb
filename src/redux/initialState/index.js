@@ -8,6 +8,7 @@ export const intialState = {
     hasConspiracy: null,
     isInSignups: null,
     isStarted: null,
+    isDay: null,
     isComplete: null,
     victim: null
   }

@@ -53,7 +53,7 @@ export function* startGame() {
   const gameId = yield select(selectors.getGameId)
   yield all([
     call(assignRoles),
-    call(updateGame, { key: gameId, isStarted: true })
+    call(updateGame, { key: gameId, isStarted: true, isDay: true })
   ])
 }
 
