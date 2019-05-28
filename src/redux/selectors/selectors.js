@@ -17,3 +17,8 @@ export const getGamePlayersArray = createSelector(
   getGamePlayers,
   players => R.sortBy(R.prop('priority'), Object.values(players))
 )
+
+export const getGamePlayersIds = createSelector(
+  getGamePlayers,
+  players => Object.keys(players)
+)
