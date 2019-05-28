@@ -1,4 +1,5 @@
 export const intialState = {
+  uid: null,
   game: {
     id: null,
     players: {},

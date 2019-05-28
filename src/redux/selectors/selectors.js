@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { createSelector } from "reselect";
 
 export const getGame = state => state.game
+export const getUid = state => state.uid
 
 export const getGameId = createSelector(
   getGame,
