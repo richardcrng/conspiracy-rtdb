@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
+import GameVotingTableItem from './item';
 
 function GameVotingTable() {
   const gamePlayersArr = useSelector(selectors.getGamePlayersArray)
@@ -14,10 +15,7 @@ function GameVotingTable() {
           <Grid.Column><Header>Vote</Header></Grid.Column>
         </Grid.Row>
         {gamePlayersArr.map(({ key, name, isVoting }) => (
-          <Grid.Row key={key}>
-            <Grid.Column><p>{name}</p></Grid.Column>
-            <Grid.Column><p>{isVoting && "YES"}</p></Grid.Column>
-          </Grid.Row>
+          <GameVotingTableItem key={key} {...{ name, isVoting }} />
         ))}
       </Grid>
     </div>
