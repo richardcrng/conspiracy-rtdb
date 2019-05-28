@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
 import App from './app/App';
@@ -9,14 +8,15 @@ import * as serviceWorker from './serviceWorker';
 
 import { store } from './redux/store';
 import { FirebaseProvider } from './firebase';
+import RouterProvider from './app/providers/router/RouterProvider';
 
 function Root() {
   return (
     <FirebaseProvider>
       <Provider store={store}>
-        <BrowserRouter>
+        <RouterProvider>
           <App />
-        </BrowserRouter>
+        </RouterProvider>
       </Provider>
     </FirebaseProvider>
   )
