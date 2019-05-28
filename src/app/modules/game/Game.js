@@ -8,18 +8,18 @@ import GamePrestart from './prestart';
 import useGamePlayers from '../../../helpers/hooks/gamePlayers';
 import GameOngoing from './ongoing';
 
-function Game({ match }) {
+function Game() {
   const dispatch = useDispatch()
   const storedGameId = useSelector(selectors.getGameId)
   const isStarted = useFirebaseDatabaseValue(`games/${storedGameId}/isStarted`)
   
-  // Set game Id from match
-  const gameIdMatch = R.path(['params', 'gameId'], match)
-  React.useEffect(() => {
-    if (gameIdMatch && gameIdMatch !== storedGameId) {
-      dispatch(actions.game.id.create.update(gameIdMatch))
-    }
-  }, [dispatch, gameIdMatch])
+  // // Set game Id from match
+  // const gameIdMatch = R.path(['params', 'gameId'], match)
+  // React.useEffect(() => {
+  //   if (gameIdMatch && gameIdMatch !== storedGameId) {
+  //     dispatch(actions.game.id.create.update(gameIdMatch))
+  //   }
+  // }, [dispatch, gameIdMatch])
 
   // Keep Redux game players in sync with Firebase
   const gamePlayers = useGamePlayers(storedGameId)
@@ -28,7 +28,7 @@ function Game({ match }) {
   }, [dispatch, gamePlayers])
 
   // Keep Redux game other props in sync with Firebase game
-  const { players, key, ...rest } = useFirebaseDatabaseValue(`games/${storedGameId}`) || {}
+  const { players, ...rest } = useFirebaseDatabaseValue(`games/${storedGameId}`) || {}
   React.useEffect(() => {
     if (rest) dispatch(actions.game.create.assign(rest))
   }, [dispatch, rest])

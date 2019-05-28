@@ -6,7 +6,7 @@ export const getUid = state => state.uid
 
 export const getGameId = createSelector(
   getGame,
-  game => game.id
+  game => game.key
 )
 
 export const getGameHost = createSelector(
@@ -73,4 +73,9 @@ export const getGamePlayersAllVoting = createSelector(
     players.length >= 1
     && R.all(R.prop('isVoting'))(players)
   )
+)
+
+export const getIsDayInGame = createSelector(
+  getGame,
+  R.prop('isDay')
 )

@@ -1,7 +1,7 @@
 export const intialState = {
   uid: null,
   game: {
-    id: null,
+    key: null,
     host: null,
     name: '',
     players: {},
