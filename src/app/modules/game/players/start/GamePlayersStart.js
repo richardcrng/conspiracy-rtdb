@@ -1,25 +1,29 @@
 import * as R from 'ramda'
 import React from 'react';
-import { useStateHandlers } from 'provide-firebase-middleware';
 import GamePlayerStartMessage from './message';
-import GamePlayersStartButton from './button';
+import { useSelector, useDispatch } from 'react-redux';
+import selectors from '../../../../../redux/selectors';
+import ButtonCentreBottom from '../../../../../lib/molecules/ButtonCentreBottom';
+import { startGame } from '../../../../../redux/saga/sagas';
 
-function GamePlayersStart({ gamePlayers }) {  
-  // playersReady is boolean based on gamePlayers' isReady props
-  const [playersReady, { set: setPlayersReady }] = useStateHandlers(false)
-  React.useEffect(() => {
-    // Check if every gamePlayer isReady and has connections
-    const gamePlayersReady = R.all(
-      R.both(R.prop('isReady'), R.prop('connections')),
-      Object.values(gamePlayers)
-    )
-    setPlayersReady(gamePlayersReady)
-  }, [gamePlayers, setPlayersReady])
+function GamePlayersStart() {  
+  const dispatch = useDispatch()
+  const isHost = useSelector(selectors.getIsUserHost)
+  const allReady = useSelector(selectors.getGamePlayersAllReady)
 
   return (
     <>
-      <GamePlayerStartMessage ready={playersReady} />
-      <GamePlayersStartButton ready={playersReady} />
+      <GamePlayerStartMessage />
+      <ButtonCentreBottom
+        disabled={!allReady || !isHost}
+        onClick={() => {
+          if (allReady) {
+            dispatch(startGame.trigger())
+          }
+        }}
+      >
+        Start
+      </ButtonCentreBottom>
     </>
   )
 }

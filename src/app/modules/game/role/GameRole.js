@@ -1,22 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import GameRoleReveal from './reveal';
 import { ROUTES } from './../../../constants/routes';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
 import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import classes from './GameRole.module.css'
 
 function GameRole() {
   const name = useSelector(selectors.getUserName)
 
+  const [revealed, setRevealed] = React.useState(false)
+
   return (
-    <div>
-      <p style={{ fontSize: "120%", fontWeight: "bold" }}>{name}</p>
-      <GameRoleReveal />
+    <div className={classes.GameRole}>
+      <h1>{name}</h1>
+      <GameRoleReveal {...{ revealed, setRevealed }} />
       <ButtonCentreBottom
+        disabled={!revealed}
         to={ROUTES.GameVoting}
-        text="Voting"
+        text="To Voting"
       />
     </div>
   )

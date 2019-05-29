@@ -10,12 +10,17 @@ function GamePlayersReadyToggle() {
   const isReady = useSelector(selectors.getIsUserReady)
 
   return (
-    <Checkbox
-      label="Ready"
-      onChange={() => dispatch(updatePlayer.trigger({ key, isReady: !isReady }))}
-      toggle
-      checked={Boolean(isReady)}
-    />
+    <div
+      className="d-flex justify-content-center"
+      style={{ position: "fixed", bottom: "100px", left: 0, right: 0 }}
+    >
+      <Checkbox
+        label="Ready"
+        onChange={() => dispatch(updatePlayer.trigger({ key, isReady: !isReady }))}
+        toggle
+        checked={Boolean(isReady)}
+      />
+    </div>
   )
 }
 

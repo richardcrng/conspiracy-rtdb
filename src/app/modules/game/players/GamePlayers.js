@@ -22,7 +22,7 @@ function GamePlayers() {
         gamePlayers
       )}
       <GamePlayersReadyToggle />
-      {isHost && <GamePlayersStart {...{ gameId, gamePlayers }} />}
+      {<GamePlayersStart />}
     </>
   )
 }

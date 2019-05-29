@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { startGame } from '../../../../../../redux/saga/sagas';
 import ButtonCentreBottom from '../../../../../../lib/molecules/ButtonCentreBottom';
 
-function GamePlayersStartButton({ ready }) {
+function GamePlayersStartButton({ ready, isHost }) {
   const dispatch = useDispatch()
 
   return (
     <ButtonCentreBottom
-      disabled={!ready}
+      disabled={!ready || !isHost}
       onClick={() => {
         if (ready) {
           dispatch(startGame.trigger())
