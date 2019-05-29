@@ -4,6 +4,7 @@ import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import LobbyItem from './item';
 import { ROUTES } from '../../constants/routes';
 import LinkButton from '../../../lib/molecules/LinkButton';
+import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 
 function Lobby() {
   const games = useFirebaseDatabaseValue('games')
@@ -20,10 +21,10 @@ function Lobby() {
         />
       ))}
       <div className="CenterBottom">
-        <LinkButton
+        <ButtonCentreBottom
           primary
           size="huge"
-          text="Create"
+          text="Host new"
           to={ROUTES.SetupGame}
         />
       </div>

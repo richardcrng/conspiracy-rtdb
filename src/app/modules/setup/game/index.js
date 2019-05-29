@@ -4,6 +4,7 @@ import { Button, Input } from 'semantic-ui-react';
 import { useFirebaseUserUid } from 'provide-firebase-middleware';
 import { createGame } from '../../../../redux/saga/sagas';
 import { useRouter } from '../../../providers/router/RouterProvider';
+import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 
 function SetupGame() {
   const dispatch = useDispatch()
@@ -13,17 +14,19 @@ function SetupGame() {
 
   return (
     <>
-      <h1>Create Game</h1>
+      <h1>Host New Game</h1>
       <Input
         onChange={(e, data) => setName(data.value)}
         placeholder="Game name"
         value={name}
       />
-      <Button onClick={() => {
-        dispatch(createGame.trigger({ host, name, history }))
-      }}>
-        Submit
-      </Button>
+      <div className="CenterBottom">
+        <ButtonCentreBottom onClick={() => {
+          dispatch(createGame.trigger({ host, name, history }))
+        }}>
+          Submit
+      </ButtonCentreBottom>
+      </div>
     </>
   )
 }
