@@ -1,5 +1,4 @@
 import React from 'react';
-import useCurrentPlayerIsInnocent from '../../../../../helpers/hooks/currentPlayerIsInnocent';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
 import { Button } from 'semantic-ui-react';
@@ -13,7 +12,7 @@ function GameRoleReveal() {
 }
 
 function GameRoleRevealed() {
-  const isInnocent = useCurrentPlayerIsInnocent()
+  const isInnocent = useSelector(selectors.getIsUserInnocent)
   const hasConspiracy = useSelector(selectors.getGameHasConspiracy)
   const victim = useSelector(selectors.getGameVictimName)
 
