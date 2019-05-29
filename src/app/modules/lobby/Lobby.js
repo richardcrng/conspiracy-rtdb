@@ -3,11 +3,15 @@ import React from 'react';
 import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import LobbyItem from './item';
 import { ROUTES } from '../../constants/routes';
-import LinkButton from '../../../lib/molecules/LinkButton';
 import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 
 function Lobby() {
-  const games = useFirebaseDatabaseValue('games')
+  const games = useFirebaseDatabaseValue('games', {
+    orderByChild: "isComplete",
+    equalTo: false
+  })
+
+  console.log(games)
 
   return (
     <>

@@ -57,7 +57,7 @@ function ProtectedSync() {
       const updateGame = () => {
         dispatch(actions.game.create.update({ ...game, players }))
       }
-      const gameRef = references.getGameByKey(uid, firebase)
+      const gameRef = references.getGameByKey(gameKey, firebase)
       gameRef.on('value', updateGame)
 
       return function cleanup() {

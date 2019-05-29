@@ -8,18 +8,24 @@ import { references } from '../../firebase';
 import { VOTES } from '../../app/constants/votes';
 
 export function* assignRoles() {
-  const playerIds = yield select(selectors.getGamePlayersIds)
-  const gameId = yield select(selectors.getGameId)
-  const effect = shouldBeConspiracy(playerIds.length)
-    ? call(rolesConspiracy, playerIds, gameId)
-    : call(rolesNoConspiracy, playerIds, gameId)
+  const playerKeys = yield select(selectors.getGamePlayersKeys)
+  const gameKey = yield select(selectors.getGameKey)
+  const effect = shouldBeConspiracy(playerKeys.length)
+    ? call(rolesConspiracy, playerKeys, gameKey)
+    : call(rolesNoConspiracy, playerKeys, gameKey)
   yield effect
 }
 
 export function* createGame({ payload: { host, name, history } }) {
   const key = generatePushID()  // key for game
 
-  const gameConfig = { key, host, name, isInSignups: true }
+  const gameConfig = {
+    key,
+    host,
+    name,
+    isInSignups: true,
+    isComplete: false     // so we can filter by this
+  }
 
   if (host) {
     gameConfig.players = {
@@ -39,12 +45,12 @@ export function* createGame({ payload: { host, name, history } }) {
 }
 
 export function* endGame() {
-  const gameId = yield select(selectors.getGameId)
-  const playerIds = yield select(selectors.getGamePlayersIds)
-  yield call(updateGame, { key: gameId, isDay: false })
+  const gameKey = yield select(selectors.getGameKey)
+  const playerKeys = yield select(selectors.getGamePlayersKeys)
+  yield call(updateGame, { key: gameKey, isDay: false })
   yield call(produceGameResult)
-  yield call(updateGame, { key: gameId, isComplete: true })
-  yield call(assignToAll, { vote: null, isVoting: null }, playerIds)
+  yield call(updateGame, { key: gameKey, isComplete: true })
+  yield call(assignToAll, { vote: null, isVoting: null }, playerKeys)
 }
 
 export function* getFirebase() {
@@ -60,26 +66,25 @@ export function* joinGame(arg) {
 }
 
 export function* startGame() {
-  const gameId = yield select(selectors.getGameId)
+  const gameKey = yield select(selectors.getGameKey)
   yield all([
     call(assignRoles),
-    call(updateGame, { key: gameId, isStarted: true, isDay: true })
+    call(updateGame, { key: gameKey, isStarted: true, isDay: true })
   ])
 }
 
 export function* updateGame(arg) {
   let firebase = yield getFirebase()
   const [key, props] = yield call(argToKeyAndRest, arg)
+  if (!key) return
   yield references.getGameByKey(key, firebase).update({ key, ...props })
 }
 
 export function* updatePlayer(arg) {
   let firebase = yield getFirebase()
   const [key, props] = yield call(argToKeyAndRest, arg)
+  if (!key) return
   yield references.getPlayerByKey(key, firebase).update({ key, ...props })
-  if (props.name) {
-    yield firebase.auth().currentUser.updateProfile({ displayName: props.name })
-  }
 }
 
 export function* updateGamePlayer({ gameKey, playerKey, ...props }) {
@@ -116,8 +121,8 @@ function argToPlayerAndGameKey(arg) {
   return [playerKey, gameKey]
 }
 
-function* assignToAll(props = {}, playerIds = []) {
-  yield all(playerIds.map(id => (
+function* assignToAll(props = {}, playerKeys = []) {
+  yield all(playerKeys.map(id => (
     call(updatePlayer, { key: id, ...props })
   )))
 }
@@ -130,7 +135,7 @@ function* produceGameResult() {
 }
 
 function* produceGameResultFromConspiracy() {
-  const gameKey = yield select(selectors.getGameId)
+  const gameKey = yield select(selectors.getGameKey)
   const playersArr = yield select(selectors.getGamePlayersArray)
   const victimVote = yield select(selectors.getGameVictimVote)
   let victoryFn
@@ -151,7 +156,7 @@ function* produceGameResultFromConspiracy() {
 }
 
 function* produceGameResultFromNoConspiracy() {
-  const gameKey = yield select(selectors.getGameId)
+  const gameKey = yield select(selectors.getGameKey)
   const playersArr = yield select(selectors.getGamePlayersArray)
   yield all(playersArr.map(({ key: playerKey, vote }) => (
     vote === VOTES.noConspiracy
@@ -160,26 +165,26 @@ function* produceGameResultFromNoConspiracy() {
   )))
 }
 
-function* rolesConspiracy(playerIds, gameId) {
-  const [victim, ...conspirators] = _.shuffle(playerIds)
+function* rolesConspiracy(playerKeys, gameKey) {
+  const [victim, ...conspirators] = _.shuffle(playerKeys)
   yield all([
-    call(setVictimOfGame, victim, gameId),
+    call(setVictimOfGame, victim, gameKey),
     call(assignToAll, { isInnocent: false, isVoting: false, vote: null }, conspirators)
   ])
 }
 
-function* rolesNoConspiracy(playerIds, gameId) {
+function* rolesNoConspiracy(playerKeys, gameKey) {
   console.log("no conspiracy")
   yield all([
-    call(updateGame, { key: gameId, hasConspiracy: false }),
-    call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerIds)
+    call(updateGame, { key: gameKey, hasConspiracy: false }),
+    call(assignToAll, { isInnocent: true, isVoting: false, vote: null }, playerKeys)
   ])
 }
 
-function* setVictimOfGame(playerId, gameId) {
+function* setVictimOfGame(playerKey, gameKey) {
   yield all([
-    call(updatePlayer, { key: playerId, isInnocent: true, isVoting: false, vote: null }),
-    call(updateGame, { key: gameId, hasConspiracy: true, victim: playerId })
+    call(updatePlayer, { key: playerKey, isInnocent: true, isVoting: false, vote: null }),
+    call(updateGame, { key: gameKey, hasConspiracy: true, victim: playerKey })
   ])
 }
 

@@ -62,5 +62,5 @@ export const getIsAtLeastOneGamePlayer = createSelector(
 export const getGamePlayersAllNonTriviallyVoting = createSelector(
   getGamePlayersAllVoting,
   getGamePlayersArray,
-  R.both
+  R.and
 )
