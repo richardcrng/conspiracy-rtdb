@@ -11,8 +11,6 @@ function Lobby() {
     equalTo: false
   })
 
-  console.log(games)
-
   return (
     <>
       <h1>Games available</h1>
