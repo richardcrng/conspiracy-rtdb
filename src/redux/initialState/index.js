@@ -11,5 +11,17 @@ export const intialState = {
     isDay: null,
     isComplete: null,
     victim: null
+  },
+  player: {
+    key: null,
+    name: null,
+    connections: {},
+    currentGame: null,
+    gamesCompleted: [],
+    isHost: null,
+    isInnocent: null,
+    isReady: null,
+    isVoting: null,
+    vote: null
   }
 }
