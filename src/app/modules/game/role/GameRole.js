@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
 
 function GameRole() {
-  const name = useSelector(selectors.getName)
+  const name = useSelector(selectors.getUserName)
 
   return (
     <div>

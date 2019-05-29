@@ -6,7 +6,7 @@ import { endGame } from '../../../../redux/saga/sagas';
 function GameModerator() {
   const dispatch = useDispatch()
   const isDay = useSelector(selectors.getIsDayInGame)
-  const allVoting = useSelector(selectors.getGamePlayersAllVoting)
+  const allVoting = useSelector(selectors.getGamePlayersAllNonTriviallyVoting)
 
   React.useEffect(() => {
     if (isDay && allVoting) {

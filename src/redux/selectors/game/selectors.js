@@ -51,12 +51,16 @@ export const getGameVictimVote = getGameVictimProp('vote')
 
 export const getGamePlayersAllVoting = createSelector(
   getGamePlayersArray,
-  R.both(
-    R.compose(R.gt(R.__, 1), R.length), // players.length >= 1
-    R.all(R.prop('isVoting'))           // all have truthy 'isVoting' prop
-  )
-  // players => (
-  //   players.length >= 1
-  //   && R.all(R.prop('isVoting'))(players)
-  // )
+  R.all(R.prop('isVoting'))
+)
+
+export const getIsAtLeastOneGamePlayer = createSelector(
+  getGamePlayersArray,
+  R.compose(R.gte(R.__, 1), R.length)
+)
+
+export const getGamePlayersAllNonTriviallyVoting = createSelector(
+  getGamePlayersAllVoting,
+  getGamePlayersArray,
+  R.both
 )
