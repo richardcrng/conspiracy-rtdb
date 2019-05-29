@@ -66,7 +66,8 @@ export function* joinGame(arg) {
 }
 
 export function* startGame() {
-  const gameKey = yield select(selectors.getGameKey)
+  // User is host, so game to start is their current game
+  const gameKey = yield select(selectors.getUserCurrentGame)
   yield all([
     call(assignRoles),
     call(updateGame, { key: gameKey, isStarted: true, isDay: true })

@@ -1,14 +1,30 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
-import { Button } from 'semantic-ui-react';
+import { Button, Header } from 'semantic-ui-react';
 
-function GameRoleReveal() {
-  const [viewing, setViewing] = React.useState(false)
+function GameRoleReveal({ revealed, setRevealed }) {
 
-  return viewing
+  return revealed
     ? <GameRoleRevealed />
-    : <Button onClick={() => setViewing(true)}>REVEAL</Button>
+    : <GameRoleConcealed onClick={() => setRevealed(true)} />
+}
+
+function GameRoleConcealed({ onClick }) {
+  return (
+    <div
+      className="d-flex justify-content-center"
+      style={{ position: "fixed", bottom: "120px", left: "0", right: "0" }}
+    >
+      <Button
+        size="huge"
+        secondary
+        onClick={onClick}
+      >
+        Reveal role
+      </Button>
+    </div>
+  )
 }
 
 function GameRoleRevealed() {
@@ -22,7 +38,12 @@ function GameRoleRevealed() {
     )
   } else if (hasConspiracy) {
     return (
-      <p>You are in a conspiracy against {victim}!</p>
+      <>
+        <p>You are in a</p>
+        <Header size="large">CONSPIRACY</Header>
+        <p>against</p>
+        <Header size="large">{victim}</Header>
+      </>
     )
   } else {
     return <p>Loading...</p>
