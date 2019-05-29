@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button } from 'semantic-ui-react';
 import { startGame } from '../../../../../../redux/saga/sagas';
+import ButtonCentreBottom from '../../../../../../lib/molecules/ButtonCentreBottom';
 
 function GamePlayersStartButton({ ready }) {
   const dispatch = useDispatch()
 
   return (
-    <Button
-      primary
+    <ButtonCentreBottom
       disabled={!ready}
       onClick={() => {
         if (ready) {
@@ -17,7 +16,7 @@ function GamePlayersStartButton({ ready }) {
       }}
     >
       Start
-    </Button>
+    </ButtonCentreBottom>
   )
 }
 
