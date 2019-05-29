@@ -16,6 +16,7 @@ function ProtectedSync() {
   const player = useFirebaseDatabaseValue(`players/${uid}`)
   useEffect(() => {
     if (uid && player) {
+      // User exists as player in database
       const updatePlayer = dataSnapshot => {
         dispatch(actions.user.create.update(dataSnapshot.val()))
       }
@@ -25,6 +26,13 @@ function ProtectedSync() {
       return function cleanup() {
         playerRef.off('value', updatePlayer)
       }
+    } else if (uid) {
+      // User does not exist as player in database - yet
+      const playerRef = references.getPlayerByKey(uid, firebase)
+      playerRef.update({
+        name: user.displayName,
+        key: uid
+      })
     }
   }, [uid, player, dispatch])
 
