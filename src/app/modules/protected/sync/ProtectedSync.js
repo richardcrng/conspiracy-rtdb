@@ -30,10 +30,18 @@ function ProtectedSync() {
     } else if (uid) {
       // User does not exist as player in database - yet
       const playerRef = references.getPlayerByKey(uid, firebase)
-      playerRef.update({
-        name: generateName(),
-        key: uid
-      })
+
+      // Update name after timeout to stop premature overwriting when loading
+      const timeout = setTimeout(() => {
+        playerRef.update({
+          name: generateName(),
+          key: uid
+        })
+      }, 1000);
+
+      return function cleanup() {
+        clearTimeout(timeout)
+      }
     }
   }, [uid, player, dispatch])
 
