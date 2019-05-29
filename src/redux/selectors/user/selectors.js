@@ -12,3 +12,9 @@ export const getIsUserHost = getUserProp('isHost')
 
 export const getIsUserVoting = getUserProp('isVoting')
 export const getIsVotingFromUid = getIsUserVoting // TODO deprecate
+
+export const getUserCurrentGame = getUserProp('currentGame')
+export const getIsUserInCurrentGame = createSelector(
+  getUserCurrentGame,
+  Boolean
+)
