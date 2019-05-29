@@ -2,7 +2,7 @@ import React from 'react';
 import LinkButton from '../LinkButton';
 import classes from './ButtonCentreBottom.module.css'
 
-function ButtonCentreBottom({ children, rest }) {
+function ButtonCentreBottom({ children, ...rest }) {
   return (
     <div className={classes.ButtonCentreBottom}>
       <LinkButton
