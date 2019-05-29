@@ -18,3 +18,5 @@ export const getIsUserInCurrentGame = createSelector(
   getUserCurrentGame,
   Boolean
 )
+
+export const getIsUserReady = getUserProp('isReady')
