@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useFirebaseDatabaseValue, useFirebaseUser, useFirebase } from 'provide-firebase-middleware';
 import { references } from '../../../../firebase';
 import { actions } from '../../../../redux/leaves';
+import useGamePlayers from '../../../../helpers/hooks/gamePlayers';
 
 function ProtectedSync() {
   const dispatch = useDispatch()
@@ -29,11 +30,15 @@ function ProtectedSync() {
 
   // Keep Redux's current game in sync with player's game on Firebase
   const gameKey = R.prop('currentGame', player)
-  const game = useFirebaseDatabaseValue(`games/${gameKey}`)
+  const {
+    players: simplePlayers, // We don't want this: not all information
+    ...game                 // We want everything else
+  } = useFirebaseDatabaseValue(`games/${gameKey}`)
+  const players = useGamePlayers(gameKey) // Use this in place of simplePlayers
   useEffect(() => {
     if (gameKey && game) {
-      const updateGame = dataSnapshot => {
-        dispatch(actions.game.create.update(dataSnapshot.val()))
+      const updateGame = () => {
+        dispatch(actions.game.create.update({ ...game, players }))
       }
       const gameRef = references.getGameByKey(uid, firebase)
       gameRef.on('value', updateGame)
@@ -42,7 +47,7 @@ function ProtectedSync() {
         gameRef.off('value', updateGame)
       }
     }
-  }, [gameKey, game, dispatch])
+  }, [gameKey, game, players, dispatch])
 
   // Keep connections monitored
   useEffect(() => {
