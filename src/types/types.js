@@ -7,7 +7,6 @@
  * @property {string} currentGame - Current game being played by player
  * @property {string[]} gamesCompleted - Array of gameIds completed by the player
  * @property {boolean} isHost - Is the player host of game gameId?
- * @property {boolean} isOnline - Is the player online? 
  * @property {boolean} isInnocent - Is the player innocent?
  * @property {boolean} isReady - Is the player 'ready'?
  * @property {boolean} isVoting - Is the player currently voting?

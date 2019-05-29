@@ -12,7 +12,7 @@ export const intialState = {
     isComplete: null,
     victim: null
   },
-  player: {
+  user: {
     key: null,
     name: null,
     connections: {},
