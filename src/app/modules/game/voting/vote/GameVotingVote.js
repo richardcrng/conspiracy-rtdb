@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import classes from './GameVotingVote.module.css'
 import { updatePlayer } from '../../../../../redux/saga/sagas';
-import { useFirebaseUserUid, useFirebaseDatabaseValue } from 'provide-firebase-middleware/dist/hooks';
 import selectors from '../../../../../redux/selectors';
 
 function GameVotingVote() {
   const dispatch = useDispatch()
-  const key = useFirebaseUserUid()
-  const voteCast = useFirebaseDatabaseValue(`players/${key}/vote`)
-  const hasVoted = useFirebaseDatabaseValue(`players/${key}/isVoting`)
+  const key = useSelector(selectors.getUserKey)
+  const voteCast = useSelector(selectors.getUserVote)
+  const hasVoted = useSelector(selectors.getIsUserVoting)
   const isDay = useSelector(selectors.getIsDayInGame)
 
   const updateVoteHandler = ({ vote = null, isVoting = true }) => () => {

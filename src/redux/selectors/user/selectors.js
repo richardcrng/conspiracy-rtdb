@@ -20,3 +20,4 @@ export const getIsUserInCurrentGame = createSelector(
 )
 
 export const getIsUserReady = getUserProp('isReady')
+export const getUserVote = getUserProp('vote')
