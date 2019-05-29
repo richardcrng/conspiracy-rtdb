@@ -33,7 +33,7 @@ export function* createGame({ payload: { host, name, history } }) {
 
   yield call(updateGame, { key, ...gameConfig })
 
-  if (history) history.push(`/game/${key}/players`)
+  // if (history) history.push(`/game/${key}/players`)
 
   return key
 }
