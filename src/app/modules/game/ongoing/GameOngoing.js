@@ -9,7 +9,7 @@ import GameModerator from '../moderator';
 import GameComplete from '../complete';
 
 function GameOngoing() {
-  const isHost = useSelector(selectors.getIsSelfUidHost)
+  const isHost = useSelector(selectors.getIsUserHost)
 
   return (
     <>
