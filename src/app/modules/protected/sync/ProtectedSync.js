@@ -5,6 +5,7 @@ import { useFirebaseDatabaseValue, useFirebaseUser, useFirebase, generatePushID 
 import { references } from '../../../../firebase';
 import { actions } from '../../../../redux/leaves';
 import useGamePlayers from '../../../../helpers/hooks/gamePlayers';
+import generateName from '../../../../helpers/utils/generateName';
 
 function ProtectedSync() {
   const dispatch = useDispatch()
@@ -30,7 +31,7 @@ function ProtectedSync() {
       // User does not exist as player in database - yet
       const playerRef = references.getPlayerByKey(uid, firebase)
       playerRef.update({
-        name: user.displayName,
+        name: R.defaultTo(generateName(), user.displayName),
         key: uid
       })
     }
