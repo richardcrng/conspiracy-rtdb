@@ -2,41 +2,37 @@ import * as R from 'ramda'
 import { createSelector } from "reselect";
 
 export const getGame = state => state.game
-
-export const getGameId = createSelector(
+const getGameProp = prop => createSelector(
   getGame,
-  game => game.key
+  R.prop(prop)
 )
 
-export const getGameHost = createSelector(
-  getGame,
-  R.prop('host')
-)
+export const getGameKey = getGameProp('key')
+export const getGameId = getGameKey
 
-export const getGamePlayers = createSelector(
-  getGame,
-  game => game.players
-)
+export const getGameHost = getGameProp('host')
+export const getGamePlayers = getGameProp('players')
+export const getGameHasConspiracy = getGameProp('hasConspiracy')
+export const getGameVictimId = getGameProp('victim')
+export const getGameIsStarted = getGameProp('isStarted')
+export const getGameIsComplete = getGameProp('isComplete')
+export const getIsDayInGame = getGameProp('isDay')
 
 export const getGamePlayersArray = createSelector(
   getGamePlayers,
-  players => R.sortBy(R.prop('priority'), Object.values(players))
+  R.compose(
+    R.sortBy(R.prop('priority')),
+    Object.values
+  )
+  // players => R.sortBy(R.prop('priority'), Object.values(players))
 )
 
-export const getGamePlayersIds = createSelector(
+export const getGamePlayersKeys = createSelector(
   getGamePlayers,
-  players => Object.keys(players)
+  Object.keys
 )
+export const getGamePlayersIds = getGamePlayersKeys
 
-export const getGameHasConspiracy = createSelector(
-  getGame,
-  game => game.hasConspiracy
-)
-
-export const getGameVictimId = createSelector(
-  getGame,
-  R.prop('victim')
-)
 
 export const getGameVictim = createSelector(
   getGamePlayers,
@@ -44,35 +40,23 @@ export const getGameVictim = createSelector(
   (players, id) => players[id]
 )
 
-export const getGameVictimName = createSelector(
+const getGameVictimProp = prop => createSelector(
   getGameVictim,
-  R.prop('name')
+  R.prop(prop)
 )
 
-export const getGameVictimVote = createSelector(
-  getGameVictim,
-  R.prop('vote')
-)
+export const getGameVictimName = getGameVictimProp('name')
+
+export const getGameVictimVote = getGameVictimProp('vote')
 
 export const getGamePlayersAllVoting = createSelector(
   getGamePlayersArray,
-  players => (
-    players.length >= 1
-    && R.all(R.prop('isVoting'))(players)
+  R.both(
+    R.compose(R.gt(R.__, 1), R.length), // players.length >= 1
+    R.all(R.prop('isVoting'))           // all have truthy 'isVoting' prop
   )
-)
-
-export const getGameIsStarted = createSelector(
-  getGame,
-  R.prop('isStarted')
-)
-
-export const getGameIsComplete = createSelector(
-  getGame,
-  R.prop('isComplete')
-)
-
-export const getIsDayInGame = createSelector(
-  getGame,
-  R.prop('isDay')
+  // players => (
+  //   players.length >= 1
+  //   && R.all(R.prop('isVoting'))(players)
+  // )
 )
