@@ -31,7 +31,7 @@ function ProtectedSync() {
       // User does not exist as player in database - yet
       const playerRef = references.getPlayerByKey(uid, firebase)
       playerRef.update({
-        name: R.defaultTo(generateName(), user.displayName),
+        name: generateName(),
         key: uid
       })
     }
