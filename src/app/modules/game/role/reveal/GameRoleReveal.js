@@ -8,7 +8,24 @@ function GameRoleReveal() {
 
   return viewing
     ? <GameRoleRevealed />
-    : <Button onClick={() => setViewing(true)}>REVEAL</Button>
+    : <GameRoleConcealed onClick={() => setViewing(true)} />
+}
+
+function GameRoleConcealed({ onClick }) {
+  return (
+    <div
+      className="d-flex justify-content-center"
+      style={{ position: "fixed", bottom: "120px", left: "0", right: "0" }}
+    >
+      <Button
+        size="big"
+        secondary
+        onClick={onClick}
+      >
+        Reveal role
+      </Button>
+    </div>
+  )
 }
 
 function GameRoleRevealed() {

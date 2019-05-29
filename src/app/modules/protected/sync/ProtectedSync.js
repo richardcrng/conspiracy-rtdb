@@ -47,11 +47,8 @@ function ProtectedSync() {
 
   // Keep Redux's current game in sync with player's game on Firebase
   const gameKey = R.prop('currentGame', player)
-  const {
-    players: simplePlayers, // We don't want this: not all information
-    ...game                 // We want everything else
-  } = useFirebaseDatabaseValue(`games/${gameKey}`) || {}
-  const players = useGamePlayers(gameKey) // Use this in place of simplePlayers
+  const game = useFirebaseDatabaseValue(`games/${gameKey}`) || {}
+  const players = useGamePlayers(gameKey)
   useEffect(() => {
     if (gameKey && game) {
       const updateGame = () => {

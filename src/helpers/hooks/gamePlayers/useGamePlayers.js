@@ -6,9 +6,9 @@ function useGamePlayers(gameId, asPrioritisedArray = false) {
   const fromPlayers = useFirebaseDatabaseValue('players', {
     orderByChild: "currentGame",
     equalTo: gameId
-  })
+  }) || {}
 
-  const fromGame = useFirebaseDatabaseValue(`/games/${gameId}/players`,)
+  const fromGame = useFirebaseDatabaseValue(`/games/${gameId}/players`) || {}
 
   const [gamePlayers, { set: setGamePlayers }] = useStateHandlers({})
   React.useEffect(() => {

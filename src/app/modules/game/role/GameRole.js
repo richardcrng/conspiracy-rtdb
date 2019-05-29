@@ -5,6 +5,7 @@ import GameRoleReveal from './reveal';
 import { ROUTES } from './../../../constants/routes';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
+import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 
 function GameRole() {
   const name = useSelector(selectors.getUserName)
@@ -13,9 +14,10 @@ function GameRole() {
     <div>
       <p style={{ fontSize: "120%", fontWeight: "bold" }}>{name}</p>
       <GameRoleReveal />
-      <Link to={ROUTES.GameVoting}>
-        <Button>Votes</Button>
-      </Link>
+      <ButtonCentreBottom
+        to={ROUTES.GameVoting}
+        text="Voting"
+      />
     </div>
   )
 }
