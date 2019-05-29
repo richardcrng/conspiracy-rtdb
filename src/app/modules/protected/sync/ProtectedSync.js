@@ -12,12 +12,12 @@ function ProtectedSync() {
   const user = useFirebaseUser()
   const uid = R.prop('uid', user)
 
-  // Keep player in sync with Firebase
+  // Keep user in sync with Firebase
   const player = useFirebaseDatabaseValue(`players/${uid}`)
   useEffect(() => {
     if (uid && player) {
       const updatePlayer = dataSnapshot => {
-        dispatch(actions.player.create.update(dataSnapshot.val()))
+        dispatch(actions.user.create.update(dataSnapshot.val()))
       }
       const playerRef = references.getPlayerByKey(uid, firebase)
       playerRef.on('value', updatePlayer)
@@ -33,7 +33,7 @@ function ProtectedSync() {
   const {
     players: simplePlayers, // We don't want this: not all information
     ...game                 // We want everything else
-  } = useFirebaseDatabaseValue(`games/${gameKey}`)
+  } = useFirebaseDatabaseValue(`games/${gameKey}`) || {}
   const players = useGamePlayers(gameKey) // Use this in place of simplePlayers
   useEffect(() => {
     if (gameKey && game) {
