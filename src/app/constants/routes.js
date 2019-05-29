@@ -5,6 +5,7 @@ export const ROUTES = {
   GameRole: '/game/role',
   GamePlayers: '/game/:gameId/players',
   GameVoting: '/game/voting',
+  Profile: '/profile',
   Setup: '/setup',
   SetupGame: '/setup/game',
   SetupName: '/setup/name',

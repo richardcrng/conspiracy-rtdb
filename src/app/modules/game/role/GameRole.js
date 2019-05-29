@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import useCurrentPlayerName from '../../../../helpers/hooks/currentPlayerName';
 import GameRoleReveal from './reveal';
 import { ROUTES } from './../../../constants/routes';
+import { useSelector } from 'react-redux';
+import selectors from '../../../../redux/selectors';
 
 function GameRole() {
-  const name = useCurrentPlayerName()
+  const name = useSelector(selectors.getUserName)
 
   return (
     <div>

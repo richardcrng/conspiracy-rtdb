@@ -1,24 +1,3 @@
-import _ from 'lodash';
-import React from 'react';
-import LobbyItem from './item';
-import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
+import Lobby from "./Lobby";
 
-function Lobby(props) {
-  const games = useFirebaseDatabaseValue('games')
-
-  return (
-    <>
-      <h1>Games available</h1>
-      {_.map(games, game => (
-        <LobbyItem
-          key={game.key}
-          id={game.key}
-          name={game.name}
-          players={game.players}
-        />
-      ))}
-    </>
-  )
-}
-
-export default Lobby;
+export default Lobby

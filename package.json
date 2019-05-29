@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.19.1",
+    "antd-mobile": "^2.2.13",
     "firebase": "^6.0.2",
     "firebaseui": "^4.0.0",
     "lodash": "^4.17.11",
-    "provide-firebase-middleware": "0.0.15",
+    "provide-firebase-middleware": "0.0.19",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
