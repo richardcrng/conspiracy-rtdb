@@ -22,6 +22,7 @@ function Lobby() {
           players={game.players}
         />
       ))}
+      {_.size(games) === 0 && <p>No games in lobby... why don't you host one?</p>}
       <div className="CenterBottom">
         <ButtonCentreBottom
           primary
