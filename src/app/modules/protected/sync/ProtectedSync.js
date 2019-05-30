@@ -60,6 +60,8 @@ function ProtectedSync() {
       return function cleanup() {
         gameRef.off('value', updateGame)
       }
+    } else {
+      dispatch(actions.game.create.reset())
     }
   }, [gameKey, game, players, dispatch])
 
