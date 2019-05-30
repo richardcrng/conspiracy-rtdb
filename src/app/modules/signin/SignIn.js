@@ -25,7 +25,7 @@ function SignIn() {
           console.log("gonna try storing player")
           firebase.database().ref(`players/${key}`).set({ key, name })
         }
-        history.push(ROUTES.SetupName)
+        history.push(ROUTES.SetupProfile)
         // Return false to indicate no redirect URL
         return false
       }
