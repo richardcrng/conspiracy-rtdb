@@ -9,6 +9,7 @@ export const ROUTES = {
   Setup: '/setup',
   SetupGame: '/setup/game',
   SetupName: '/setup/name',
+  SetupProfile: '/setup/profile',
   Lobby: '/lobby',
   SignIn: '/sign-in'
 }

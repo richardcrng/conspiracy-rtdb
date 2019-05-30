@@ -46,14 +46,19 @@ export function* createGame({ payload: { host, name, history } }) {
   return key
 }
 
-export function* createOrSyncUserName() {
+export function* createOrSyncUserName({ payload: name }) {
   const key = yield select(selectors.getUserKey)
   const firebase = yield getFirebase()
   const firebaseUser = firebase.auth().currentUser
   const authName = R.prop('displayName', firebaseUser)
   const dbName = yield select(selectors.getUserName)
 
-  if (dbName) {
+  if (name) {
+    yield all([
+      firebaseUser.updateProfile({ displayName: name }),
+      call(updatePlayer, { key, name: name })
+    ])
+  } else if (dbName) {
     yield firebaseUser.updateProfile({ displayName: dbName })
   }
   else if (authName) {
@@ -242,6 +247,9 @@ assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
 
+createOrSyncUserName.TRIGGER = "TRIGGER_SAGA: createOrSyncUserName"
+createOrSyncUserName.trigger = makeActionCreator(createOrSyncUserName.TRIGGER)
+
 disbandGame.TRIGGER = "TRIGGER_SAGA: disbandGame"
 disbandGame.trigger = makeActionCreator(disbandGame.TRIGGER)
 
@@ -266,6 +274,7 @@ updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 export const sagas = [
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
+  takeEvery(createOrSyncUserName.TRIGGER, createOrSyncUserName),
   takeEvery(disbandGame.TRIGGER, disbandGame),
   takeLeading(endGame.TRIGGER, endGame),
   takeLatest(joinGame.TRIGGER, joinGame),
