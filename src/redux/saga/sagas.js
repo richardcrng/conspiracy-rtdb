@@ -49,8 +49,8 @@ export function* disbandGame() {
   const gameKey = yield select(selectors.getGameId)
   const playerKeys = yield select(selectors.getGamePlayersKeys)
   yield all([
-    call(removeDataAtNode, `games/${gameKey}`),
-    call(assignToAll, RESET_ENTITY.player, playerKeys)
+    call(deleteGame, { key: gameKey }),
+    call(assignToAll, { ...RESET_ENTITY.player, event: "gameDisband" }, playerKeys)
   ])
 }
 
@@ -81,12 +81,6 @@ export function* leaveGame(arg) {
     call(removePlayerFromGamePlayers, { playerKey, gameKey }),
     call(updatePlayer, {  key: playerKey, ...RESET_ENTITY.player })
   ])
-}
-
-export function* removeDataAtNode(arg) {
-  const firebase = yield getFirebase()
-  const [key] = yield call(argToKeyAndRest, arg)
-  yield firebase.database().ref(key).remove()
 }
 
 export function* startGame() {
@@ -150,6 +144,12 @@ function* assignToAll(props = {}, playerKeys = []) {
   yield all(playerKeys.map(id => (
     call(updatePlayer, { key: id, ...props })
   )))
+}
+
+function* deleteGame(arg) {
+  const firebase = yield getFirebase()
+  const [key] = yield call(argToKeyAndRest, arg)
+  yield firebase.database().ref(`games/${key}`).remove()
 }
 
 function* produceGameResult() {
@@ -225,6 +225,9 @@ assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
 
+disbandGame.TRIGGER = "TRIGGER_SAGA: disbandGame"
+disbandGame.trigger = makeActionCreator(disbandGame.TRIGGER)
+
 endGame.TRIGGER = "TRIGGER_SAGA: endGame"
 endGame.trigger = makeActionCreator(endGame.TRIGGER)
 
@@ -246,6 +249,7 @@ updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 export const sagas = [
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
+  takeEvery(disbandGame.TRIGGER, disbandGame),
   takeLeading(endGame.TRIGGER, endGame),
   takeLatest(joinGame.TRIGGER, joinGame),
   takeEvery(leaveGame.TRIGGER, leaveGame),

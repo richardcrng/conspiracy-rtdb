@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Popconfirm, Tooltip } from 'antd';
 import { FaUserTimes } from 'react-icons/fa';
 import selectors from '../../../../../../redux/selectors';
-import { leaveGame } from '../../../../../../redux/saga/sagas';
+import { leaveGame, disbandGame } from '../../../../../../redux/saga/sagas';
 
 function GamePlayersItemKick({ id: playerKey }) {
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ function GamePlayersItemKick({ id: playerKey }) {
       <Popconfirm
         placement="topRight"
         title="You are host - if you kick yourself, the game will be disbanded. Are you sure you want to do this?"
-        onConfirm={() => dispatch(leaveGame.trigger({ playerKey, gameKey }))}
+        onConfirm={() => dispatch(disbandGame.trigger())}
         okText="Yes"
         cancelText="No"
       >
