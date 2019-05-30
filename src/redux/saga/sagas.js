@@ -6,6 +6,7 @@ import { shouldBeConspiracy } from "../../helpers/conspiracy";
 import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
 import { VOTES } from '../../app/constants/votes';
+import { RESET_ENTITY } from '../../app/constants/entities';
 
 export function* assignRoles() {
   const playerKeys = yield select(selectors.getGamePlayersKeys)
@@ -44,6 +45,15 @@ export function* createGame({ payload: { host, name, history } }) {
   return key
 }
 
+export function* disbandGame() {
+  const gameKey = yield select(selectors.getGameId)
+  const playerKeys = yield select(selectors.getGamePlayersKeys)
+  yield all([
+    call(deleteGame, { key: gameKey }),
+    call(assignToAll, { ...RESET_ENTITY.player, event: "gameDisband" }, playerKeys)
+  ])
+}
+
 export function* endGame() {
   const gameKey = yield select(selectors.getGameKey)
   const playerKeys = yield select(selectors.getGamePlayersKeys)
@@ -58,10 +68,18 @@ export function* getFirebase() {
 }
 
 export function* joinGame(arg) {
-  const [playerKey, gameKey] = yield call(argToPlayerAndGameKey, arg)
+  const { playerKey, gameKey } = yield call(argToPlayerAndGameKey, arg)
   yield all([
     call(updatePlayer, { key: playerKey, currentGame: gameKey }),
     call(addPlayerToGame, { playerKey, gameKey })
+  ])
+}
+
+export function* leaveGame(arg) {
+  const { playerKey, gameKey } = yield call(argToPlayerAndGameKey, arg)
+  yield all([
+    call(removePlayerFromGamePlayers, { playerKey, gameKey }),
+    call(updatePlayer, {  key: playerKey, ...RESET_ENTITY.player })
   ])
 }
 
@@ -75,14 +93,14 @@ export function* startGame() {
 }
 
 export function* updateGame(arg) {
-  let firebase = yield getFirebase()
+  const firebase = yield getFirebase()
   const [key, props] = yield call(argToKeyAndRest, arg)
   if (!key) return
   yield references.getGameByKey(key, firebase).update({ key, ...props })
 }
 
 export function* updatePlayer(arg) {
-  let firebase = yield getFirebase()
+  const firebase = yield getFirebase()
   const [key, props] = yield call(argToKeyAndRest, arg)
   if (!key) return
   yield references.getPlayerByKey(key, firebase).update({ key, ...props })
@@ -95,7 +113,7 @@ export function* updateGamePlayer({ gameKey, playerKey, ...props }) {
 
 function* addPlayerToGame(arg) {
   const firebase = yield getFirebase()
-  const [playerKey, gameKey] = yield call(argToPlayerAndGameKey, arg)
+  const { playerKey, gameKey } = yield call(argToPlayerAndGameKey, arg)
 
   yield references.getPlayersByGameKey(gameKey, firebase).update({
     [playerKey]: { key: playerKey, priority: generatePushID() }
@@ -113,19 +131,25 @@ function argToKeyAndRest(arg) {
 }
 
 function argToPlayerAndGameKey(arg) {
-  let playerKey, gameKey
+  let playerKey, gameKey, rest
   if (arg.type) {
-    ({ payload: { playerKey, gameKey } } = arg)
+    ({ payload: { playerKey, gameKey, ...rest } } = arg)
   } else {
-    ({ playerKey, gameKey } = arg)
+    ({ playerKey, gameKey, ...rest } = arg)
   }
-  return [playerKey, gameKey]
+  return { playerKey, gameKey, ...rest }
 }
 
 function* assignToAll(props = {}, playerKeys = []) {
   yield all(playerKeys.map(id => (
     call(updatePlayer, { key: id, ...props })
   )))
+}
+
+function* deleteGame(arg) {
+  const firebase = yield getFirebase()
+  const [key] = yield call(argToKeyAndRest, arg)
+  yield firebase.database().ref(`games/${key}`).remove()
 }
 
 function* produceGameResult() {
@@ -166,6 +190,12 @@ function* produceGameResultFromNoConspiracy() {
   )))
 }
 
+function* removePlayerFromGamePlayers(arg) {
+  const firebase = yield getFirebase()
+  const { playerKey, gameKey } = yield call(argToPlayerAndGameKey, arg)
+  yield references.getPlayersByGameKey(gameKey, firebase).child(playerKey).remove()
+}
+
 function* rolesConspiracy(playerKeys, gameKey) {
   const [victim, ...conspirators] = _.shuffle(playerKeys)
   yield all([
@@ -195,11 +225,17 @@ assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
 
+disbandGame.TRIGGER = "TRIGGER_SAGA: disbandGame"
+disbandGame.trigger = makeActionCreator(disbandGame.TRIGGER)
+
 endGame.TRIGGER = "TRIGGER_SAGA: endGame"
 endGame.trigger = makeActionCreator(endGame.TRIGGER)
 
 joinGame.TRIGGER = "TRIGGER_SAGA: joinGame"
 joinGame.trigger = makeActionCreator(joinGame.TRIGGER)
+
+leaveGame.TRIGGER = "TRIGGER_SAGA: leaveGame"
+leaveGame.trigger = makeActionCreator(leaveGame.TRIGGER)
 
 startGame.TRIGGER = "TRIGGER_SAGA: startGame"
 startGame.trigger = makeActionCreator(startGame.TRIGGER)
@@ -213,8 +249,10 @@ updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 export const sagas = [
   takeLeading(assignRoles.TRIGGER, assignRoles),
   takeLeading(createGame.TRIGGER, createGame),
+  takeEvery(disbandGame.TRIGGER, disbandGame),
   takeLeading(endGame.TRIGGER, endGame),
   takeLatest(joinGame.TRIGGER, joinGame),
+  takeEvery(leaveGame.TRIGGER, leaveGame),
   takeLeading(startGame.TRIGGER, startGame),
   takeEvery(updateGame.TRIGGER, updateGame),
   takeEvery(updatePlayer.TRIGGER, updatePlayer)

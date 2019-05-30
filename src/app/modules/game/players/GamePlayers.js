@@ -17,7 +17,7 @@ function GamePlayers() {
       {isHost && <b>You are host!</b>}
       {gamePlayers && R.map(
         ({ key, name, isReady, connections }) => (
-          <GamePlayersItem key={key} {...{ name, isReady, connections }} />
+          <GamePlayersItem key={key} {...{ name, isReady, connections, id: key }} />
         ),
         gamePlayers
       )}
