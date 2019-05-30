@@ -7,13 +7,13 @@ import GamePlayersStart from './start';
 import selectors from '../../../../redux/selectors';
 
 function GamePlayers() {
-  const gameId = useSelector(selectors.getGameId)
+  const gameName = useSelector(selectors.getGameName)
   const gamePlayers = useSelector(selectors.getGamePlayersArray)
   const isHost = useSelector(selectors.getIsUserHost)
 
   return (
     <>
-      <h1>Players for game {gameId}</h1>
+      <h1>{gameName}</h1>
       {isHost && <b>You are host!</b>}
       {gamePlayers && R.map(
         ({ key, name, isReady, connections }) => (

@@ -9,29 +9,6 @@ function App() {
   return user
     ? <Protected />
     : <SignIn />
-
-  
-
-  // if (!uid) {
-  //   return (
-  //     <AppLayout><SignIn /></AppLayout>
-  //   )
-  // }
-
-  // return (
-  //   <div className="App">
-  //     <AppLayout>
-  //       <Switch>
-  //         <Route path={ROUTES.GameId} component={Game} />
-  //         <Route path={ROUTES.Setup} component={Setup} />
-  //         <Route path={ROUTES.Lobby} component={Lobby} />
-  //         <Route path={ROUTES.SignIn} component={SignIn} />
-  //         <Route path={ROUTES.Game} component={Game} />
-  //         <Route path="/" component={Lobby} />
-  //       </Switch>
-  //     </AppLayout>
-  //   </div>
-  // );
 }
 
 export default App;
