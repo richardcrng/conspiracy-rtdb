@@ -6,6 +6,7 @@ import { shouldBeConspiracy } from "../../helpers/conspiracy";
 import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
 import { VOTES } from '../../app/constants/votes';
+import { RESET_ENTITY } from '../../app/constants/entities';
 
 export function* assignRoles() {
   const playerKeys = yield select(selectors.getGamePlayersKeys)
@@ -44,6 +45,15 @@ export function* createGame({ payload: { host, name, history } }) {
   return key
 }
 
+export function* disbandGame() {
+  const gameKey = yield select(selectors.getGameId)
+  const playerKeys = yield select(selectors.getGamePlayersKeys)
+  yield all([
+    call(removeDataAtNode, `games/${gameKey}`),
+    call(assignToAll, RESET_ENTITY.player, playerKeys)
+  ])
+}
+
 export function* endGame() {
   const gameKey = yield select(selectors.getGameKey)
   const playerKeys = yield select(selectors.getGamePlayersKeys)
@@ -69,8 +79,14 @@ export function* leaveGame(arg) {
   const { playerKey, gameKey } = yield call(argToPlayerAndGameKey, arg)
   yield all([
     call(removePlayerFromGamePlayers, { playerKey, gameKey }),
-    call(updateGame, {  key: gameKey, currentGame: null })
+    call(updatePlayer, {  key: playerKey, ...RESET_ENTITY.player })
   ])
+}
+
+export function* removeDataAtNode(arg) {
+  const firebase = yield getFirebase()
+  const [key] = yield call(argToKeyAndRest, arg)
+  yield firebase.database().ref(key).remove()
 }
 
 export function* startGame() {
