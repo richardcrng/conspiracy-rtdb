@@ -8,7 +8,7 @@ function AppLayout({ children }) {
   return (
     <>
       <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand>Conspiracy</Navbar.Brand>
+        <Link to="/"><Navbar.Brand>Conspiracy</Navbar.Brand></Link>
         <NavItem to={ROUTES.SetupProfile} text="Change name" />
         {/* <NavItem to={ROUTES.Lobby} text="Lobby" /> */}
         {/* <NavItem to={ROUTES.Game} text="Game" /> */}

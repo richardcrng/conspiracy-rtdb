@@ -9,7 +9,7 @@ const getGameProp = prop => createSelector(
 
 export const getGameKey = getGameProp('key')
 export const getGameId = getGameKey
-
+export const getGameName = getGameProp('name')
 export const getGameHost = getGameProp('host')
 export const getGamePlayers = getGameProp('players')
 export const getGameHasConspiracy = getGameProp('hasConspiracy')

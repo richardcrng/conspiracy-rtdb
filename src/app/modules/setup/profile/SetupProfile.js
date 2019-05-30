@@ -4,6 +4,7 @@ import selectors from '../../../../redux/selectors';
 import { createOrSyncUserName } from '../../../../redux/saga/sagas';
 import { InputItem } from 'antd-mobile';
 import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import { ROUTES } from '../../../constants/routes';
 
 function SetupProfile() {
   const dispatch = useDispatch()
@@ -23,11 +24,12 @@ function SetupProfile() {
       </InputItem>
       <ButtonCentreBottom
         disabled={!newName}
+        to={ROUTES.Lobby}
         onClick={() => {
           dispatch(createOrSyncUserName.trigger(newName))
         }}
       >
-        Create Game
+        Change name
       </ButtonCentreBottom>
     </>
   )
