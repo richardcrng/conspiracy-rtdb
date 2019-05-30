@@ -34,7 +34,7 @@ function ProtectedSync() {
       // Update name after timeout to stop premature overwriting when loading
       const timeout = setTimeout(() => {
         playerRef.update({
-          name: generateName(),
+          name: R.defaultTo(generateName(), user.displayName),
           key: uid
         })
       }, 1000);

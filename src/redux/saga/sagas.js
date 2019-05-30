@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import _ from 'lodash';
 import { all, select, call, getContext, takeLatest, takeLeading, takeEvery } from "redux-saga/effects";
 import selectors from "../selectors";
@@ -43,6 +44,22 @@ export function* createGame({ payload: { host, name, history } }) {
   // if (history) history.push(`/game/${key}/players`)
 
   return key
+}
+
+export function* createOrSyncUserName() {
+  const key = yield select(selectors.getUserKey)
+  const firebase = yield getFirebase()
+  const firebaseUser = firebase.auth().currentUser
+  const authName = R.prop('displayName', firebaseUser)
+  const dbName = yield select(selectors.getUserName)
+
+  if (dbName) {
+    yield firebaseUser.updateProfile({ displayName: dbName })
+  }
+  else if (authName) {
+    yield call(updatePlayer, { key, name: authName })
+  }
+
 }
 
 export function* disbandGame() {

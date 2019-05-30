@@ -1,6 +1,6 @@
 import React from 'react'
 import GameCompleteResult from './result';
-import { Button } from 'semantic-ui-react';
+import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 
 function GameComplete() {
   const [viewResult, setViewResult] = React.useState(false)
@@ -8,17 +8,11 @@ function GameComplete() {
   return (
     <>
       <h1>Game complete</h1>
-      {!viewResult && <GameCompleteView onClick={() => setViewResult(true)} />}
+      {!viewResult && (
+        <ButtonCentreBottom text="View result" onClick={() => setViewResult(true)} />
+      )}
       {viewResult && <GameCompleteResult />}
     </>
-  )
-}
-
-function GameCompleteView({ onClick }) {
-  return (
-    <Button primary onClick={onClick}>
-      View result
-    </Button>
   )
 }
 
