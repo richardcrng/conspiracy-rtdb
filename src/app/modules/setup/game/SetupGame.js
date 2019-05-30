@@ -1,22 +1,22 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGame } from '../../../../redux/saga/sagas';
-// import { useRouter } from '../../../providers/router/RouterProvider';
 import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 import { InputItem } from 'antd-mobile';
 import selectors from '../../../../redux/selectors';
+import LinkButton from '../../../../lib/molecules/LinkButton';
+import { ROUTES } from '../../../constants/routes';
 
 function SetupGame() {
   const dispatch = useDispatch()
   const [name, setName] = React.useState("")
   const host = useSelector(selectors.getUserKey)
-  // const { history } = useRouter()
 
   return (
     <>
       <h1>Host New Game</h1>
-      <div className="d-flex justify-content-center mx-auto" style={{ position: "fixed", bottom: "150px", width: "100%" }}>
-
+      <div className="mb-3">
+        <LinkButton to={ROUTES.Lobby} text="Back to lobby" />
       </div>
 
       <InputItem
@@ -32,7 +32,6 @@ function SetupGame() {
           dispatch(createGame.trigger({
             host,
             name,
-            // history
           }))
         }}
       >
