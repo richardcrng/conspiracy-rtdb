@@ -43,9 +43,9 @@ function SignIn() {
   };
 
   return (
-    <div>
+    <div className="text-center" style={{ margin: "50px" }}>
       <h1>CONSPIRACY</h1>
-      <p>Please sign-in:</p>
+      <p>A Richard Ng development</p>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.Auth} />
     </div>
   )
