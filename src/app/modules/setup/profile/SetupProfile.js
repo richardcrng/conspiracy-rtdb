@@ -13,7 +13,7 @@ function SetupProfile() {
 
   return (
     <>
-      <h1>Set name</h1>
+      <h1>Set username</h1>
 
       <InputItem
         onChange={str => setNewName(str)}
