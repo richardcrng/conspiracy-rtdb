@@ -2,10 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGame } from '../../../../redux/saga/sagas';
 import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
-import { InputItem } from 'antd-mobile';
+// import { InputItem } from 'antd-mobile';
 import selectors from '../../../../redux/selectors';
 import LinkButton from '../../../lib/molecules/LinkButton';
 import { ROUTES } from '../../../constants/routes';
+import { IonInput, IonLabel } from '@ionic/react';
 
 function SetupGame() {
   const dispatch = useDispatch()
@@ -16,16 +17,22 @@ function SetupGame() {
     <>
       <h1>Host New Game</h1>
       <div className="mb-3">
-        <LinkButton to={ROUTES.Lobby} text="Back to lobby" />
+        <LinkButton
+          fill="outline"
+          text="Back to lobby"
+          to={ROUTES.Lobby}
+        />
       </div>
-
-      <InputItem
-        onChange={str => setName(str)}
-        placeholder="Name your game"
+      <IonInput
+        onChange={e => {
+          console.log(e)
+          setName(e.target.value)
+        }}
+        placeholder="Name your game here"
         value={name}
       >
-        Name
-      </InputItem>
+        <IonLabel><b>Name</b></IonLabel>
+      </IonInput>
       <ButtonCentreBottom
         disabled={!name}
         onClick={() => {
