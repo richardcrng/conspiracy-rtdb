@@ -1,9 +1,9 @@
 import React from 'react'
-import { IonLabel, IonInput } from '@ionic/react';
 import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 import { useDispatch, useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
 import { createGame } from '../../../../../redux/saga/sagas';
+import Input from '../../../../lib/atoms/Input';
 
 function SetupGameForm() {
   const dispatch = useDispatch()
@@ -12,13 +12,12 @@ function SetupGameForm() {
 
   return (
     <>
-      <IonInput
-        onIonChange={e => setName(e.target.value)}
+      <Input
+        label={() => <b>Name</b>}
+        onChange={e => setName(e.target.value)}
         placeholder="Name your game here"
         value={name}
-      >
-        <IonLabel><b>Name</b></IonLabel>
-      </IonInput>
+      />
       <ButtonCentreBottom
         disabled={!name}
         onClick={() => {
