@@ -5,6 +5,7 @@ import { createOrSyncUserName } from '../../../../redux/saga/sagas';
 import { InputItem } from 'antd-mobile';
 import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 import { ROUTES } from '../../../constants/routes';
+import Input from '../../../lib/atoms/Input';
 
 function SetupProfile() {
   const dispatch = useDispatch()
@@ -15,13 +16,20 @@ function SetupProfile() {
     <>
       <h1>Set username</h1>
 
-      <InputItem
+      <Input
+        label={() => <b>Name</b>}
+        onChange={e => setNewName(e.target.value)}
+        placeholder={name}
+        value={newName}
+      />
+
+      {/* <InputItem
         onChange={str => setNewName(str)}
         placeholder={name}
         value={newName}
       >
         Name
-      </InputItem>
+      </InputItem> */}
       <ButtonCentreBottom
         disabled={!newName}
         to={ROUTES.Lobby}
