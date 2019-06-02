@@ -29,7 +29,10 @@ export const getGamePlayersArray = createSelector(
 
 export const getGamePlayersAllReady = createSelector(
   getGamePlayersArray,
-  R.all(R.both(R.prop('isReady'), R.prop('connections')))
+  // R.all(R.both(R.prop('isReady'), R.prop('connections')))
+
+  // Check that all players are ready, but exclude connections (unreliable)
+  R.all(R.prop('isReady'))
 )
 
 export const getGamePlayersKeys = createSelector(
