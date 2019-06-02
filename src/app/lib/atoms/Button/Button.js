@@ -2,12 +2,15 @@ import * as R from 'ramda'
 import React from 'react'
 import { IonButton } from '@ionic/react'
 
-function Button({ children, text, ...rest }) {
+function Button({ children, text, ...rest }, ref) {
   return (
-    <IonButton {...rest}>
+    <IonButton ref={ref} {...rest}>
       {R.defaultTo(children, text)}
     </IonButton>
   )
 }
+
+// eslint-disable-next-line no-func-assign
+Button = React.forwardRef(Button)
 
 export default Button
