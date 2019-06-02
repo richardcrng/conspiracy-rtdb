@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import Button from '../../atoms/Button';
 
-function LinkButton({ to, text, disabled, children, ...rest }) {
+function LinkButton({ to, text, disabled, children, ...rest }, ref) {
   const CoreButton = () => (
-    <Button {...rest} disabled={disabled}>
+    <Button ref={ref} {...rest} disabled={disabled}>
       {R.defaultTo(children, text)}
     </Button>
   )
@@ -14,5 +14,8 @@ function LinkButton({ to, text, disabled, children, ...rest }) {
     ? <Link to={to}><CoreButton /></Link>
     : <CoreButton />
 }
+
+// eslint-disable-next-line no-func-assign
+LinkButton = React.forwardRef(LinkButton)
 
 export default LinkButton;

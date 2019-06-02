@@ -18,7 +18,9 @@ function AppLayoutToolbar() {
           <IonIcon slot="icon-only" name="contact" />
         </IonButton>
       </IonButtons>
-      <IonTitle>Conspiracy</IonTitle>
+      <IonTitle onClick={() => history.push("/")}>
+        Conspiracy
+      </IonTitle>
     </IonToolbar>
   )
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import LobbyItem from './item';
 import { ROUTES } from '../../constants/routes';
-import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../lib/molecules/ButtonCentreBottom';
 
 function Lobby() {
   const games = useFirebaseDatabaseValue('games', {
@@ -25,8 +25,6 @@ function Lobby() {
       {_.size(games) === 0 && <p>No games in lobby... why don't you host one?</p>}
       <div className="CenterBottom">
         <ButtonCentreBottom
-          primary
-          size="huge"
           text="Host new"
           to={ROUTES.SetupGame}
         />

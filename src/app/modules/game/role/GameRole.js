@@ -3,7 +3,7 @@ import GameRoleReveal from './reveal';
 import { ROUTES } from './../../../constants/routes';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../redux/selectors';
-import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 import classes from './GameRole.module.css'
 
 function GameRole() {

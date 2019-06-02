@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'semantic-ui-react';
 import classes from './GameVotingVote.module.css'
 import { updatePlayer } from '../../../../../redux/saga/sagas';
 import selectors from '../../../../../redux/selectors';
+import { Button } from 'semantic-ui-react';
 
 function GameVotingVote() {
   const dispatch = useDispatch()
@@ -47,9 +47,9 @@ function GameVotingVote() {
 function GameVotingVoteButton({ text, ...rest }) {
   return (
     <Button
-      fluid
       className="d-block my-2"
-      size="massive"
+      expand="block"
+      size="large"
       {...rest}
     >
       {text}
