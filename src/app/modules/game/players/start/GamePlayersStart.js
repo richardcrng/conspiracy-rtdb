@@ -11,6 +11,9 @@ function GamePlayersStart() {
   const isHost = useSelector(selectors.getIsUserHost)
   const allReady = useSelector(selectors.getGamePlayersAllReady)
 
+  console.log("isHost", isHost)
+  console.log("allReady", allReady)
+
   return (
     <>
       <GamePlayerStartMessage />
