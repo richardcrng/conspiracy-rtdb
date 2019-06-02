@@ -1,20 +1,19 @@
 import React from 'react';
 import LinkButton from '../LinkButton';
-import classes from './ButtonCentreBottom.module.css'
+import CentreBottom from '../../atoms/CentreBottom';
 
 function ButtonCentreBottom({ children, ...rest }, ref) {
   return (
-    <div className={classes.ButtonCentreBottom}>
+    <CentreBottom>
       <LinkButton
         ref={ref}
         color="primary"
-        // size="large"
         size="huge"
         {...rest}
       >
         {children}
       </LinkButton>
-    </div>
+    </CentreBottom>
   )
 }
 

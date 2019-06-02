@@ -5,6 +5,8 @@ import GamePlayersItem from './item';
 import GamePlayersReadyToggle from './readyToggle';
 import GamePlayersStart from './start';
 import selectors from '../../../../redux/selectors';
+import GamePlayersButtons from './buttons';
+import GamePlayerStartMessage from './start/message';
 
 function GamePlayers() {
   const gameName = useSelector(selectors.getGameName)
@@ -22,7 +24,8 @@ function GamePlayers() {
         gamePlayers
       )}
       <GamePlayersReadyToggle />
-      {<GamePlayersStart />}
+      <GamePlayersButtons />
+      <GamePlayerStartMessage />
     </>
   )
 }
