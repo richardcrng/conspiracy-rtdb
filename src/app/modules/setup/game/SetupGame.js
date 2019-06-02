@@ -18,6 +18,7 @@ function SetupGame() {
       <h1>Host New Game</h1>
       <div className="mb-3">
         <LinkButton
+          basic
           fill="outline"
           text="Back to lobby"
           to={ROUTES.Lobby}
