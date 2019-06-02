@@ -82,7 +82,7 @@ export function* endGame() {
   yield call(updateGame, { key: gameKey, isDay: false })
   yield call(produceGameResult)
   yield call(updateGame, { key: gameKey, isComplete: true })
-  yield call(assignToAll, { vote: null, isVoting: null }, playerKeys)
+  yield call(assignToAll, { ...RESET_ENTITY.player }, playerKeys)
 }
 
 export function* getFirebase() {
