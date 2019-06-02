@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import selectors from '../../../../redux/selectors';
 import { createOrSyncUserName } from '../../../../redux/saga/sagas';
 import { InputItem } from 'antd-mobile';
-import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 import { ROUTES } from '../../../constants/routes';
 
 function SetupProfile() {

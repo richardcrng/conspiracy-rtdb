@@ -3,7 +3,7 @@ import React from 'react';
 import { useFirebaseDatabaseValue } from 'provide-firebase-middleware';
 import LobbyItem from './item';
 import { ROUTES } from '../../constants/routes';
-import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../lib/molecules/ButtonCentreBottom';
 
 function Lobby() {
   const games = useFirebaseDatabaseValue('games', {

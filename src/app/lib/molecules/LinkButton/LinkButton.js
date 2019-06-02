@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import Button from '../../atoms/Button';
 
 function LinkButton({ to, text, disabled, children, ...rest }) {
   const CoreButton = () => (

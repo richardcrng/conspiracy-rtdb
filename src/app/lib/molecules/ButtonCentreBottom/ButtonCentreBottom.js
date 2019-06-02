@@ -6,8 +6,8 @@ function ButtonCentreBottom({ children, ...rest }) {
   return (
     <div className={classes.ButtonCentreBottom}>
       <LinkButton
-        size="huge"
-        primary
+        size="large"
+        color="primary"
         {...rest}
       >
         {children}

@@ -1,6 +1,6 @@
 import React from 'react'
 import GameCompleteResult from './result';
-import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 
 function GameComplete() {
   const [viewResult, setViewResult] = React.useState(false)

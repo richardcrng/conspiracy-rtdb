@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { startGame } from '../../../../../../redux/saga/sagas';
-import ButtonCentreBottom from '../../../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../../../lib/molecules/ButtonCentreBottom';
 
 function GamePlayersStartButton({ ready, isHost }) {
   const dispatch = useDispatch()

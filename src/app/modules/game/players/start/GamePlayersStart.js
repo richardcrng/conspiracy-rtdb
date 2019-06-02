@@ -3,7 +3,7 @@ import React from 'react';
 import GamePlayerStartMessage from './message';
 import { useSelector, useDispatch } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
-import ButtonCentreBottom from '../../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 import { startGame } from '../../../../../redux/saga/sagas';
 
 function GamePlayersStart() {  

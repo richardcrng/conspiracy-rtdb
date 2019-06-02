@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGame } from '../../../../redux/saga/sagas';
-import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
+import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 import { InputItem } from 'antd-mobile';
 import selectors from '../../../../redux/selectors';
-import LinkButton from '../../../../lib/molecules/LinkButton';
+import LinkButton from '../../../lib/molecules/LinkButton';
 import { ROUTES } from '../../../constants/routes';
 
 function SetupGame() {
