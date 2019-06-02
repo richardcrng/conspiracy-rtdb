@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import './index.css';
-import 'antd-mobile/dist/antd-mobile.css';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
 import App from './app';

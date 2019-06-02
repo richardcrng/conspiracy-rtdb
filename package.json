@@ -6,7 +6,6 @@
     "@ionic/core": "^4.4.2",
     "@ionic/react": "0.0.5",
     "antd": "^3.19.1",
-    "antd-mobile": "^2.2.13",
     "firebase": "^6.0.2",
     "firebaseui": "^4.0.0",
     "lodash": "^4.17.11",
