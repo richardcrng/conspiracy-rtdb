@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayer } from '../../../../redux/saga/sagas';
 import { useRouter } from '../../../providers/router/RouterProvider';
 import selectors from '../../../../redux/selectors';
+import Button from '../../../lib/atoms/Button';
 
 function SetupName(props) {
   const dispatch = useDispatch()
@@ -22,7 +23,9 @@ function SetupName(props) {
       <Button onClick={() => {
         dispatch(updatePlayer.trigger({ key, name: input }))
         history.push('/lobby')
-      }}>Submit</Button>
+      }}>
+        Submit
+      </Button>
     </>
   )
 }

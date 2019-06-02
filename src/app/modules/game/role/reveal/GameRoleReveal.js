@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
-import { Button, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
+import Button from '../../../../lib/atoms/Button';
 
 function GameRoleReveal({ revealed, setRevealed }) {
 
@@ -17,8 +18,8 @@ function GameRoleConcealed({ onClick }) {
       style={{ position: "fixed", bottom: "120px", left: "0", right: "0" }}
     >
       <Button
-        size="huge"
-        secondary
+        size="large"
+        color="secondary"
         onClick={onClick}
       >
         Reveal role

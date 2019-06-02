@@ -12,7 +12,7 @@ function GamePlayersReadyToggle() {
   return (
     <div
       className="d-flex justify-content-center"
-      style={{ position: "fixed", bottom: "100px", left: 0, right: 0 }}
+      style={{ position: "fixed", bottom: "110px", left: 0, right: 0 }}
     >
       <Checkbox
         label="Ready"
