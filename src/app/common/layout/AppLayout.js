@@ -4,22 +4,20 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import classes from './AppLayout.module.css';
 import { useFirebase, useFirebaseUser } from 'provide-firebase-middleware';
+import { IonContent } from '@ionic/react';
+import AppLayoutToolbar from './toolbar';
 
 function AppLayout({ children }) {
   const user = useFirebaseUser()
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" >
-        <Link to="/"><Navbar.Brand>Conspiracy</Navbar.Brand></Link>
-        <NavItem to={ROUTES.SetupProfile} text="Change name" />
-        {user && <SignOut />}
-        {/* <NavItem to={ROUTES.Lobby} text="Lobby" /> */}
-        {/* <NavItem to={ROUTES.Game} text="Game" /> */}
-      </Navbar>
-      <div className={classes.AppLayout}>
-        {children}
-      </div>
+      <AppLayoutToolbar />
+      <IonContent>
+        <div className={classes.AppLayout}>
+          {children}
+        </div>
+      </IonContent>
     </>
   )
 }
