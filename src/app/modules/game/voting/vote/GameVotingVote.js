@@ -1,9 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import classes from './GameVotingVote.module.css'
 import { updatePlayer } from '../../../../../redux/saga/sagas';
 import selectors from '../../../../../redux/selectors';
-import { Button } from 'semantic-ui-react';
+import { Button as SemButton } from 'semantic-ui-react';
+import CentreBottom from '../../../../lib/atoms/CentreBottom';
+import Button from '../../../../lib/atoms/Button';
 
 function GameVotingVote() {
   const dispatch = useDispatch()
@@ -21,35 +22,36 @@ function GameVotingVote() {
   }
 
   return (
-    <div className={classes.GameVotingVote}>
-      <GameVotingVoteButton
-        disabled={!isDay}
-        onClick={updateVoteHandler({ vote: 'conspiracy' })}
-        text="CONSPIRACY"
-        color={voteCast === 'conspiracy' ? 'red' : null}
-      />
-      <GameVotingVoteButton
-        disabled={!isDay}
-        onClick={updateVoteHandler({ vote: 'noConspiracy' })}
-        text="NO CONSPIRACY"
-        color={voteCast === 'noConspiracy' ? 'green' : null}
-      />
-      <GameVotingVoteButton
-        disabled={!hasVoted || !isDay}
-        secondary
-        onClick={updateVoteHandler({ isVoting: false })}
-        text="WITHDRAW VOTE"
-      />
-    </div>
+    <CentreBottom>
+      <SemButton.Group vertical>
+        <GameVotingVoteButton
+          disabled={!isDay}
+          onClick={updateVoteHandler({ vote: 'conspiracy' })}
+          text="CONSPIRACY"
+          color={voteCast === 'conspiracy' ? 'red' : null}
+        />
+        <GameVotingVoteButton
+          disabled={!isDay}
+          onClick={updateVoteHandler({ vote: 'noConspiracy' })}
+          text="NO CONSPIRACY"
+          color={voteCast === 'noConspiracy' ? 'green' : null}
+        />
+        <GameVotingVoteButton
+          disabled={!hasVoted || !isDay}
+          secondary
+          onClick={updateVoteHandler({ isVoting: false })}
+          text="WITHDRAW VOTE"
+        />
+      </SemButton.Group>
+    </CentreBottom>
   )
 }
 
 function GameVotingVoteButton({ text, ...rest }) {
   return (
     <Button
-      className="d-block my-2"
-      expand="block"
-      size="large"
+      fluid
+      size="massive"
       {...rest}
     >
       {text}
