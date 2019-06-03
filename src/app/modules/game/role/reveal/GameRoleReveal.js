@@ -18,7 +18,7 @@ function GameRoleConcealed({ onClick }) {
       style={{ position: "fixed", bottom: "120px", left: "0", right: "0" }}
     >
       <Button
-        size="large"
+        size="huge"
         color="secondary"
         onClick={onClick}
       >
