@@ -6,10 +6,15 @@ function GameCompleteResultDeclare() {
   const hasConspiracy = useSelector(selectors.getGameHasConspiracy)
   const victimName = useSelector(selectors.getGameVictimName)
 
-  return hasConspiracy
-    ? <p>There was a conspiracy against {victimName}!</p>
-    : <p>There was no conspiracy!</p>
-
+  return (
+    <div style={{ fontSize: "18px", fontStyle: "strong" }}>
+      {
+        hasConspiracy
+          ? <p>There was a <b>conspiracy</b> against <b>{victimName}</b>!</p>
+          : <p>There was no conspiracy!</p>
+      }
+    </div>
+  )
 }
 
 export default GameCompleteResultDeclare;
