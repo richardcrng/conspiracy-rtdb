@@ -78,11 +78,9 @@ export function* disbandGame() {
 
 export function* endGame() {
   const gameKey = yield select(selectors.getGameKey)
-  const playerKeys = yield select(selectors.getGamePlayersKeys)
   yield call(updateGame, { key: gameKey, isDay: false })
   yield call(produceGameResult)
   yield call(updateGame, { key: gameKey, isComplete: true })
-  yield call(assignToAll, { ...RESET_ENTITY.player }, playerKeys)
 }
 
 export function* getFirebase() {
