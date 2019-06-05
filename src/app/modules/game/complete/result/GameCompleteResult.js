@@ -5,6 +5,7 @@ import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 import { useDispatch, useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
 import { updatePlayer } from '../../../../../redux/saga/sagas';
+import { RESET_ENTITY } from '../../../../constants/entities';
 
 function GameCompleteResult() {
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function GameCompleteResult() {
       <GameCompleteResultTable />
       <ButtonCentreBottom
         onClick={() => {
-          dispatch(updatePlayer.trigger({ key, currentGame: null }))
+          dispatch(updatePlayer.trigger({ key, ...RESET_ENTITY.player }))
         }}
         text="Back to lobby"
       />
