@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux';
 import { FaUserTimes } from 'react-icons/fa';
 import PopConfirmKick from '../../../../../lib/molecules/PopConfirmKick';
 

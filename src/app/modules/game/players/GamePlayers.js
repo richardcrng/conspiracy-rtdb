@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import GamePlayersItem from './item';
 import GamePlayersReadyToggle from './readyToggle';
-import GamePlayersStart from './start';
+// import GamePlayersStart from './start';
 import selectors from '../../../../redux/selectors';
 import GamePlayersButtons from './buttons';
 import GamePlayerStartMessage from './start/message';

@@ -5,7 +5,7 @@ import { createOrSyncUserName } from '../../../../redux/saga/sagas';
 import ButtonCentreBottom from '../../../lib/molecules/ButtonCentreBottom';
 import { ROUTES } from '../../../constants/routes';
 import Input from '../../../lib/atoms/Input';
-import { useRouter } from '../../../providers/router/RouterProvider';
+// import { useRouter } from '../../../providers/router/RouterProvider';
 
 function SetupProfile() {
   const dispatch = useDispatch()
