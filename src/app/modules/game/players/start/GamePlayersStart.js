@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+// import * as R from 'ramda'
 import React from 'react';
 import GamePlayerStartMessage from './message';
 import { useSelector, useDispatch } from 'react-redux';
