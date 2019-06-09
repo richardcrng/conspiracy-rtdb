@@ -21,6 +21,14 @@ export const intialState = {
     isInnocent: null,
     isReady: null,
     isVoting: null,
-    vote: null
+    vote: null,
+    alert: {
+      header: null,
+      subheader: null,
+      message: null,
+      isOpen: false,
+      backdropDismiss: false,
+      dismissPath: null
+    }
   }
 }

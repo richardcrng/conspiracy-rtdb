@@ -22,7 +22,7 @@
  * @property {string} message - Alert message
  * @property {boolean} isOpen - Is alert open?
  * @property {boolean} backdropDismiss - Should backdrop dismiss?
- * @property {string} dissmissPath - Path to navigate to onDidDismiss
+ * @property {string} dismissPath - Path to navigate to onDidDismiss
  */
 
 /**
