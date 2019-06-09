@@ -8,6 +8,7 @@ import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
 import { VOTES } from '../../app/constants/votes';
 import { RESET_ENTITY } from '../../app/constants/entities';
+import { ROUTES } from '../../app/constants/routes';
 
 export function* assignRoles() {
   const playerKeys = yield select(selectors.getGamePlayersKeys)
@@ -46,6 +47,11 @@ export function* createGame({ payload: { host, name, history } }) {
   return key
 }
 
+export function* closeAlert() {
+  const key = yield select(selectors.getUserKey)
+  yield call(updatePlayer, { key, alert: { isOpen: false  } })
+}
+
 export function* createOrSyncUserName({ payload: name }) {
   const key = yield select(selectors.getUserKey)
   const firebase = yield getFirebase()
@@ -78,8 +84,17 @@ export function* disbandGame() {
 
 export function* endGame() {
   const gameKey = yield select(selectors.getGameKey)
+  const playerKeys = yield select(selectors.getGamePlayersKeys)
   yield call(updateGame, { key: gameKey, isDay: false })
   yield call(produceGameResult)
+  yield call(assignToAll, {
+    alert: {
+      header: "Game complete!",
+      message: "All players have voted!",
+      isOpen: true,
+      buttons: ["Okay"],
+    }
+  }, playerKeys)
   yield call(updateGame, { key: gameKey, isComplete: true })
 }
 
@@ -242,6 +257,9 @@ function* setVictimOfGame(playerKey, gameKey) {
 assignRoles.TRIGGER = "TRIGGER_SAGA: assignRoles"
 assignRoles.trigger = makeActionCreator(assignRoles.TRIGGER)
 
+closeAlert.TRIGGER = "TRIGGER_SAGA: closeAlert"
+closeAlert.trigger = makeActionCreator(closeAlert.TRIGGER)
+
 createGame.TRIGGER = "TRIGGER_SAGA: createGame"
 createGame.trigger = makeActionCreator(createGame.TRIGGER)
 
@@ -271,6 +289,7 @@ updatePlayer.trigger = makeActionCreator(updatePlayer.TRIGGER)
 
 export const sagas = [
   takeLeading(assignRoles.TRIGGER, assignRoles),
+  takeEvery(closeAlert.TRIGGER, closeAlert),
   takeLeading(createGame.TRIGGER, createGame),
   takeEvery(createOrSyncUserName.TRIGGER, createOrSyncUserName),
   takeEvery(disbandGame.TRIGGER, disbandGame),
