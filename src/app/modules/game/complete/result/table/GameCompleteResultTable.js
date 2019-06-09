@@ -24,18 +24,20 @@ function GameCompleteResultTable() {
       <GameCompleteResultTableSegment
         {...{ segment, setSegment, segments }}
       />
-      <Grid centered columns={2} divided="vertically">
-        <Grid.Row>
-          <Grid.Column><Header>Player</Header></Grid.Column>
-          <Grid.Column><Header>{headerDict[segment]}</Header></Grid.Column>
-        </Grid.Row>
-        {playersArr.map(({ key, name, isInnocent, vote, winner }) => (
-          <GameCompleteResultTableItem
-            key={key}
-            {...{ isInnocent, name, segment, vote, winner }}
-          />
-        ))}
-      </Grid>
+      <div style={{ fontSize: "16px", paddingTop: "40px" }}>
+        <Grid centered columns={2} divided="vertically">
+          <Grid.Row>
+            <Grid.Column><Header>Player</Header></Grid.Column>
+            <Grid.Column><Header>{headerDict[segment]}</Header></Grid.Column>
+          </Grid.Row>
+          {playersArr.map(({ key, name, isInnocent, vote, winner }) => (
+            <GameCompleteResultTableItem
+              key={key}
+              {...{ isInnocent, name, segment, vote, winner }}
+            />
+          ))}
+        </Grid>
+      </div>
     </div>
   )
 }
