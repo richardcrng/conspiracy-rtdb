@@ -13,7 +13,7 @@ function AppLayoutAlert() {
     message,
     buttons,
     isOpen,
-    backdropDismiss,
+    backdropDismiss = true,
     dismissPath
   } = useSelector(selectors.getUserAlert) || {}
 

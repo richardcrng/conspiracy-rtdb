@@ -78,7 +78,14 @@ export function* disbandGame() {
   const playerKeys = yield select(selectors.getGamePlayersKeys)
   yield all([
     call(deleteGame, { key: gameKey }),
-    call(assignToAll, { ...RESET_ENTITY.player, event: "gameDisband" }, playerKeys)
+    call(assignToAll, {
+      ...RESET_ENTITY.player,
+      alert: {
+        header: "Game disbanded",
+        message: "The host disbanded the game - sorry!",
+        buttons: ["Sad!"]
+      }
+    }, playerKeys)
   ])
 }
 

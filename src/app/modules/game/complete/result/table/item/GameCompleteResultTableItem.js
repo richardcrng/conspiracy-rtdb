@@ -27,7 +27,6 @@ function GameCompleteResultTableItem({ isInnocent, name, segment, vote, winner }
       <Grid.Column>
         <GameCompleteResultTableItemContent />
       </Grid.Column>
-      <Grid.Column>{winner && <FaTrophy size={36} color="gold" />}</Grid.Column>
     </Grid.Row>
   )
 }
