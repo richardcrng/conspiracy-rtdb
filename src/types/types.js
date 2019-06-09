@@ -11,6 +11,18 @@
  * @property {boolean} isReady - Is the player 'ready'?
  * @property {boolean} isVoting - Is the player currently voting?
  * @property {('conspiracy'|'noConspiracy')} vote - The player's vote
+ * @property {ConspiracyPlayerAlert} alert - Alert to be shown to player
+ */
+
+/**
+ * @typedef {Object} ConspiracyPlayerAlert
+ * 
+ * @property {string} header - Alert header
+ * @property {string} subheader - Alert subheader
+ * @property {string} message - Alert message
+ * @property {boolean} isOpen - Is alert open?
+ * @property {boolean} backdropDismiss - Should backdrop dismiss?
+ * @property {string} dissmissPath - Path to navigate to onDidDismiss
  */
 
 /**
