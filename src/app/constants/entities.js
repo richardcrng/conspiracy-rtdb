@@ -10,6 +10,7 @@ export const RESET_ENTITY = {
       header: null,
       subheader: null,
       message: null,
+      buttons: ["OK"],
       isOpen: false,
       backdropDismiss: false,
       dismissPath: null

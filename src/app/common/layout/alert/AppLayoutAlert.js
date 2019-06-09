@@ -9,10 +9,11 @@ function AppLayoutAlert() {
     header,
     subheader,
     message,
+    buttons,
     isOpen,
     backdropDismiss,
     dismissPath
-  } = useSelector(selectors.getUserAlert)
+  } = useSelector(selectors.getUserAlert) || {}
 
   return (
     <IonAlert
@@ -20,6 +21,7 @@ function AppLayoutAlert() {
         header,
         subheader,
         message,
+        buttons,
         isOpen,
         backdropDismiss
       }}
