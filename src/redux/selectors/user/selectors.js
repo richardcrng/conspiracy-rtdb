@@ -20,3 +20,5 @@ export const getIsUserInCurrentGame = createSelector(
 export const getIsUserReady = getUserProp('isReady')
 export const getUserVote = getUserProp('vote')
 export const getIsUserInnocent = getUserProp('isInnocent')
+
+export const getUserAlert = getUserProp('alert')
