@@ -1,6 +1,6 @@
 import React from 'react';
 import GameCompleteResultTable from './table';
-import GameCompleteResultDeclare from './declare';
+// import GameCompleteResultDeclare from './declare';
 import ButtonCentreBottom from '../../../../lib/molecules/ButtonCentreBottom';
 import { useDispatch, useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
@@ -13,7 +13,7 @@ function GameCompleteResult() {
 
   return (
     <>
-      <GameCompleteResultDeclare />
+      {/* <GameCompleteResultDeclare /> */}
       <GameCompleteResultTable />
       <ButtonCentreBottom
         onClick={() => {

@@ -1,46 +1,44 @@
 import React from 'react'
 import { Grid, Header } from 'semantic-ui-react';
-import { FaTrophy, FaUserSecret } from 'react-icons/fa';
-import { GiAngelWings } from 'react-icons/gi';
 import useGamePlayers from '../../../../../../helpers/hooks/gamePlayers';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../../redux/selectors';
-import { VOTES } from '../../../../../constants/votes';
+import GameCompleteResultTableSegment from './segment';
+import GameCompleteResultTableItem from './item';
+
+const segments = ["Votes", "Roles", "Results"]
+
+const headerDict = {
+  Votes: "Vote",
+  Roles: "Role",
+  Results: "Result"
+}
 
 function GameCompleteResultTable() {
   const gameId = useSelector(selectors.getGameId)
   const playersArr = useGamePlayers(gameId, true)
+  const [segment, setSegment] = React.useState(segments[0])
 
   return (
     <div style={{ padding: "20px" }}>
-      <Grid centered columns={3} divided="vertically">
-        <Grid.Row>
-          <Grid.Column><Header>Player</Header></Grid.Column>
-          <Grid.Column><Header>Vote</Header></Grid.Column>
-          <Grid.Column><Header>Winner</Header></Grid.Column>
-        </Grid.Row>
-        {playersArr.map(({ key, name, vote, winner }) => (
-          <GameCompleteResultTableItem key={key} {...{ name, vote, winner }} />
-        ))}
-      </Grid>
+      <GameCompleteResultTableSegment
+        {...{ segment, setSegment, segments }}
+      />
+      <div style={{ fontSize: "16px", paddingTop: "40px" }}>
+        <Grid centered columns={2} divided="vertically">
+          <Grid.Row>
+            <Grid.Column><Header>Player</Header></Grid.Column>
+            <Grid.Column><Header>{headerDict[segment]}</Header></Grid.Column>
+          </Grid.Row>
+          {playersArr.map(({ key, name, isInnocent, vote, winner }) => (
+            <GameCompleteResultTableItem
+              key={key}
+              {...{ isInnocent, name, segment, vote, winner }}
+            />
+          ))}
+        </Grid>
+      </div>
     </div>
-  )
-}
-
-function GameCompleteResultTableItem({ name, vote, winner }) {
-  // const color = winner ? "olive" : "red"
-
-  return (
-    <Grid.Row>
-      <Grid.Column><p style={{ fontSize: "16px" }}>{name}</p></Grid.Column>
-      <Grid.Column>
-        {vote === VOTES.conspiracy
-          ? <FaUserSecret size={36} /> 
-          : <GiAngelWings size={36} />
-        }
-      </Grid.Column>
-      <Grid.Column>{winner && <FaTrophy size={36} color="gold" />}</Grid.Column>
-    </Grid.Row>
   )
 }
 
