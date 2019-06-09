@@ -1,9 +1,11 @@
 import React from 'react'
 import { IonAlert } from '@ionic/react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import selectors from '../../../../redux/selectors';
+import { closeAlert } from '../../../../redux/saga/sagas';
 
 function AppLayoutAlert() {
+  const dispatch = useDispatch()
 
   const {
     header,
@@ -17,6 +19,9 @@ function AppLayoutAlert() {
 
   return (
     <IonAlert
+      onDidDismiss={() => {
+        dispatch(closeAlert.trigger())
+      }}
       {...{
         header,
         subheader,
