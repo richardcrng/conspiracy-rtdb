@@ -24,7 +24,6 @@
     "redux-saga": "^1.0.2",
     "redux-starter-kit": "^0.5.1",
     "reselect": "^4.0.0",
-    "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.1",
     "use-firebase-context": "^0.1.9"
   },

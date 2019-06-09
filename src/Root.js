@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import './index.css';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
-import 'semantic-ui-css/semantic.min.css'
 import App from './app';
 
 import { IonApp } from '@ionic/react';
