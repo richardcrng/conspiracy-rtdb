@@ -10,8 +10,9 @@ function GameVoting() {
       <div className="mb-3">
         <LinkButton
           basic
+          color="primary"
           fill="outline"
-          text="View role"
+          text="View role again"
           to={ROUTES.GameRole}
         />
       </div>
