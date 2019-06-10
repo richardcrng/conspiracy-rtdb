@@ -10,14 +10,16 @@ function GameModerator() {
 
   React.useEffect(() => {
     if (isDay && allVoting) {
-      const timeout = setTimeout(() => {
-        // End game after time out to allow some people to change responses
-        dispatch(endGame.trigger())
-      }, 2000);
+      dispatch(endGame.trigger())
 
-      return function cleanup() {
-        clearTimeout(timeout)
-      }
+      // const timeout = setTimeout(() => {
+      //   // End game after time out to allow some people to change responses
+      //   dispatch(endGame.trigger())
+      // }, 2000);
+
+      // return function cleanup() {
+      //   clearTimeout(timeout)
+      // }
     }
   }, [dispatch, isDay, allVoting])
 
