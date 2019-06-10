@@ -17,9 +17,9 @@ function GameModerator() {
       //   dispatch(endGame.trigger())
       // }, 2000);
 
-      return function cleanup() {
-        clearTimeout(timeout)
-      }
+      // return function cleanup() {
+      //   clearTimeout(timeout)
+      // }
     }
   }, [dispatch, isDay, allVoting])
 
