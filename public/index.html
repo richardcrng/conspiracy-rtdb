@@ -60,6 +60,12 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
+    <!-- Snackbar for app update -->
+    <div id="update-snackbar" class='paper-snackbar fixed-bottom' style="opacity: 0; z-index: -10000;">
+      A new version is available!
+      <button id="update-action" class='action'>UPDATE</button>
+    </div>
+
     <!-- Service Worker -->
     <script>
       function showRefreshUI(registration) {
