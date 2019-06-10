@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import selectors from '../../../../../redux/selectors';
-import { Header } from 'semantic-ui-react';
+// import { Header } from 'semantic-ui-react';
 import Button from '../../../../lib/atoms/Button';
+import GameRoleCard from '../card';
 
 function GameRoleReveal({ revealed, setRevealed }) {
 
@@ -33,19 +34,8 @@ function GameRoleRevealed() {
   const hasConspiracy = useSelector(selectors.getGameHasConspiracy)
   const victim = useSelector(selectors.getGameVictimName)
 
-  if (isInnocent) {
-    return (
-      <p>You are innocent!</p>
-    )
-  } else if (hasConspiracy) {
-    return (
-      <>
-        <p>You are in a</p>
-        <Header size="large">CONSPIRACY</Header>
-        <p>against</p>
-        <Header size="large">{victim}</Header>
-      </>
-    )
+  if (isInnocent || hasConspiracy) {
+    return <GameRoleCard {...{ isInnocent, victim }} />
   } else {
     return <p>Loading...</p>
   }
