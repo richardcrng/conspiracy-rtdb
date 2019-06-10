@@ -8,7 +8,7 @@ import { generatePushID } from 'provide-firebase-middleware';
 import { references } from '../../firebase';
 import { VOTES } from '../../app/constants/votes';
 import { RESET_ENTITY } from '../../app/constants/entities';
-import { ROUTES } from '../../app/constants/routes';
+// import { ROUTES } from '../../app/constants/routes';
 
 export function* assignRoles() {
   const playerKeys = yield select(selectors.getGamePlayersKeys)
