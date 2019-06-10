@@ -14,7 +14,7 @@ function AppLayoutAlert() {
     buttons,
     isOpen,
     backdropDismiss = true,
-    dismissPath
+    // dismissPath
   } = useSelector(selectors.getUserAlert) || {}
 
   return (
