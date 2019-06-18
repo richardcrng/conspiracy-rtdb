@@ -23,13 +23,14 @@ function GameVotingVote() {
 
   return (
     <CentreBottom>
-      <SemButton.Group vertical>
+      <SemButton.Group>
         <GameVotingVoteButton
           disabled={!isDay}
           onClick={updateVoteHandler({ vote: 'conspiracy' })}
           text="CONSPIRACY"
           color={voteCast === 'conspiracy' ? 'red' : null}
         />
+        <SemButton.Or />
         <GameVotingVoteButton
           disabled={!isDay}
           onClick={updateVoteHandler({ vote: 'noConspiracy' })}
@@ -44,8 +45,7 @@ function GameVotingVote() {
 function GameVotingVoteButton({ text, ...rest }) {
   return (
     <Button
-      fluid
-      size="massive"
+      // size="massive"
       {...rest}
     >
       {text}

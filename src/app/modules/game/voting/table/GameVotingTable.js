@@ -8,7 +8,7 @@ function GameVotingTable() {
   const gamePlayersArr = useSelector(selectors.getGamePlayersArray)
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ marginBottom: "100px", padding: "20px" }}>
       <Grid columns={2} divided="vertically">
         <Grid.Row>
           <Grid.Column><Header>Player</Header></Grid.Column>
