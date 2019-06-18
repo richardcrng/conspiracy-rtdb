@@ -36,12 +36,6 @@ function GameVotingVote() {
           text="NO CONSPIRACY"
           color={voteCast === 'noConspiracy' ? 'green' : null}
         />
-        <GameVotingVoteButton
-          disabled={!hasVoted || !isDay}
-          secondary
-          onClick={updateVoteHandler({ isVoting: false })}
-          text="WITHDRAW VOTE"
-        />
       </SemButton.Group>
     </CentreBottom>
   )
