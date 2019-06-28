@@ -59,11 +59,17 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 8. Each player will be shown a card to them which tells them if they are *Innocent* or a *Conspirator*.<sup>g</sup>
 
 <sup>a</sup> The ideal number of total players is probably in the 4-12 range.
+
 <sup>b</sup> This game works well both with people you know and also as an ice-breaker game!
+
 <sup>c</sup> A good layout is one which lets you sit in a circle-like shape such that that every player can see every other player.
+
 <sup>d</sup> Bonus points for atmospheric lighting.
+
 <sup>e</sup> Mobile is probably most convenient, but, hey, people are allowed to lug in a desktop and monitor(s) if they feel strongly about this.
+
 <sup>f</sup> Hosting is *not* the same as being the classic 'neutral moderator' - the host will still be an active participant just as every other player.
+
 <sup>g</sup> For *n* players, there will be either: (i) *n* Innocents; or (ii) *1* Innocent and *n-1* Conspirators.
 
 After setup, the main Discussion phase kicks in.
