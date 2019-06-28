@@ -28,6 +28,8 @@ You have to work it out.
 
 But be careful - you've only got one chance to guess...
 
+**You win if and only if you correctly identify whether or not there is a conspiracy.**
+
 ### 2. You're a conspirator
 Oh dear. I'm not sure your parents would approve of this line of work.
 
@@ -38,6 +40,8 @@ You've been given the identity of the *sole innocent* in the game. All other pla
 But don't let on. If the innocent realises everybody else is acting strangely, the game will be up.
 
 Hopefully your teammates don't let on, either - it only takes one to give it away...
+
+**You win if and only if the sole innocent does not identify the existence of the conspiracy.**
 
 ## FAQs
 ### Isn't part of the fun playing with your friends in person?
