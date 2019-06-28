@@ -76,13 +76,25 @@ After setup, the main Discussion phase kicks in.
 
 ### Discussion
 From the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy):
-> The main phase is one of discussion, detection and deception, in which the innocents try to figure things out and the conspirators try to cover their existence. Anyone can say anything, true or false. Private communication is permitted and encouraged. However, you may not reveal your card or otherwise prove you are or are not a member of the conspiracy. When the time limit has expired, move to the [D]ecisive phase.
+> The main phase is one of discussion, detection and deception, in which the innocents try to figure things out and the conspirators try to cover their existence. Anyone can say anything, true or false. Private communication is permitted and encouraged. However, you may not reveal your card or otherwise prove you are or are not a member of the conspiracy. When the time limit has expired, move to the [Voting] phase.
 
-### When the game has started
-1. 
-2. All players discuss amongst themselves! This is 
+In the web app version of the game, you are not required to strictly separate out the Voting phase from the Discussion phase - people can vote at whatever point they feel moved to do so (and withdraw or change a vote with similar ease).
 
+### Voting
+Everybody votes for either 'Conspiracy' or 'No Conspiracy'. (Conspirators vote as well, even though in practice their vote does not influence the game outcome.)
 
+When all players have a vote placed in the app, the Results will be declared (and players will not be able to change their vote anymore).
+
+### Results
+The results will be declared so that you can see how people voted, what role they had, and whether or not they are a winner.
+
+*In the event of a Conspiracy*:
+- The sole Innocent wins and the Conspirators lose if the Innocent votes 'Conspiracy'
+- The sole Innocent loses and the Conspirators win if the Innocent votes 'No Conspiracy'
+
+*In the event of No Conspiracy*:
+- Every player who votes 'No Conspiracy' wins
+- Every player who votes 'Conspiracy' loses
 
 
 ## FAQs
