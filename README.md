@@ -1,5 +1,7 @@
 # Conspiracy
-A social game of deception, deduction and paranoia for two or more players.
+**Overview:** A social game of deception, deduction and paranoia.
+**Players:** 2 or more (ideal is somewhere in the 4-12 range).
+**Time needed:** < 5 minutes (you can set your own time limit).
 
 As a game, Conspiracy can be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
 
@@ -52,6 +54,7 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 5. One player needs to be the 'host' and create a game.<sup>f</sup>
 6. All players should join the created game from the lobby.
 7. Once all players have marked themselves as ready to start, the host can start the game.
+8. Each player will be shown a card to them which tells them if they are *Innocent* or a *Conspirator*.<sup>g</sup>
 
 <sup>a</sup> The ideal number of total players is probably in the 4-12 range.
 <sup>b</sup> This game works well both with people you know and also as an ice-breaker game!
@@ -59,6 +62,15 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 <sup>d</sup> Bonus points for atmospheric lighting.
 <sup>e</sup> Mobile is probably most convenient, but, hey, people are allowed to lug in a desktop and monitor(s) if they feel strongly about this.
 <sup>f</sup> Hosting is *not* the same as being the classic 'neutral moderator' - the host will still be an active participant just as every other player.
+<sup>g</sup> For *n* players, there will be either: (i) *n* Innocents; or (ii) *1* Innocent and *n-1* Conspirators.
+
+After setup, the main Discussion phase kicks in - this is the meat of the game, where you will spend most of your time.
+
+### When the game has started
+1. 
+2. All players discuss amongst themselves! This is 
+
+
 
 
 ## FAQs
