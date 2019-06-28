@@ -89,13 +89,14 @@ When all players have a vote placed in the app, the Results will be declared (an
 The results will be declared so that you can see how people voted, what role they had, and whether or not they are a winner.
 
 *In the event of a Conspiracy*:
-- The sole Innocent wins and the Conspirators lose if the Innocent votes 'Conspiracy'
-- The sole Innocent loses and the Conspirators win if the Innocent votes 'No Conspiracy'
+- If the sole Innocent votes 'Conspiracy', they win and the Conspirators all lose; and
+- If the sole Innocent votes 'No Conspiracy', they lose and the Conspirators all win.
 
 *In the event of No Conspiracy*:
-- Every player who votes 'No Conspiracy' wins
-- Every player who votes 'Conspiracy' loses
+- Every player who votes 'No Conspiracy' wins; and
+- Every player who votes 'Conspiracy' loses.
 
+It is possible for all players to lose and for all players to win!
 
 ## FAQs
 ### Isn't part of the fun playing with your friends in person?
