@@ -5,14 +5,14 @@
 
 **Time needed:** < 5 minutes (you can set your own time limit).
 
-As a game, Conspiracy can be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
+As a game, Conspiracy *can* be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
 
 This Conspiracy web app ([https://play-conspiracy.web.app](https://play-conspiracy.web.app)) has been built to make it *even easier to play with a group of friends*:
 - **Everybody can play at once** - no need for a neutral moderator;
 - **Get to the action more quickly** - less setup faff in allocating roles;
 - **Simpler to follow** - win conditions automatically applied to players.
 
-## Summary
+## Game Summary
 There are two possible states of the game:
 1. **No Conspiracy**: All players are 'innocent'; or
 2. **Conspiracy**: *Exactly one* player is innocent and the remaining players are all in a conspiracy against the innocent.
@@ -47,7 +47,7 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 
 **You win if and only if the sole innocent does not identify the existence of the conspiracy.**
 
-## How to play
+## Playing with the App
 ### Setup
 1. Gather at least one other person to play with.<sup>a, b</sup>
 2. Put yourselves in a suitable room.<sup>c, d</sup>
@@ -66,7 +66,11 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 <sup>f</sup> Hosting is *not* the same as being the classic 'neutral moderator' - the host will still be an active participant just as every other player.
 <sup>g</sup> For *n* players, there will be either: (i) *n* Innocents; or (ii) *1* Innocent and *n-1* Conspirators.
 
-After setup, the main Discussion phase kicks in - this is the meat of the game, where you will spend most of your time.
+After setup, the main Discussion phase kicks in.
+
+### Discussion
+From the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy):
+> The main phase is one of discussion, detection and deception, in which the innocents try to figure things out and the conspirators try to cover their existence. Anyone can say anything, true or false. Private communication is permitted and encouraged. However, you may not reveal your card or otherwise prove you are or are not a member of the conspiracy. When the time limit has expired, move to the [D]ecisive phase.
 
 ### When the game has started
 1. 
