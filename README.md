@@ -1,6 +1,8 @@
 # Conspiracy
 **Overview:** A social game of deception, deduction and paranoia.
+
 **Players:** 2 or more (ideal is somewhere in the 4-12 range).
+
 **Time needed:** < 5 minutes (you can set your own time limit).
 
 As a game, Conspiracy can be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
