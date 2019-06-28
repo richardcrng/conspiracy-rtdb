@@ -3,10 +3,10 @@ A social game of deception, deduction and paranoia for two or more players.
 
 As a game, Conspiracy can be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
 
-This Conspiracy web app ([https://play-conspiracy.web.app](https://play-conspiracy.web.app)) has been built to make it even easier to play with friends:
-- Everybody can play at once - no need for a neutral moderator;
-- Get to the action more quickly - less setup faff in allocating roles;
-- Simpler to follow - win conditions automatically applied to players.
+This Conspiracy web app ([https://play-conspiracy.web.app](https://play-conspiracy.web.app)) has been built to make it *even easier to play with a group of friends*:
+- **Everybody can play at once** - no need for a neutral moderator;
+- **Get to the action more quickly** - less setup faff in allocating roles;
+- **Simpler to follow** - win conditions automatically applied to players.
 
 ## Summary
 There are two possible states of the game:
@@ -38,3 +38,9 @@ You've been given the identity of the *sole innocent* in the game. All other pla
 But don't let on. If the innocent realises everybody else is acting strangely, the game will be up.
 
 Hopefully your teammates don't let on, either - it only takes one to give it away...
+
+## FAQs
+### Isn't part of the fun playing with your friends in person?
+Absolutely, yes - *this web app is primarily designed to be used for in-person games*.
+
+It aims to replace the playing cards, neutral moderator and pen/paper that you might have been using to play Conspiracy - but it is not meant to replace the discussions, accusations and paranoia of the main game.
