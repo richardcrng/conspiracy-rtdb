@@ -1,6 +1,13 @@
 # Conspiracy
 A social game of deception, deduction and paranoia for two or more players.
 
+As a game, Conspiracy can be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
+
+This Conspiracy web app ([https://play-conspiracy.web.app](https://play-conspiracy.web.app)) has been built to make it even easier to play with friends:
+- Everybody can play at once - no need for a neutral moderator;
+- Get to the action more quickly - less setup faff in allocating roles;
+- Simpler to follow - win conditions automatically applied to players.
+
 ## Summary
 There are two possible states of the game:
 1. **No Conspiracy**: All players are 'innocent'; or
