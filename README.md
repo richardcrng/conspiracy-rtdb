@@ -5,6 +5,8 @@
 
 **Time needed:** < 5 minutes (you can set your own time limit).
 
+[Game Summary](#game-summary) | [Playing with the App](#playing-with-the-app)
+
 As a game, Conspiracy *can* be played entirely without modern technology. Get a group of friends together, get some playing cards (or good ol' fashioned pen and paper), and follow the [original write-up of the game](https://wiki.mafiascum.net/index.php?title=Conspiracy).
 
 This Conspiracy web app ([https://play-conspiracy.web.app](https://play-conspiracy.web.app)) has been built to make it *even easier to play with a group of friends*:
