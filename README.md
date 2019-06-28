@@ -43,6 +43,24 @@ Hopefully your teammates don't let on, either - it only takes one to give it awa
 
 **You win if and only if the sole innocent does not identify the existence of the conspiracy.**
 
+## How to play
+### Setup
+1. Gather at least one other person to play with.<sup>a, b</sup>
+2. Put yourselves in a suitable room.<sup>c, d</sup>
+3. Every player must navigate to [https://play-conspiracy.web.app](https://play-conspiracy.web.app).<sup>e</sup>
+4. Every player needs to sign up (and can do so anonymously if they choose so).
+5. One player needs to be the 'host' and create a game.<sup>f</sup>
+6. All players should join the created game from the lobby.
+7. Once all players have marked themselves as ready to start, the host can start the game.
+
+<sup>a</sup> The ideal number of total players is probably in the 4-12 range.
+<sup>b</sup> This game works well both with people you know and also as an ice-breaker game!
+<sup>c</sup> A good layout is one which lets you sit in a circle-like shape such that that every player can see every other player.
+<sup>d</sup> Bonus points for atmospheric lighting.
+<sup>e</sup> Mobile is probably most convenient, but, hey, people are allowed to lug in a desktop and monitor(s) if they feel strongly about this.
+<sup>f</sup> Hosting is *not* the same as being the classic 'neutral moderator' - the host will still be an active participant just as every other player.
+
+
 ## FAQs
 ### Isn't part of the fun playing with your friends in person?
 Absolutely, yes - *this web app is primarily designed to be used for in-person games*.
